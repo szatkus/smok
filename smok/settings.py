@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_mako_plus',
     'users'
 ]
 
@@ -48,8 +47,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'django_mako_plus.RequestInitMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 AUTHENTICATION_BACKEND = ['users.backend.AuthenticationBackend']
@@ -60,8 +58,8 @@ ROOT_URLCONF = 'smok.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django_mako_plus.MakoTemplates',
-        'DIRS': ['templates'],
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
-            'DEFAULT_TEMPLATE_IMPORTS': ['import django_mako_plus'],
+            ]
         },
     },
 ]

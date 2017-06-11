@@ -1,6 +1,5 @@
-from django.http import HttpResponse
-from mako.template import Template
+from django.shortcuts import render
 
 
 def login(request):
-    return HttpResponse(Template(filename='users/login.html').render(person='dziwko'))
+    return render(request, 'login.html', {'person': 'dziwko'})
