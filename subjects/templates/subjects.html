@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "base_resources_list.html" %}
+
+{% block css %}
+{{block.super}}
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+{% endblock %}
+
+{% block resource-name-header%}Twoje przedmioty{% endblock %}
+
+{% block model-definition %}<li>{{ model.name }}</li>{% endblock %}
+
+{% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}

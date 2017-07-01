@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from users.views import login
+from subjects.views import subjects
 
 urlpatterns = [
     url(r'^login', login),
     url(r'^admin/', admin.site.urls),
+    url(r'^subjects/$', subjects, name='subjects-views-subjects'),
 ]
