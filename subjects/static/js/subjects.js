@@ -1,0 +1,2 @@
+
+var csrftoken = getCookie('csrftoken');
