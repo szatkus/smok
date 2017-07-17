@@ -6,7 +6,8 @@
         <link rel="stylesheet" type="text/css" href="{% static "css/base_resources_list.css" %}" />
         {% endblock %}
         {% block js %}
-        <script src="{% static "js/base_resources_list.js" %}"></script>
+        <script src="{% static "js/jquery-3.2.1.js" %}"></script>
+        <script src="{% static "js/base-resources-list.js" %}"></script>
         {% endblock %}
         <title>{% block title %}TSMOK{% endblock %}</title>
         <meta charset="utf-8">
@@ -19,8 +20,8 @@
             <ul id="list">
                 {% for model in models %}
                     {% block model-definition %}{% endblock %}
-                    {% empty %}
-                    {% block empty-models-comment %}{% endblock %}
+                {% empty %}
+                    <li>{% block empty-models-comment %}{% endblock %}</li>
                 {% endfor %}
             </ul>
         </div>
