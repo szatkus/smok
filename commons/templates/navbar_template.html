@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+        {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/navbar_resources.css" %}" />
+        {% endblock %}
+</head>
+<body>
+<div id="navbar">
+    <ul>
+      <li><a href="#home">SMOK - plan zajęć</a></li>
+      <li class="dropdown">
+        <a class="dropbtn">Zasoby</a>
+        <div class="dropdown-content">
+          <a href="#">Przedmioty</a>
+          <a href="#">Sale</a>
+          <a href="#">Nauczyciele</a>
+        </div>
+      </li>
+      <li class="username"><a href="#login">Zalogowany użytkownik: {{ username }}</a></li>
+    </ul>    
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<h2>Twoje szkoly</h2>
+{% if school_list %}
+    <ul>
+    {% for school in school_list %}
+        <li><a href="{% url 'school:details' school.id %}">{{ school.school_name }}</a></li> 
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aktualnie nie masz żadnych szkół.</p>
+{% endif %}
+<a href="{% url 'school:add' %}">Dodaj nową szkołę</a>
