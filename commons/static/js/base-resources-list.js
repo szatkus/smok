@@ -30,4 +30,9 @@ $(document).ready(function() {
       }
     );
 
+    $(".close-modal").click(function(){
+        $('#editModal').css('display', 'none');
+        $('.inner').remove();
+    });
+
 });

@@ -25,5 +25,18 @@
                 {% endfor %}
             </ul>
         </div>
+
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-modal">&times;</span>
+                    <h2>{% block edit-modal-header%}{% endblock %}</h2>
+                </div>
+                <div class="modal-body">
+                    {% block edit-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>
