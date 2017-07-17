@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends "base_resources_list.html" %}
+{% load static %}
 
 {% block css %}
 {{block.super}}
@@ -7,10 +8,19 @@
 
 {% block js %}
 {{block.super}}
+<script>
+    var deleteURL = "{% url 'subjects-views-delete-subject' %}";
+</script>
+<script src="{% static "js/subjects.js" %}"></script>
 {% endblock %}
 
 {% block resource-name-header%}Twoje przedmioty{% endblock %}
 
-{% block model-definition %}<li>{{ model.name }}</li>{% endblock %}
+{% block model-definition %}
+<li id="{{ model.id }}">
+    {{ model.name }}
+    <span class="close" onClick="delete_item({{ model.id }});">&#215;</span>
+</li>
+{% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}

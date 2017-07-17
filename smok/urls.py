@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from users.views import login
-from subjects.views import subjects
+from subjects.views import subjects, delete_subject
 
 urlpatterns = [
     url(r'^login', login),
     url(r'^admin/', admin.site.urls),
     url(r'^subjects/$', subjects, name='subjects-views-subjects'),
+    url(r'^subjects/delete/$', delete_subject, name='subjects-views-delete-subject'),
 ]
