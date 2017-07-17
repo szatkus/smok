@@ -3,7 +3,7 @@
 <html>
     <head>
         {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static "css/base_resources_list.css" %}" />
+        <link id="mainStyle" rel="stylesheet" type="text/css" href="{% static "css/base_resources_list.css" %}" />
         {% endblock %}
         {% block js %}
         <script src="{% static "js/jquery-3.2.1.js" %}"></script>
@@ -16,6 +16,7 @@
         <div class="container">
             <div class="header">
                 <h1>{% block resource-name-header%}{% endblock %}</h1>
+                {% block add-resource %}{% endblock %}
             </div>
             <ul id="list">
                 {% for model in models %}
@@ -24,6 +25,18 @@
                     <li>{% block empty-models-comment %}{% endblock %}</li>
                 {% endfor %}
             </ul>
+        </div>
+        
+        <div id="addModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-modal">&times;</span>
+                    <h2>{% block add-modal-header%}{% endblock %}</h2>
+                </div>
+                <div class="modal-body">
+                    {% block add-modal-body%}{% endblock %}
+                </div>
+            </div>
         </div>
 
         <div id="editModal" class="modal">

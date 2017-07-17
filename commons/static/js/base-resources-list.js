@@ -13,6 +13,14 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// funkcje do alfabetycznego sortowania elementow li dodawanych do ul/ol 
+function asc_sort(a, b){
+    return ($(b).text()) < ($(a).text()) ? 1 : -1;    
+}
+function sortAlpha(a,b){  
+    return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
+}
+
 function delete_item(id){
     $.post(deleteURL, 
         {
@@ -31,6 +39,7 @@ $(document).ready(function() {
     );
 
     $(".close-modal").click(function(){
+        $('#addModal').css('display', 'none');
         $('#editModal').css('display', 'none');
         $('.inner').remove();
     });
