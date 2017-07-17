@@ -9,6 +9,7 @@
 {% block js %}
 {{block.super}}
 <script>
+    var addURL = "{% url 'subjects-views-add-subject' %}";
     var editURL = "{% url 'subjects-views-edit-subject' %}";
     var deleteURL = "{% url 'subjects-views-delete-subject' %}";
 </script>
@@ -16,6 +17,8 @@
 {% endblock %}
 
 {% block resource-name-header%}Twoje przedmioty{% endblock %}
+
+{% block add-resource %}<span id="newItem">&#43; nowy przedmiot</span>{% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
@@ -26,6 +29,14 @@
 {% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}
+
+{% block add-modal-header%}Nowy przedmiot{% endblock %}
+{% block add-modal-body%}
+<form action='' method="POST" class="add_subject" autocomplete="off">{% csrf_token %}
+    <div id="addForm"></div>
+    <input type="submit" value="Dodaj" />
+</form>
+{% endblock %}
 
 {% block edit-modal-header%}Edytuj przedmiot{% endblock %}
 {% block edit-modal-body%}

@@ -10,6 +10,17 @@ def subjects(request):
     context = {'models': all_subjects_list}
     return render(request, 'subjects.html', context)
 
+def add_subject(request):
+    if request.method == "POST":
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            new_subject = form.save()
+            data = serializers.serialize('json', [new_subject])
+            return HttpResponse(data)
+    else:
+        form = SubjectForm()
+    return HttpResponse(form)
+
 def edit_subject(request):
     if request.method == "POST":
         try:
