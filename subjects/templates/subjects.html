@@ -9,6 +9,7 @@
 {% block js %}
 {{block.super}}
 <script>
+    var editURL = "{% url 'subjects-views-edit-subject' %}";
     var deleteURL = "{% url 'subjects-views-delete-subject' %}";
 </script>
 <script src="{% static "js/subjects.js" %}"></script>
@@ -18,9 +19,18 @@
 
 {% block model-definition %}
 <li id="{{ model.id }}">
-    {{ model.name }}
+    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
+    <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
     <span class="close" onClick="delete_item({{ model.id }});">&#215;</span>
 </li>
 {% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}
+
+{% block edit-modal-header%}Edytuj przedmiot{% endblock %}
+{% block edit-modal-body%}
+<form action='' method="POST" class="edit_subject" autocomplete="off">{% csrf_token %}
+    <div id="editForm"></div>
+    <input type="submit" value="Zapisz" />
+</form>
+{% endblock %}
