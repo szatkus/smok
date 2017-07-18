@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^subjects/$', subjects, name='subjects-views-subjects'),
     url(r'^schools/', include('school.urls')),
-	url(r'^index', common)
+	url(r'^index', common),
+	url(r'^teachers/',include('teachers.urls')),
 ]
