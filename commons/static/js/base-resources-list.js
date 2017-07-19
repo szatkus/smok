@@ -33,8 +33,8 @@ function delete_item(id){
 
 $(document).ready(function() {
 
-    $("li").click( function(event) {
-        $( this ).toggleClass( "checked" );
+    $("span.list-element").click( function(event) {
+        $( this ).parent().toggleClass( "checked" );
       }
     );
 

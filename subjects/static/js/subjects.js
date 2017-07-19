@@ -50,14 +50,14 @@ $(document).ready(function() {
     $("form.add_subject").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
             var newSubject = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span class="close" onclick="delete_item('+newSubject.pk+');">×</span></li>').hide();
+            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span class="close" onclick="delete_item('+newSubject.pk+');">×</span></li>').hide();
             
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
             $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
             //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
             
-            $(document).on('click', 'li#'+newSubject.pk, function() {
-                $( this ).toggleClass( "checked" );
+            $('li#'+newSubject.pk).on('click', 'span.list-element', function() {
+                $( this ).parent().toggleClass( "checked" );
             });
         });
         event.preventDefault();

@@ -22,7 +22,7 @@
 
 {% block model-definition %}
 <li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
+    <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
     <span class="close" onClick="delete_item({{ model.id }});">&#215;</span>
 </li>
