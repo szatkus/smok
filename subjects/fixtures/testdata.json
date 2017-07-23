@@ -1,0 +1,29 @@
+[
+  {
+    "model": "subjects.subject",
+    "pk": 225,
+    "fields": {
+      "name": "Matematyka",
+      "description": "Liczby i r\u00f3\u017cne takie.",
+      "last_updated_timestamp": "2017-07-19T17:48:10.506Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 226,
+    "fields": {
+      "name": "Biologia",
+      "description": "Zwierz\u0105tka.",
+      "last_updated_timestamp": "2017-07-19T17:48:32.731Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 227,
+    "fields": {
+      "name": "Historia",
+      "description": "To co by\u0142o i nie wr\u00f3ci.",
+      "last_updated_timestamp": "2017-07-19T17:49:02.956Z"
+    }
+  }
+]

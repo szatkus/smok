@@ -1,0 +1,23 @@
+[
+  {
+    "model": "school.school_type",
+    "pk": 1,
+    "fields": {
+      "type_name": "Szko\u0142a podstawowa"
+    }
+  },
+  {
+    "model": "school.school_type",
+    "pk": 2,
+    "fields": {
+      "type_name": "Szko\u0142a licealna"
+    }
+  },
+  {
+    "model": "school.school_type",
+    "pk": 3,
+    "fields": {
+      "type_name": "Szko\u0142a wy\u017csza"
+    }
+  }
+]
