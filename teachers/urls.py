@@ -5,5 +5,5 @@ from teachers import views
 app_name = 'teachers'
 
 urlpatterns = [
-    url(r'^$', views.index),
+    url(r'^$', views.TeachersList.as_view()),
 ]

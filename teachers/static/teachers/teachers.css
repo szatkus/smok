@@ -1,0 +1,6 @@
+@import "/static/css/navbar_resources.css";
+
+table, th, td {
+    border: 1px solid black;
+	border-collapse: collapse;
+}

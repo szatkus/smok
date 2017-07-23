@@ -1,5 +1,34 @@
 {% extends 'navbar_template.html' %}
 
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'teachers\teachers.css' %}" />
+{% endblock %}
+
 {% block content %}
-	Hello!
+    <h2>Nauczyciele</h2>
+	{% if object_list %}
+		<table>
+		<tr>
+			<td>Lp.</td>
+			<td>Imię</td>
+			<td>Nazwisko</td>
+			<td>Przedmioty</td>
+			<td></td>
+		</tr>
+		
+		{% for teacher in object_list %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{teacher.first_name}}</td>
+				<td>{{teacher.last_name}}</td>
+				<td>{{ teacher.subjects.all|join:", "}}</td>
+				<td></td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		Brak nauczycieli do wyświetlenia
+	{% endif %}
 {% endblock %}
