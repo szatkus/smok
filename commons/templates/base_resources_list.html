@@ -22,7 +22,7 @@
                 {% for model in models %}
                     {% block model-definition %}{% endblock %}
                 {% empty %}
-                    <li>{% block empty-models-comment %}{% endblock %}</li>
+                    <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
                 {% endfor %}
             </ul>
         </div>

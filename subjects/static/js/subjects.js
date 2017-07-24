@@ -23,6 +23,19 @@ function edit_item(id){
     $('#editModal').css('display', 'block');
 }
 
+function delete_item(id){
+    $.post(deleteURL, 
+        {
+            id: id,
+            csrfmiddlewaretoken: csrftoken
+        }, function(){
+            $('#'+id).remove();
+            if ($('#list li').length == 0) {
+                $("#list").append('<p id="noResources">Brak zapisanych przedmiotów.</p>');
+            }
+        });
+}
+
 $(document).ready(function() {
     // generowanie formularza do dodawania przedmiotow na podstawie modelu
     // moglby byc tworzony od razu podczas renderowania subjects.html z  {%for field in form %}, jesli zostawimy 2 osobne modale dla dodawania i usuwania przedmiotow,
@@ -59,6 +72,9 @@ $(document).ready(function() {
             $('li#'+newSubject.pk).on('click', 'span.list-element', function() {
                 $( this ).parent().toggleClass( "checked" );
             });
+            if ($('#list li').length != 0) {
+                $('p#noResources').remove();
+            }
         });
         event.preventDefault();
         $('#addModal').css('display', 'none');

@@ -21,16 +21,6 @@ function sortAlpha(a,b){
     return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
 }
 
-function delete_item(id){
-    $.post(deleteURL, 
-        {
-            id: id,
-            csrfmiddlewaretoken: csrftoken
-        }, function(){
-            $('#'+id).remove();
-        });
-}
-
 $(document).ready(function() {
 
     $("span.list-element").click( function(event) {
