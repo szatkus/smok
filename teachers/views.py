@@ -12,7 +12,7 @@ def index(request):
 	username = request.user.username if request.user.is_authenticated else 'niezalogowano';
 	return render(
 		request,
-		'teachers\index.html',
+		'teachers/index.html',
 		{
 			'username': username
 		}
@@ -20,7 +20,7 @@ def index(request):
 	
 class TeachersList(ListView):
 	model = Teacher
-	template_name = 'teachers\index.html'
+	template_name = 'teachers/index.html'
 	
 	def get_context_data(self,**kwargs):
 		context = super(TeachersList,self).get_context_data(**kwargs)
