@@ -22,7 +22,7 @@
                 {% for model in models %}
                     {% block model-definition %}{% endblock %}
                 {% empty %}
-                    <li>{% block empty-models-comment %}{% endblock %}</li>
+                    <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
                 {% endfor %}
             </ul>
         </div>
@@ -30,7 +30,7 @@
         <div id="addModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close-modal">&times;</span>
+                    <span id="closeAddModal" class="close-modal">&times;</span>
                     <h2>{% block add-modal-header%}{% endblock %}</h2>
                 </div>
                 <div class="modal-body">
@@ -42,11 +42,23 @@
         <div id="editModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="close-modal">&times;</span>
+                    <span id="closeEditModal" class="close-modal">&times;</span>
                     <h2>{% block edit-modal-header%}{% endblock %}</h2>
                 </div>
                 <div class="modal-body">
                     {% block edit-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span onClick="closeDeleteModal();" class="close-modal">&times;</span>
+                    <h2>{% block delete-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "deleteModalBody" class="modal-body">
+                    {% block delete-modal-body%}{% endblock %}
                 </div>
             </div>
         </div>

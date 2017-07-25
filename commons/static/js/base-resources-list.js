@@ -21,14 +21,10 @@ function sortAlpha(a,b){
     return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
 }
 
-function delete_item(id){
-    $.post(deleteURL, 
-        {
-            id: id,
-            csrfmiddlewaretoken: csrftoken
-        }, function(){
-            $('#'+id).remove();
-        });
+function closeDeleteModal(){
+    $('#deleteModal').css('display', 'none');
+    $('#subjectName').text('');
+    $('.inner').remove();
 }
 
 $(document).ready(function() {
@@ -38,8 +34,12 @@ $(document).ready(function() {
       }
     );
 
-    $(".close-modal").click(function(){
+    $("#closeAddModal").click(function(){
         $('#addModal').css('display', 'none');
+        $('.inner').remove();
+    });
+
+    $("#closeEditModal").click(function(){
         $('#editModal').css('display', 'none');
         $('.inner').remove();
     });

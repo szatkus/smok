@@ -23,6 +23,26 @@ function edit_item(id){
     $('#editModal').css('display', 'block');
 }
 
+function delete_item(id, name){
+    $('#subjectName').text(name);
+    $("#deleteModalBody").append('<div class="inner"><button class="confirm" onClick="deleteSubject('+id+');">Tak</button></div>');
+    $('#deleteModal').css('display', 'block');
+}
+
+function deleteSubject(id){
+    closeDeleteModal();
+    $.post(deleteURL, 
+        {
+            id: id,
+            csrfmiddlewaretoken: csrftoken
+        }, function(){
+            $('#'+id).remove();
+            if ($('#list li').length == 0) {
+                $("#list").append('<p id="noResources">Brak zapisanych przedmiotów.</p>');
+            }
+        });
+}
+
 $(document).ready(function() {
     // generowanie formularza do dodawania przedmiotow na podstawie modelu
     // moglby byc tworzony od razu podczas renderowania subjects.html z  {%for field in form %}, jesli zostawimy 2 osobne modale dla dodawania i usuwania przedmiotow,
@@ -50,7 +70,7 @@ $(document).ready(function() {
     $("form.add_subject").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
             var newSubject = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span class="close" onclick="delete_item('+newSubject.pk+');">×</span></li>').hide();
+            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');">×</span></li>').hide();
             
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
             $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
@@ -59,6 +79,9 @@ $(document).ready(function() {
             $('li#'+newSubject.pk).on('click', 'span.list-element', function() {
                 $( this ).parent().toggleClass( "checked" );
             });
+            if ($('#list li').length != 0) {
+                $('p#noResources').remove();
+            }
         });
         event.preventDefault();
         $('#addModal').css('display', 'none');
@@ -70,6 +93,7 @@ $(document).ready(function() {
         $.post(editURL, $(this).serialize(), function(data){
             var newSubject = jQuery.parseJSON(data)[0];
             $('span#resource-name-'+newSubject.pk).text(newSubject.fields.name);
+            $('span#resource-delete-'+newSubject.pk).attr("onclick",'delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');');
         });
         event.preventDefault();
         $('#editModal').css('display', 'none');
