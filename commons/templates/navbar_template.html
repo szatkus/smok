@@ -15,7 +15,7 @@
         <div class="dropdown-content">
           <a href="#">Przedmioty</a>
           <a href="#">Sale</a>
-          <a href="#">Nauczyciele</a>
+          <a href="{% url 'teachers:list' %}">Nauczyciele</a>
         </div>
       </li>
       <li class="username"><a href="#login">Zalogowany użytkownik: {{ username }}</a></li>
