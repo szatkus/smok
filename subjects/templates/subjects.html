@@ -24,7 +24,7 @@
 <li id="{{ model.id }}">
     <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
-    <span class="close" onClick="delete_item({{ model.id }});">&#215;</span>
+    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#215;</span>
 </li>
 {% endblock %}
 
@@ -44,4 +44,9 @@
     <div id="editForm"></div>
     <input type="submit" value="Zapisz" />
 </form>
+{% endblock %}
+
+{% block delete-modal-header%}Czy na pewno chcesz usunąć przedmiot <span id="subjectName"></span>?{% endblock %}
+{% block delete-modal-body%}
+<button class="cancel" onClick="closeDeleteModal();">Anuluj</button>
 {% endblock %}

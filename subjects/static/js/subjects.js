@@ -23,7 +23,14 @@ function edit_item(id){
     $('#editModal').css('display', 'block');
 }
 
-function delete_item(id){
+function delete_item(id, name){
+    $('#subjectName').text(name);
+    $("#deleteModalBody").append('<div class="inner"><button class="confirm" onClick="deleteSubject('+id+');">Tak</button></div>');
+    $('#deleteModal').css('display', 'block');
+}
+
+function deleteSubject(id){
+    closeDeleteModal();
     $.post(deleteURL, 
         {
             id: id,
@@ -63,7 +70,7 @@ $(document).ready(function() {
     $("form.add_subject").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
             var newSubject = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span class="close" onclick="delete_item('+newSubject.pk+');">×</span></li>').hide();
+            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x2702;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');">×</span></li>').hide();
             
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
             $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
@@ -86,6 +93,7 @@ $(document).ready(function() {
         $.post(editURL, $(this).serialize(), function(data){
             var newSubject = jQuery.parseJSON(data)[0];
             $('span#resource-name-'+newSubject.pk).text(newSubject.fields.name);
+            $('span#resource-delete-'+newSubject.pk).attr("onclick",'delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');');
         });
         event.preventDefault();
         $('#editModal').css('display', 'none');

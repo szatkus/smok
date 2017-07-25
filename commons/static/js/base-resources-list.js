@@ -21,6 +21,12 @@ function sortAlpha(a,b){
     return a.innerHTML.toLowerCase() > b.innerHTML.toLowerCase() ? 1 : -1;  
 }
 
+function closeDeleteModal(){
+    $('#deleteModal').css('display', 'none');
+    $('#subjectName').text('');
+    $('.inner').remove();
+}
+
 $(document).ready(function() {
 
     $("span.list-element").click( function(event) {
@@ -28,8 +34,12 @@ $(document).ready(function() {
       }
     );
 
-    $(".close-modal").click(function(){
+    $("#closeAddModal").click(function(){
         $('#addModal').css('display', 'none');
+        $('.inner').remove();
+    });
+
+    $("#closeEditModal").click(function(){
         $('#editModal').css('display', 'none');
         $('.inner').remove();
     });

@@ -91,6 +91,15 @@ ul li.checked::before {
     background-color : transparent;
 }
 
+.inner {
+    display: inline;
+}
+
+.confirm {
+    display: inline-block;
+    float: left;
+}
+
 .close:hover {
     background-color: #f44336;
     color: white;
