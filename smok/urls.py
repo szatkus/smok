@@ -19,14 +19,18 @@ from users.views import login
 from subjects.views import subjects, delete_subject, add_subject, edit_subject
 from commons.views import common
 
+from django.contrib.auth import views as auth_views
+
 urlpatterns = [
-    url(r'^login', login),
+    #url(r'^login', login),
+	url(r'^login', auth_views.login,name='login'),
     url(r'^admin/', admin.site.urls),
     url(r'^subjects/$', subjects, name='subjects-views-subjects'),
     url(r'^subjects/delete/$', delete_subject, name='subjects-views-delete-subject'),
     url(r'^subjects/add/$', add_subject, name='subjects-views-add-subject'),
     url(r'^subjects/edit/$', edit_subject, name='subjects-views-edit-subject'),
     url(r'^schools/', include('school.urls')),
-	url(r'^index', common),
+	url(r'^index', common,name='index'),
+	url(r'^$',common,name='root'),
 	url(r'^teachers/',include('teachers.urls')),
 ]
