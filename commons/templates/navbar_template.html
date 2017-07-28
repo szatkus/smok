@@ -3,17 +3,17 @@
 <html>
 <head>
         {% block css %}
-		<link rel="stylesheet" type="text/css" href="{% static 'css\navbar_resources.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static '/css/navbar_resources.css' %}" />
         {% endblock %}
 </head>
 <body>
 <div id="navbar">
     <ul id="navbar_ul">
-      <li><a href="#home">SMOK - plan zajęć</a></li>
-      <li class="dropdown">
+      <li class="navbar-li"><a href="#home">SMOK - plan zajęć</a></li>
+      <li class="dropdown navbar-li">
         <a class="dropbtn">Zasoby</a>
         <div class="dropdown-content">
-          <a href="#">Przedmioty</a>
+          <a href="{% url 'subjects:list' %}">Przedmioty</a>
           <a href="#">Sale</a>
           <a href="{% url 'teachers:list' %}">Nauczyciele</a>
         </div>

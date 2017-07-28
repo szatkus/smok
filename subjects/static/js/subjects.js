@@ -6,11 +6,11 @@ function edit_item(id){
     $.get(editURL, {id: id}, function(data){
         var dataHTML = jQuery.parseHTML(data);
         $("#editForm").append('<div class="inner"></div>');
-        
         $.each( dataHTML, function( i, val ) {
             if (val.name == "name") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>'); // kazdy atrybut formularza w osobnym divie dla wygodniejszego konfigurowania css w przyszlosci
                 $("#formE"+i).append('<label for="id_name">Nazwa:</label>').append(val);
+                $('.subjectName').text(val.value);
             } else if (val.name == "description") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
                 $("#formE"+i).append('<label for="id_description">Opis:</label>').append(val);
@@ -24,7 +24,7 @@ function edit_item(id){
 }
 
 function delete_item(id, name){
-    $('#subjectName').text(name);
+    $('.subjectName').text(name);
     $("#deleteModalBody").append('<div class="inner"><button class="confirm" onClick="deleteSubject('+id+');">Tak</button></div>');
     $('#deleteModal').css('display', 'block');
 }

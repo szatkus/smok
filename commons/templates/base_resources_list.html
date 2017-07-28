@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+{% include "navbar_template.html" %}
 {% load static %}
 <html>
     <head>
         {% block css %}
-        <link id="mainStyle" rel="stylesheet" type="text/css" href="{% static "css/base_resources_list.css" %}" />
+        {{block.super}}
+        <link id="mainStyle" rel="stylesheet" type="text/css" href="{% static "/css/base_resources_list.css" %}" />
         {% endblock %}
         {% block js %}
-        <script src="{% static "js/jquery-3.2.1.js" %}"></script>
-        <script src="{% static "js/base-resources-list.js" %}"></script>
+        <script src="{% static "/js/jquery-3.2.1.js" %}"></script>
+        <script src="{% static "/js/base-resources-list.js" %}"></script>
         {% endblock %}
         <title>{% block title %}TSMOK{% endblock %}</title>
         <meta charset="utf-8">
@@ -15,7 +17,7 @@
     <body>
         <div class="container">
             <div class="header">
-                <h1>{% block resource-name-header%}{% endblock %}</h1>
+                <h2>{% block resource-name-header%}{% endblock %}</h2>
                 {% block add-resource %}{% endblock %}
             </div>
             <ul id="list">

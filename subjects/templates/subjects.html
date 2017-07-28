@@ -9,14 +9,14 @@
 {% block js %}
 {{block.super}}
 <script>
-    var addURL = "{% url 'subjects-views-add-subject' %}";
-    var editURL = "{% url 'subjects-views-edit-subject' %}";
-    var deleteURL = "{% url 'subjects-views-delete-subject' %}";
+    var addURL = "{% url 'subjects:add' %}";
+    var editURL = "{% url 'subjects:edit' %}";
+    var deleteURL = "{% url 'subjects:delete' %}";
 </script>
-<script src="{% static "js/subjects.js" %}"></script>
+<script src="{% static "/js/subjects.js" %}"></script>
 {% endblock %}
 
-{% block resource-name-header%}Twoje przedmioty{% endblock %}
+{% block resource-name-header%}Przedmioty{% endblock %}
 
 {% block add-resource %}<span id="newItem">&#43; nowy przedmiot</span>{% endblock %}
 
@@ -30,23 +30,23 @@
 
 {% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}
 
-{% block add-modal-header%}Nowy przedmiot{% endblock %}
+{% block add-modal-header%}Dodaj nowy przedmiot{% endblock %}
 {% block add-modal-body%}
 <form action='' method="POST" class="add_subject" autocomplete="off">{% csrf_token %}
-    <div id="addForm"></div>
-    <input type="submit" value="Dodaj" />
+    <div id="addForm" class="form"></div>
+    <input class="send" type="submit" value="Dodaj" />
 </form>
 {% endblock %}
 
-{% block edit-modal-header%}Edytuj przedmiot{% endblock %}
+{% block edit-modal-header%}Edytuj przedmiot <span class="subjectName"></span>{% endblock %}
 {% block edit-modal-body%}
 <form action='' method="POST" class="edit_subject" autocomplete="off">{% csrf_token %}
-    <div id="editForm"></div>
-    <input type="submit" value="Zapisz" />
+    <div id="editForm" class="form"></div>
+    <input class="send" type="submit" value="Zapisz" />
 </form>
 {% endblock %}
 
-{% block delete-modal-header%}Czy na pewno chcesz usunąć przedmiot <span id="subjectName"></span>?{% endblock %}
+{% block delete-modal-header%}Czy na pewno chcesz usunąć przedmiot <span class="subjectName"></span>?{% endblock %}
 {% block delete-modal-body%}
-<button class="cancel" onClick="closeDeleteModal();">Anuluj</button>
+<button class="cancel send" onClick="closeDeleteModal();">Anuluj</button>
 {% endblock %}

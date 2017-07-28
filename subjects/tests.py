@@ -11,7 +11,7 @@ class SubjectModelTests(TestCase):
 class SubjectSubjectsViewTests(TestCase):
 
     def test_no_subjects(self):
-        response = self.client.get(reverse('subjects-views-subjects'))
+        response = self.client.get(reverse('subjects:list'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['models'], [])
 
@@ -19,7 +19,7 @@ class SubjectSubjectsViewTests(TestCase):
         Subject.objects.create(name='Fizyka dla informatyków')
         Subject.objects.create(name='Algorytmy i struktury danych')
         
-        response = self.client.get(reverse('subjects-views-subjects'))
+        response = self.client.get(reverse('subjects:list'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(
             response.context['models'],

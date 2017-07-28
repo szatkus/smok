@@ -6,8 +6,9 @@ from .forms import SubjectForm
 from django.core import serializers
 
 def subjects(request):
+    username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     all_subjects_list = Subject.objects.order_by('name')
-    context = {'models': all_subjects_list}
+    context = {'models': all_subjects_list, 'username': username}
     return render(request, 'subjects.html', context)
 
 def add_subject(request):

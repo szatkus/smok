@@ -23,7 +23,7 @@ function sortAlpha(a,b){
 
 function closeDeleteModal(){
     $('#deleteModal').css('display', 'none');
-    $('#subjectName').text('');
+    $('.subjectName').text('');
     $('.inner').remove();
 }
 
@@ -41,6 +41,7 @@ $(document).ready(function() {
 
     $("#closeEditModal").click(function(){
         $('#editModal').css('display', 'none');
+        $('.subjectName').text('');
         $('.inner').remove();
     });
 

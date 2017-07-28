@@ -1,28 +1,21 @@
 <style type="text/css">
-
 * {
     box-sizing: border-box;
 }
 
 body {
-  line-height: 1;
-}
-
-a {
-  color: black;
-  font-size: 18px;
-  text-decoration: none; /* no underline */
+  /*line-height: 1;*/
 }
 
 /* Remove margins and padding from the list */
-ul {
-    margin: 0;
+ul#list {
+    /*margin: 0;*/
     padding: 0;
     border: 0;
 }
 
 /* Style the list items */
-ul li {
+ul#list li {
     cursor: pointer;
     position: relative;
     list-style-type: none;
@@ -33,39 +26,27 @@ ul li {
 }
 
 /* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
+ul#list li:nth-child(odd) {
     background: #f9f9f9;
 }
 
 /* Darker background-color on hover */
-ul li:hover {
+ul#list li:hover {
     background: #ddd;
 }
 
 /* When clicked on, add a background color*/
-ul li.checked {
+ul#list li.checked {
     background: #888;
     color: #fff;
 }
 
-ul li.hide {
-    display:none; 
-}
-
-p#noResources {
-    position: relative;
-    list-style-type: none;
-    padding-left: 20px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-right: 0px;
-    margin-top: 9px;
-    margin-bottom: 9px;
-    font-size: 18px;
+ul#list li.hide {
+    display:none;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li.checked::before {
+ul#list li.checked::before {
     content: '';
     position: absolute;
     border-color: #fff;
@@ -76,33 +57,6 @@ ul li.checked::before {
     transform: rotate(45deg);
     height: 15px;
     width: 7px;
-}
-
-/* Style the close button */
-.close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 12px 16px 12px 16px;
-    width: 3.5%;
-    text-align: center;
-    cursor: pointer;
-    /*transition: 0.3s;*/
-    background-color : transparent;
-}
-
-.inner {
-    display: inline;
-}
-
-.confirm {
-    display: inline-block;
-    float: left;
-}
-
-.close:hover {
-    background-color: #f44336;
-    color: white;
 }
 
 /* Style the edit button */
@@ -123,41 +77,92 @@ ul li.checked::before {
     color: white;
 }
 
+/* Style the close button */
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+    width: 3.5%;
+    text-align: center;
+    cursor: pointer;
+    /*transition: 0.3s;*/
+    background-color : transparent;
+}
+
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+p#noResources {
+    position: relative;
+    list-style-type: none;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 0px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+
 .list-element {
     display: block;
     position: relative;
 }
 
-.container {
-  width: 70%;
-  margin: 1em auto 3em;
-  border: 1px solid #efefef;
+.inner {
+    display: inline;
 }
 
-/* Style the header */
-.header {
-    background-color: #cce6ff;
-    padding: 30px 40px;
-    text-align: center;
-}
-
-/* Clear floats after the header */
-.header:after {
-    content: "";
-    display: table;
-    clear: both;
+.confirm {
+    display: inline-block;
+    float: left;
 }
 
 /* Style the input */
 input {
-    width: 75%;
-    padding: 10px;
     font-size: 16px;
+}
+
+.cancel {
+    margin-left:10px;
+}
+
+.send, .confirm {
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+input.input-field {
+    width: 70%;
+    float: right;
+    margin-bottom: 5px;
+}
+
+.form-group {
+    display:table-row;
+    padding:5px;
+}
+
+.form {
+    display:table;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 /* Style the new item span */
 #newItem {
-    padding: 13px;
+    padding: 5px;
     height: 42px;
     color: #555;
     text-align: center;
@@ -194,7 +199,7 @@ input {
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 80%;
+    width: 30%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -204,7 +209,7 @@ input {
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
+    from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
 
@@ -223,23 +228,17 @@ input {
 
 .close-modal:hover,
 .close-modal:focus {
-    color: #000;
+    color: red;
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: #333;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-}
+.modal-body {padding: 10px 50px;}
 
 </style>
