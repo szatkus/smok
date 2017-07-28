@@ -1,0 +1,32 @@
+@import "/static/css/navbar_resources.css";
+
+table, th, td {
+    border: 0px solid black;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+.edit_table{
+	border: 1px solid #f2f2f2;;
+}
+
+th {
+	font-weight: bold;
+}
+
+tr.head {
+    background-color: #dddddd;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+body {
+	
+}
+
+.box {
+    width:100%;
+    height:100%;
+	text-align:center;
+	margin-top:1cm
+ }
