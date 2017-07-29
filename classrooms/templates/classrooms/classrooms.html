@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "base_resources_list.html" %}
+{% load static %}
+
+{% block css %}
+{{block.super}}
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+<script>
+    var addURL = "{% url 'classrooms:add' %}";
+    var editURL = "{% url 'classrooms:edit' %}";
+    var deleteURL = "{% url 'classrooms:delete' %}";
+</script>
+<script src="{% static "/js/classrooms.js" %}"></script>
+{% endblock %}
+
+{% block resource-name-header%}Sale{% endblock %}
+
+{% block add-resource %}<span id="newItem">&#43; nowa sala</span>{% endblock %}
+
+{% block model-definition %}
+<li id="{{ model.id }}">
+    <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
+    <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
+    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#215;</span>
+</li>
+{% endblock %}
+
+{% block empty-models-comment %}Brak zapisanych sal.{% endblock %}
+
+{% block add-modal-header%}Dodaj nową salę{% endblock %}
+{% block add-modal-body%}
+<form action='' method="POST" class="add_classroom" autocomplete="off">{% csrf_token %}
+    <div id="addForm" class="form"></div>
+    <input class="send" type="submit" value="Dodaj" />
+</form>
+{% endblock %}
+
+{% block edit-modal-header%}Edytuj salę <span class="classroomName"></span>{% endblock %}
+{% block edit-modal-body%}
+<form action='' method="POST" class="edit_classroom" autocomplete="off">{% csrf_token %}
+    <div id="editForm" class="form"></div>
+    <input class="send" type="submit" value="Zapisz" />
+</form>
+{% endblock %}
+
+{% block delete-modal-header%}Czy na pewno chcesz usunąć salę <span class="classroomName"></span>?{% endblock %}
+{% block delete-modal-body%}
+<button class="cancel send" onClick="closeDeleteModal();">Anuluj</button>
+{% endblock %}
