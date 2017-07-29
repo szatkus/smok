@@ -27,6 +27,19 @@ function closeDeleteModal(){
     $('.inner').remove();
 }
 
+function closeDeleteModal(){
+    $('#deleteModal').css('display', 'none');
+    $('.groupName').text('');
+    $('.inner').remove();
+}
+
+function closeDeleteModal(){
+    $('#deleteModal').css('display', 'none');
+    $('.classroomName').text('');
+    $('.inner').remove();
+}
+
+
 $(document).ready(function() {
 
     $("span.list-element").click( function(event) {
@@ -45,4 +58,15 @@ $(document).ready(function() {
         $('.inner').remove();
     });
 
+	$("#closeEditModal").click(function(){
+        $('#editModal').css('display', 'none');
+        $('.groupName').text('');
+        $('.inner').remove();
+    });	
+	
+	$("#closeEditModal").click(function(){
+        $('#editModal').css('display', 'none');
+        $('.classroomName').text('');
+        $('.inner').remove();
+    });		
 });
