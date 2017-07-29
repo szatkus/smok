@@ -14,8 +14,9 @@
         <a class="dropbtn">Zasoby</a>
         <div class="dropdown-content">
           <a href="{% url 'subjects:list' %}">Przedmioty</a>
-          <a href="#">Sale</a>
+          <a href="{% url 'classrooms:classroom_list' %}">Sale</a>
           <a href="{% url 'teachers:list' %}">Nauczyciele</a>
+	  <a href="{% url 'groups:group_list' %}">Klasy</a>		
         </div>
       </li>
       <li class="username"><a href="#login">Zalogowany użytkownik: {{ username }}</a></li>
