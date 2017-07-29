@@ -1,0 +1,37 @@
+[
+  {
+    "model": "classrooms.classroom",
+    "pk": 1,
+    "fields": {
+      "name": "23",
+	  "building": "A",
+	  "seats": 30,
+	  "subjects":"Chemia",
+	  "school": 100
+    }
+  },
+
+  {
+    "model": "classrooms.classroom",
+    "pk": 2,
+    "fields": {
+      "name": "18",
+	  "building": "A",
+	  "seats": 30,
+	  "subjects":"Fizyka",
+	  "school": 100
+    }
+  },
+  
+  {
+    "model": "classrooms.classroom",
+    "pk": 3,
+    "fields": {
+      "name": "24a",
+	  "building": "B",
+	  "seats": 35,
+	  "subjects":"Biologia",
+	  "school": 100
+    }
+  }
+]
