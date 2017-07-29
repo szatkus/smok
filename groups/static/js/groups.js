@@ -13,7 +13,7 @@ function edit_item(id){
                 $('.groupName').text(val.value);
             } else if (val.name == "group_profile") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
-                $("#formE"+i).append('<label for="id_roup_profile">Opis:</label>').append(val);
+                $("#formE"+i).append('<label for="id_roup_profile">Profil:</label>').append(val);
             } else {
                 $(".inner").append(val);
             }
