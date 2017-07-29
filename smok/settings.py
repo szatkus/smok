@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'subjects',
     'commons',
     'school.apps.SchoolConfig',
-	'teachers'
+	'teachers',
+    'groups',
+    'classrooms'
 ]
 
 MIDDLEWARE = [
