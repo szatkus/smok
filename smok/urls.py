@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^index', common, name='index'),
     url(r'^$', common, name='root'),
     url(r'^teachers/', include('teachers.urls')),
+    url(r'^groups/', include('groups.urls')),
+    url(r'^classrooms/', include('classrooms.urls')),    
 ]
