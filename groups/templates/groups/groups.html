@@ -18,7 +18,7 @@
 
 {% block resource-name-header%}Klasy{% endblock %}
 
-{% block add-resource %}<span id="newItem">&#43; nowa klasa</span>{% endblock %}
+{% block add-resource %}<span id="newItem" class="button">&#43; nowa klasa</span>{% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
@@ -34,7 +34,7 @@
 {% block add-modal-body%}
 <form action='' method="POST" class="add_group" autocomplete="off">{% csrf_token %}
     <div id="addForm" class="form"></div>
-    <input class="send" type="submit" value="Dodaj" />
+    <input class="send button" type="submit" value="Dodaj" />
 </form>
 {% endblock %}
 
@@ -42,7 +42,7 @@
 {% block edit-modal-body%}
 <form action='' method="POST" class="edit_group" autocomplete="off">{% csrf_token %}
     <div id="editForm" class="form"></div>
-    <input class="send" type="submit" value="Zapisz" />
+    <input class="send button" type="submit" value="Zapisz" />
 </form>
 {% endblock %}
 

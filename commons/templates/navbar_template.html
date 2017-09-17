@@ -2,25 +2,37 @@
 {% load static %}
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static '/css/fira/fira.css' %}" />
         {% block css %}
 		<link rel="stylesheet" type="text/css" href="{% static '/css/navbar_resources.css' %}" />
+        <link id="mainStyle" rel="stylesheet" type="text/css" href="{% static "/css/base_resources_list.css" %}" />
         {% endblock %}
+        {% block js %}
+        <script src="{% static "/js/jquery-3.2.1.js" %}"></script>
+        <script src="{% static "/js/base-resources-list.js" %}"></script>
+        {% endblock %}
+        <title>{% block title %}TSMOK{% endblock %}</title>
+        <meta charset="utf-8">
 </head>
 <body>
 <div id="navbar">
     <ul id="navbar_ul">
-      <li class="navbar-li"><a href="#home">SMOK - plan zajęć</a></li>
-      <li class="dropdown navbar-li">
-        <a class="dropbtn">Zasoby</a>
-        <div class="dropdown-content">
-          <a href="{% url 'subjects:list' %}">Przedmioty</a>
-          <a href="{% url 'classrooms:classroom_list' %}">Sale</a>
-          <a href="{% url 'teachers:list' %}">Nauczyciele</a>
-	  <a href="{% url 'groups:group_list' %}">Klasy</a>		
-        </div>
+      <li class="navbar-li"><a href="/">SMOK - plan zajęć</a></li>
+      <li class="navbar-li">
+        <a href="{% url 'subjects:list' %}">Przedmioty</a>
       </li>
+      <li class="navbar-li">
+        <a href="{% url 'classrooms:classroom_list' %}">Sale</a>
+    </li>
+    <li class="navbar-li">
+        <a href="{% url 'teachers:list' %}">Nauczyciele</a>
+    </li>
+    <li class="navbar-li">
+        <a href="{% url 'groups:group_list' %}">Klasy</a>
+    </li>
       <li class="username"><a href="#login">Zalogowany użytkownik: {{ username }}</a></li>
-    </ul>    
+    </ul>
 </div>
 <div id="content">
     {% block content %}
