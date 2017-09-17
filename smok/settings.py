@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'school.apps.SchoolConfig',
 	'teachers',
     'groups',
-    'classrooms'
+    'classrooms',
+	'availability'
 ]
 
 MIDDLEWARE = [
