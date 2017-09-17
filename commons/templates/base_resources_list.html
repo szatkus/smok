@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-{% include "navbar_template.html" %}
+{% extends "navbar_template.html" %}
 {% load static %}
-<html>
-    <head>
-        {% block css %}
-        {{block.super}}
-        <link id="mainStyle" rel="stylesheet" type="text/css" href="{% static "/css/base_resources_list.css" %}" />
-        {% endblock %}
-        {% block js %}
-        <script src="{% static "/js/jquery-3.2.1.js" %}"></script>
-        <script src="{% static "/js/base-resources-list.js" %}"></script>
-        {% endblock %}
-        <title>{% block title %}TSMOK{% endblock %}</title>
-        <meta charset="utf-8">
-    </head>
-    <body>
+{% block content %}
         <div class="container">
             <div class="header">
-                <h2>{% block resource-name-header%}{% endblock %}</h2>
+                <h1 class="title">{% block resource-name-header%}{% endblock %}</h1>
                 {% block add-resource %}{% endblock %}
             </div>
             <ul id="list">
@@ -28,7 +14,7 @@
                 {% endfor %}
             </ul>
         </div>
-        
+
         <div id="addModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,5 +51,4 @@
             </div>
         </div>
 
-    </body>
-</html>
+{% endblock %}

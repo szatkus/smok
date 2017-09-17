@@ -1,0 +1,14 @@
+* {
+  font-family: "Fira Sans";
+  margin: 0;
+}
+
+#content {
+  padding: 15px;
+}
+
+#content .title {
+  text-transform: uppercase;
+  font-size: 1.5cm;
+  margin: 10px 0px;
+}

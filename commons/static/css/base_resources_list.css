@@ -9,9 +9,9 @@ body {
 
 /* Remove margins and padding from the list */
 ul#list {
-    /*margin: 0;*/
+    margin-top: 20px;
     padding: 0;
-    border: 0;
+    border: solid 1px #7be;
 }
 
 /* Style the list items */
@@ -32,12 +32,12 @@ ul#list li:nth-child(odd) {
 
 /* Darker background-color on hover */
 ul#list li:hover {
-    background: #ddd;
+    background: #7cf;
 }
 
 /* When clicked on, add a background color*/
 ul#list li.checked {
-    background: #888;
+    background: #09e;
     color: #fff;
 }
 
@@ -62,10 +62,10 @@ ul#list li.checked::before {
 /* Style the edit button */
 .edit {
     position: absolute;
-    right: 5.5%;
-    top: 4%;
+    right: 54px;
+    top: 0;
     padding: 12px 16px 12px 16px;
-    width: 3.5%;
+    width: 22px;
     text-align: center;
     cursor: pointer;
     /*transition: 0.3s;*/
@@ -73,7 +73,7 @@ ul#list li.checked::before {
 }
 
 .edit:hover {
-    background-color: #f44336;
+    background-color: #2af;
     color: white;
 }
 
@@ -83,7 +83,7 @@ ul#list li.checked::before {
     right: 0;
     top: 0;
     padding: 12px 16px 12px 16px;
-    width: 3.5%;
+    width: 22px;
     text-align: center;
     cursor: pointer;
     /*transition: 0.3s;*/
@@ -91,7 +91,7 @@ ul#list li.checked::before {
 }
 
 .close:hover {
-    background-color: #f44336;
+    background-color: #2af;
     color: white;
 }
 
@@ -130,17 +130,12 @@ input {
     margin-left:10px;
 }
 
-.send, .confirm {
-    padding:5px 15px;
-    background:#ccc;
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+#addForm {
+    margin-bottom: 10px;
 }
 
 input.input-field {
-    width: 70%;
+    width: 120px;
     float: right;
     margin-bottom: 5px;
 }
@@ -155,24 +150,32 @@ input.input-field {
     text-align: center;
 }
 
-label {
+.modal label {
     font-weight: bold;
     font-size: 18px;
+    text-align: right;
+    width: 90px;
+    margin-right: 10px;
+    display: inline-block;
 }
 
 /* Style the new item span */
-#newItem {
-    padding: 5px;
-    height: 42px;
-    color: #555;
+.button {
+    padding: 10px 5px;
     text-align: center;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    display: inline-block;
+    background-color: #09e;
+    border: solid 1px #069;
+    color: white;
+    text-shadow: 1px 1px 0px #777;
+    border-radius: 5px;
 }
 
-#newItem:hover {
-    background-color: #bbb;
+.button:hover {
+    background-color: #2af;
+    border: solid 1px #09e;
 }
 
 /*Modal*/
@@ -235,8 +238,9 @@ label {
 
 .modal-header {
     padding: 2px 16px;
-    background-color: #333;
+    background-color: #08c;
     color: white;
+    border: solid 1px #046;
 }
 
 .modal-body {padding: 10px 50px;}
