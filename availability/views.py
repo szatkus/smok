@@ -54,4 +54,4 @@ def save(request,teacher_id):
 		avail = TeachersAvailability(teacher=teacher,day=day,hour=hour,available=True);
 		avail.save();
 		
-	return redirect('availability:input',teacher_id=teacher_id);
+	return redirect('teachers:list');
