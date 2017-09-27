@@ -1,0 +1,26 @@
+[
+  {
+    "model": "classProfiles.class_profile",
+    "pk": 1,
+    "fields": {
+      "name": "mat-fiz",
+      "last_updated_timestamp": "2017-07-19T17:48:10.506Z"
+    }
+  },
+  {
+    "model": "classProfiles.class_profile",
+    "pk": 2,
+    "fields": {
+      "name": "humanistyczny",
+      "last_updated_timestamp": "2017-07-19T17:48:32.731Z"
+    }
+  },
+  {
+    "model": "classProfiles.class_profile",
+    "pk": 3,
+    "fields": {
+      "name": "biol-chem",
+      "last_updated_timestamp": "2017-07-19T17:49:02.956Z"
+    }
+  }
+]
