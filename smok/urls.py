@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^teachers/', include('teachers.urls')),
     url(r'^groups/', include('groups.urls')),
     url(r'^classrooms/', include('classrooms.urls')),
-	url(r'^availability/', include('availability.urls')),  
+    url(r'^availability/', include('availability.urls')),
+    url(r'^profiles/', include('classProfiles.urls')),
 ]

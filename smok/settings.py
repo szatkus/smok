@@ -46,7 +46,8 @@ INSTALLED_APPS = [
 	'teachers',
     'groups',
     'classrooms',
-	'availability'
+    'availability',
+    'classProfiles'
 ]
 
 MIDDLEWARE = [
