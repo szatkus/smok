@@ -20,9 +20,19 @@
 
 {% block add-resource %}<span id="newItem" class="button">&#43; nowy profil</span>{% endblock %}
 
+{% block list-header-definition %}
+<span class="row-content">Nazwa profilu</span>
+<span class="row-content">Klasy</span>
+{% endblock %}
+
 {% block model-definition %}
 <li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
+    <a class="no-format" href="{% url 'classProfiles:profile' model.id %}">
+        <span class="row-content" id="resource-name-{{ model.id }}">{{ model.name }}</span>
+    </a>
+    <a class="no-format" href="{% url 'groups:group_list' %}">
+        <span class="row-content">{{ model.group_set.all|join:", "|default:"Brak" }}</span>
+    </a>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#215;</span>
 </li>

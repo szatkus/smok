@@ -14,6 +14,21 @@ ul#list {
     border: solid 1px #7be;
 }
 
+ul#list li#list-header {
+    background: #09e;
+    color: white;
+    text-shadow: 1px 1px 0px #777;
+}
+
+ul#list li#list-header:hover {
+    cursor: default;
+}
+
+ul#list .row-content {
+    width: 200px;
+    display: inline-block;
+    text-align: left;
+}
 /* Style the list items */
 ul#list li {
     cursor: pointer;
@@ -34,6 +49,8 @@ ul#list li:nth-child(odd) {
 ul#list li:hover {
     background: #7cf;
 }
+
+
 
 /* When clicked on, add a background color*/
 ul#list li.checked {
@@ -147,7 +164,7 @@ input.input-field {
 
 .form {
     display:table;
-    text-align: center;
+    text-align: left;
 }
 
 .modal label {
@@ -260,6 +277,7 @@ a.no-format {
 
 a.no-format:hover {
     background-color: transparent;
+    color: white;
 }
 
 </style>

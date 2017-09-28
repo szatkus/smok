@@ -6,8 +6,4 @@ class GroupForm(forms.ModelForm):
     
     class Meta:
         model = Group
-        fields = ('name', 'group_profile',)
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'input-field'}),
-            'group_profile': forms.TextInput(attrs={'class': "input-field"}),         
-            }
+        fields = ('name', 'group_profile')

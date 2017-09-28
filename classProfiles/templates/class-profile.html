@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% extends "base_resource.html" %}
+{% load static %}
+
+{% block css %}
+{{block.super}}
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+{% endblock %}
+
+{% block resource-name-header%}Profil {{ model.name }}{% endblock %}
+
+{% block model-definition %}
+<li id="{{ model.id }}">
+    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
+</li>
+{% endblock %}
+
+{% block empty-models-comment %}Work in progress{% endblock %}
+
+{% block return-button %}
+<a class="no-format" href="{% url 'classProfiles:list' %}">Powrót do profili</a>
+{% endblock %}

@@ -1,29 +1,29 @@
 [
-  {
-    "model": "groups.group",
-    "pk": 1,
-    "fields": {
-      "name": "1b",
-	  "group_profile": "matematyczno-fizyczny",
-	  "school": 100
+    {
+        "model":"groups.group",
+        "pk":1,
+        "fields":{
+            "name":"5a",
+            "group_profile":1,
+            "school":100
+        }
+    },
+    {
+        "model":"groups.group",
+        "pk":2,
+        "fields":{
+            "name":"7d",
+            "group_profile":2,
+            "school":100
+        }
+    },
+    {
+        "model":"groups.group",
+        "pk":3,
+        "fields":{
+            "name":"5n",
+            "group_profile":2,
+            "school":100
+        }
     }
-  },
-  {
-    "model": "groups.group",
-    "pk": 2,
-    "fields": {
-      "name": "2c",
-	  "group_profile": "informatyczny",
-	  "school": 100
-    }
-  },
-  {
-    "model": "groups.group",
-    "pk": 3,
-    "fields": {
-      "name": "3e",
-	  "group_profile": "humanistyczny",
-	  "school": 100
-    }
-  }
 ]

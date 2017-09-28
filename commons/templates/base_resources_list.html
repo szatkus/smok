@@ -7,6 +7,7 @@
                 {% block add-resource %}{% endblock %}
             </div>
             <ul id="list">
+                <li id="list-header">{% block list-header-definition %}{% endblock %}</li>
                 {% for model in models %}
                     {% block model-definition %}{% endblock %}
                 {% empty %}

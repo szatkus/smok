@@ -8,9 +8,17 @@ from django.core import serializers
 
 def profiles(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
-    all_profiles_list = Class_profile.objects.order_by('name')
+    #class_profile = Class_profile.objects.order_by('name')
+    all_profiles_list = Class_profile.objects.select_related()
+    print(all_profiles_list)
     context = {'models': all_profiles_list, 'username': username}
     return render(request, 'class-profiles.html', context)
+
+def profile(request, profile_id):
+    username = request.user.username if request.user.is_authenticated else 'niezalogowano'
+    profile = Class_profile.objects.get(pk=profile_id)
+    context = {'model': profile, 'username': username}
+    return render(request, 'class-profile.html', context)
 
 def add_profile(request):
     if request.method == "POST":
