@@ -245,4 +245,21 @@ input.input-field {
 
 .modal-body {padding: 10px 50px;}
 
+a.no-format {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+    text-shadow: none;
+}
+
+a.no-format:hover {
+    background-color: transparent;
+}
+
 </style>

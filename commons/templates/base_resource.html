@@ -1,0 +1,18 @@
+{% extends "navbar_template.html" %}
+{% load static %}
+{% block content %}
+        <div class="container">
+            <div class="header">
+                <h1 class="title">{% block resource-name-header%}{% endblock %}</h1>
+                {% block add-resource %}{% endblock %}
+            </div>
+            <ul id="list">
+                {% for model in models %}
+                    {% block model-definition %}{% endblock %}
+                {% empty %}
+                    <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+{% endblock %}
