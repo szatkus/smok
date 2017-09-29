@@ -1,0 +1,36 @@
+[
+    {
+        "model":"teachers.teacher",
+        "pk":1,
+        "fields":{
+            "first_name":"Adam",
+            "last_name":"Mickiewicz",
+            "subjects":[
+              225,
+              226
+            ]
+        }
+    },
+    {
+        "model":"teachers.teacher",
+        "pk":2,
+        "fields":{
+            "first_name":"Mark",
+            "last_name":"Zuckerberg",
+            "subjects":[
+                227
+            ]
+        }
+    },
+    {
+        "model":"teachers.teacher",
+        "pk":3,
+        "fields":{
+            "first_name":"Arkadiusz",
+            "last_name":"Czapiewski",
+            "subjects":[
+
+            ]
+        }
+    }
+]
