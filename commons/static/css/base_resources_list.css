@@ -167,6 +167,41 @@ input.input-field {
     text-align: left;
 }
 
+.form-disp label{
+    /*font-weight: bold;*/
+    font-size: 18px;
+    text-align: right;
+    width: 90px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+/*work in progress*/
+div.form-disp select {
+    background-color: white;
+    -webkit-appearance: none;
+    align-items: right;
+    white-space: pre;
+    text-overflow: '';
+    box-sizing: '';
+    border-style: none;
+    border-width: 0px;
+    font: "Fira Sans";
+    font-size: 18px;
+    border-image: none;
+    font-weight: bold;
+    text-align: right;
+}
+
+div.form-disp select:disabled {
+    color: black;
+}
+/*####*/
+
+.form-disp {
+    padding:5px;
+}
+
 .modal label {
     font-weight: bold;
     font-size: 18px;

@@ -16,5 +16,59 @@
             "description":"",
             "last_updated_timestamp":"2017-09-29T20:05:00.210Z"
         }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":1,
+        "fields":{
+            "profile":1,
+            "subject":225,
+            "hoursno":4
+        }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":2,
+        "fields":{
+            "profile":1,
+            "subject":226,
+            "hoursno":2
+        }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":3,
+        "fields":{
+            "profile":1,
+            "subject":227,
+            "hoursno":3
+        }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":4,
+        "fields":{
+            "profile":2,
+            "subject":225,
+            "hoursno":7
+        }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":5,
+        "fields":{
+            "profile":2,
+            "subject":226,
+            "hoursno":8
+        }
+    },
+    {
+        "model":"classProfiles.hoursamount",
+        "pk":6,
+        "fields":{
+            "profile":2,
+            "subject":227,
+            "hoursno":9
+        }
     }
 ]

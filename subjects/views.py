@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from .models import Subject
 from .forms import SubjectForm
+from classProfiles.models import HoursAmount, Class_profile
 from django.core import serializers
 
 def subjects(request):
@@ -16,6 +17,8 @@ def add_subject(request):
         form = SubjectForm(request.POST)
         if form.is_valid():
             new_subject = form.save()
+            for existing_profile in Class_profile.objects.all():
+                HoursAmount(profile=existing_profile, subject=new_subject).save()
             data = serializers.serialize('json', [new_subject])
             return HttpResponse(data)
     else:

@@ -8,18 +8,30 @@
 
 {% block js %}
 {{block.super}}
+<script>
+$(document).ready(function() {
+    $('select').attr('disabled', 'disabled');
+});
+</script>
 {% endblock %}
 
 {% block resource-name-header%}Profil {{ model.name }}{% endblock %}
 
-{% block model-definition %}
-<li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
-</li>
+{% block empty-models-comment %}
+    <section title="Siatka godzin" data-role="content">
+        <form class="base-form" action="#" method="POST">
+            {% csrf_token %}
+            {% for subform in form %}
+                {% for field in subform.visible_fields %}
+            <div class="form-disp"> <label>{{ field.label }}:</label> {{ field }}</div>
+                {% endfor %}
+            {% endfor %}
+            <input class="send button" type="submit" name="Submit" value="Zapisz">
+        </form>
+    </section>
 {% endblock %}
-
-{% block empty-models-comment %}Work in progress{% endblock %}
 
 {% block return-button %}
 <a class="no-format" href="{% url 'classProfiles:list' %}">Powrót do profili</a>
 {% endblock %}
+
