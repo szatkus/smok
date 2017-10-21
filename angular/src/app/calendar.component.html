@@ -1,0 +1,37 @@
+<table class="table table-bordered text-center table-hover">
+    <thead>
+        <th class="text-center">Number</th>
+        <th class="text-center">Hour</th>
+        <th class="text-center">Monday</th>
+        <th class="text-center">Thuesday</th>
+        <th class="text-center">Wednesday</th>
+        <th class="text-center">Thursday</th>
+        <th class="text-center">Friday</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let number of numbers; let i=index">
+            <td class="col-md-1"><strong>{{numbers[i]}}</strong></td>
+            <td class="col-md-1">{{hours[i].toLocaleTimeString()}}</td>
+            <td class="col-md-2">
+                <span style="color:white">{{monday[i]?.subject}}</span>
+                <span (click)="showConfirm(i, 'monday', $event)" class="glyphicon glyphicon-plus-sign btn pull-right btn-xs" style="color:grey"></span>
+            </td>  
+            <td class="col-md-2">
+                <span style="color:white">{{tuesday[i]?.subject}}</span>
+                <span (click)="showConfirm(i, 'tuesday', $event)" class="glyphicon glyphicon-plus-sign btn pull-right btn-xs" style="color:grey"></span>
+            </td>  
+            <td class="col-md-2">
+              <span style="color:white">{{wednesday[i]?.subject}}</span>
+              <span (click)="showConfirm(i, 'wednesday', $event)" class="glyphicon glyphicon-plus-sign btn pull-right btn-xs" style="color:grey"></span>
+            </td>
+            <td class="col-md-2">
+              <span style="color:white">{{thursday[i]?.subject}}</span>
+              <span (click)="showConfirm(i, 'thursday', $event)" class="glyphicon glyphicon-plus-sign btn pull-right btn-xs" style="color:grey"></span>
+            </td>
+            <td class="col-md-2">
+              <span style="color:white">{{friday[i]?.subject}}</span>
+              <span (click)="showConfirm(i, 'friday', $event)" class="glyphicon glyphicon-plus-sign btn pull-right btn-xs" style="color:grey"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
