@@ -167,6 +167,41 @@ input.input-field {
     text-align: left;
 }
 
+.form-disp label{
+    /*font-weight: bold;*/
+    font-size: 18px;
+    text-align: right;
+    width: 90px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+/*work in progress*/
+div.form-disp select {
+    background-color: white;
+    -webkit-appearance: none;
+    align-items: right;
+    white-space: pre;
+    text-overflow: '';
+    box-sizing: '';
+    border-style: none;
+    border-width: 0px;
+    font: "Fira Sans";
+    font-size: 18px;
+    border-image: none;
+    font-weight: bold;
+    text-align: right;
+}
+
+div.form-disp select:disabled {
+    color: black;
+}
+/*####*/
+
+.form-disp {
+    padding:5px;
+}
+
 .modal label {
     font-weight: bold;
     font-size: 18px;
@@ -188,6 +223,21 @@ input.input-field {
     color: white;
     text-shadow: 1px 1px 0px #777;
     border-radius: 5px;
+}
+
+.button-right {
+    margin: 10px;
+}
+
+.form-button {
+    margin: 10px;
+}
+
+input:disabled,
+input[disabled],
+input[disabled]:hover{
+  border: 1px solid #999999;
+  background-color: #cccccc;
 }
 
 .button:hover {

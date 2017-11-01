@@ -8,18 +8,48 @@
 
 {% block js %}
 {{block.super}}
+<script>
+    var editSubjectsHoursURL = "{% url 'classProfiles:profile-edit-subjects-hours' %}";
+    var addSubjectToProfileURL = "{% url 'classProfiles:profile-add-subjects' %}";
+</script>
+<script src="{% static "/js/classProfiles.js" %}"></script>
 {% endblock %}
 
 {% block resource-name-header%}Profil {{ model.name }}{% endblock %}
 
-{% block model-definition %}
-<li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}">{{ model.name }}</span>
-</li>
+{% block empty-models-comment %}
+    <section title="Siatka godzin" data-role="content">
+
+        <form class="base-form edit_subjects_hours" action="" method="POST" id="profile-form">
+            {% csrf_token %}
+            <div id="input-values">
+            {% for ha in ha_models_in_profile %}
+                <div class="form-disp"> <label>Przedmiot:</label><b>{{ ha.subject.name }}</b></div>
+                <div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-{{ ha.subject.id }}-subject" value="{{ ha.hoursno }}" min="0" id="hoursamount-{{ ha.subject.id }}-subject"></div>
+            {% endfor %}
+            </div>
+            <input type="hidden" name="profile-id" value="{{ model.id }}" />
+            <input disabled="true" id="submit" class="send button form-button" type="submit" name="Submit" value="Zapisz nową l. godzin">
+        </form>
+    </section>
+
 {% endblock %}
 
-{% block empty-models-comment %}Work in progress{% endblock %}
-
+{% block add-resource %}<span onClick="addSubjectToProfile({{ model.id }})" class="button">&#43; nowy przedmiot</span>{% endblock %}
 {% block return-button %}
-<a class="no-format" href="{% url 'classProfiles:list' %}">Powrót do profili</a>
+<a class="no-format" href="{% url 'classProfiles:list' %}"><span class="button button-right">Powrót do profili</span></a>
+{% endblock %}
+
+{% block success-modal-header%}Uaktualniono profil {{ model.name }}{% endblock %}
+{% block success-modal-body%}
+Liczba godzin została zaktualizowana.
+{% endblock %}
+
+{% block add-subj-modal-header%}Dodaj nowe przedmioty do profilu{% endblock %}
+{% block add-subj-modal-body%}
+<form action='' method="POST" class="add_subject_to_profile" autocomplete="off">
+    {% csrf_token %}
+    <div id="addSubjectForm" class="form"></div>
+    <input class="send button" type="submit" value="Dodaj" />
+</form>
 {% endblock %}

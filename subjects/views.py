@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from .models import Subject
 from .forms import SubjectForm
+from classProfiles.models import HoursAmount, Class_profile
 from django.core import serializers
 
 def subjects(request):

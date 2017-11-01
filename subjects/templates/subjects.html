@@ -20,6 +20,10 @@
 
 {% block add-resource %}<span id="newItem" class="button">&#43; nowy przedmiot</span>{% endblock %}
 
+{% block list-header-definition %}
+<span class="row-content">Nazwa przedmiotu</span>
+{% endblock %}
+
 {% block model-definition %}
 <li id="{{ model.id }}">
     <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
