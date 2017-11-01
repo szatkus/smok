@@ -19,6 +19,24 @@
   },
   {
     "model": "subjects.subject",
+    "pk": 228,
+    "fields": {
+      "name": "Chemia",
+      "description": "Kwasy i zasady.",
+      "last_updated_timestamp": "2017-07-19T17:50:32.731Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 229,
+    "fields": {
+      "name": "Informatyka",
+      "description": "Komputery.",
+      "last_updated_timestamp": "2017-07-19T17:48:32.731Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
     "pk": 227,
     "fields": {
       "name": "Historia",
