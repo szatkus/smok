@@ -17,8 +17,6 @@ def add_subject(request):
         form = SubjectForm(request.POST)
         if form.is_valid():
             new_subject = form.save()
-            for existing_profile in Class_profile.objects.all():
-                HoursAmount(profile=existing_profile, subject=new_subject).save()
             data = serializers.serialize('json', [new_subject])
             return HttpResponse(data)
     else:

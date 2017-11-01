@@ -13,6 +13,27 @@
                     <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
                 {% endfor %}
             </ul>
-            <span class="button">{% block return-button %}{% endblock %}</span>
+            {% block return-button %}{% endblock %}
+        </div>
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>{% block success-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "successModalBody" class="modal-body">
+                    {% block success-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="addSubjectModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeAddSubjectModal" class="close-modal">&times;</span>
+                    <h2>{% block add-subj-modal-header%}{% endblock %}</h2>
+                </div>
+                <div class="modal-body">
+                    {% block add-subj-modal-body%}{% endblock %}
+                </div>
+            </div>
         </div>
 {% endblock %}

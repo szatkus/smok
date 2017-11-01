@@ -225,6 +225,21 @@ div.form-disp select:disabled {
     border-radius: 5px;
 }
 
+.button-right {
+    margin: 10px;
+}
+
+.form-button {
+    margin: 10px;
+}
+
+input:disabled,
+input[disabled],
+input[disabled]:hover{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+}
+
 .button:hover {
     background-color: #2af;
     border: solid 1px #09e;
