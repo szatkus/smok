@@ -70,7 +70,7 @@ $(document).ready(function() {
     $("form.add_group").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
             var newGroup = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="list-element">' +newGroup.fields.name +'</span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">×</span></li>').hide();
+            var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="list-element">' +newGroup.fields.name +'</span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
             
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
             $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
