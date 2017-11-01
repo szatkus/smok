@@ -33,8 +33,8 @@
     <a class="no-format" href="{% url 'groups:group_list' %}">
         <span class="row-content">{{ model.group_set.all|join:", "|default:"Brak" }}</span>
     </a>
-    <span class="edit" onClick="edit_item({{ model.id }});">&#x2702;</span>
-    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#215;</span>
+    <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
+    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
 </li>
 {% endblock %}
 
