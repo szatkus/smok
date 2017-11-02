@@ -27,7 +27,7 @@ SECRET_KEY = '8iu4!sw%3=*4+6z#u((=pw1wads74lj2mqd#3y1av)@y!a2f%6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '0.0.0.0',u's429416.projektstudencki.pl','smok.projektstudencki.pl']
 
 
 # Application definition
@@ -124,5 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = "/var/www/smok/static/"
 
 LOGIN_REDIRECT_URL = reverse_lazy('root');

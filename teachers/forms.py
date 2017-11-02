@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from teachers.models import Teacher
 from django import forms
 
