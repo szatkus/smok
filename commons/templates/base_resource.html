@@ -7,11 +7,7 @@
                 {% block add-resource %}{% endblock %}
             </div>
             <ul id="list">
-                {% for model in models %}
                     {% block model-definition %}{% endblock %}
-                {% empty %}
-                    <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
-                {% endfor %}
             </ul>
             {% block return-button %}{% endblock %}
         </div>
@@ -33,6 +29,17 @@
                 </div>
                 <div class="modal-body">
                     {% block add-subj-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="deleteSubjectModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span onClick="closeDeleteSubjectModal();" class="close-modal">&times;</span>
+                    <h2>{% block delete-subj-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "deleteSubjectModalBody" class="modal-body">
+                    {% block delete-subj-modal-body%}{% endblock %}
                 </div>
             </div>
         </div>

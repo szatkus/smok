@@ -26,11 +26,16 @@ function edit_item(id){
 function addSubjectToProfile(id){
     $.get(addSubjectToProfileURL, {'profile-id': id}, function(data){
         var dataJSON = jQuery.parseJSON(data);
-
         $("#addSubjectForm").append('<div class="inner"></div>');
-        $.each( dataJSON, function( i, val ) {
-            $(".inner").append('<input type="checkbox" class="checkbox-form-input" name="subject-id" value="'+ val.pk +'">'+ val.fields.name +'<br>');
-        });
+
+        if(dataJSON.length == 0) {
+            $(".inner").append('<p>Brak przedmiotów, które nie byłyby już przypisane do profilu.</p>');
+            $("#addSubjectFormSubmit").remove();
+        } else {
+            $.each( dataJSON, function( i, val ) {
+                $(".inner").append('<input type="checkbox" class="checkbox-form-input" name="subject-id" value="'+ val.pk +'">'+ val.fields.name +'<br>');
+            });
+        }
         $(".inner").append('<input type="hidden" name="profile-id" value="'+id+'" />'); // potrzebny dla POST request
     });
     $('#addSubjectModal').css('display', 'block');
@@ -40,6 +45,18 @@ function delete_item(id, name){
     $('.profileName').text(name);
     $("#deleteModalBody").append('<div class="inner"><button class="confirm" onClick="deleteProfile('+id+');">Tak</button></div>');
     $('#deleteModal').css('display', 'block');
+}
+
+function delete_subj(subjectId, profileId, name){
+    $('.subjectName').text(name);
+    $("#deleteSubjectModalBody").append('<div class="inner"><button class="confirm" onClick="deleteSubjectFromProfile('+subjectId+', '+ profileId +');">Tak</button></div>');
+    $('#deleteSubjectModal').css('display', 'block');
+}
+
+function closeDeleteSubjectModal(){
+    $('#deleteSubjectModal').css('display', 'none');
+    $('.subjectName').text('');
+    $('.inner').remove();
 }
 
 function deleteProfile(id){
@@ -53,6 +70,23 @@ function deleteProfile(id){
             if ($('#list li').length == 0) {
                 $("#list").append('<p id="noResources">Brak zapisanych profilów.</p>');
             }
+        });
+}
+
+function deleteSubjectFromProfile(subjectId, profileId){
+    closeDeleteSubjectModal();
+    $.post(deleteSubjectFromProfileURL,
+        {
+            subjectId: subjectId,
+            profileId: profileId,
+            csrfmiddlewaretoken: csrftoken
+        }, function(){
+            $('#subject-form-'+subjectId).fadeOut(300, function() {
+                $(this).remove();
+                if ($('#input-values div').length == 0) {
+                    $("#input-values").append('<p id="noResources">Brak przedmiotów przypisanych do tego profilu.</p>');
+                }
+            });
         });
 }
 
@@ -87,20 +121,21 @@ $(document).ready(function() {
     $("form.add_subject_to_profile").submit(function(event) {
         $.post(addSubjectToProfileURL, $(this).serialize(), function(data){
             var newSubjects = jQuery.parseJSON(data);
-            console.log(newSubjects);
             $.each( newSubjects, function( i, val ) {
-                var newDiv1 = $('<div class="form-disp"> <label>Przedmiot:</label><b>'+ val.fields.name +'</b></div>').hide();
+                var newDiv0 = $('<div id="subject-form-'+ val.pk +'"></div>').hide();
+                var newDiv1 = $('<div class="form-disp"> <label>Przedmiot:</label><b>'+ val.fields.name +'</b> <span id="subj-form-delete-'+ val.pk +'" class="close-profile-subj" onClick="delete_subj('+ val.pk +', '+ val.profile +', \''+ val.fields.name +'\');">&#x232b;</span></div>').hide();
                 var newDiv2 = $('<div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-'+ val.pk +'-subject" value="0" min="0" class="new" id="hoursamount-'+ val.pk +'-subject"></div>').hide();
-                $("#input-values").add(newDiv1.fadeIn(800)).appendTo('#input-values');
-                $("#input-values").add(newDiv2.fadeIn(800)).appendTo('#input-values');
+                $("#input-values").add(newDiv0.fadeIn(800)).appendTo('#input-values');
+                $("#subject-form-"+val.pk).add(newDiv1.fadeIn(800)).appendTo("#subject-form-"+val.pk);
+                $("#subject-form-"+val.pk).add(newDiv2.fadeIn(800)).appendTo("#subject-form-"+val.pk);
             });
             $(document).on('change', 'input.new', function() {
                 $("#profile-form").data("changed",true);
                 $("#submit").prop( "disabled", false )
             });
-            /*if ($('#profile-form div').length != 0) {
+            if ($('#input-values div').length != 0) {
                 $('p#noResources').remove();
-            }*/
+            }
         });
 
         event.preventDefault();

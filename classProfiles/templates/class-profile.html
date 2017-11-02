@@ -11,21 +11,28 @@
 <script>
     var editSubjectsHoursURL = "{% url 'classProfiles:profile-edit-subjects-hours' %}";
     var addSubjectToProfileURL = "{% url 'classProfiles:profile-add-subjects' %}";
+    var deleteSubjectFromProfileURL = "{% url 'classProfiles:profile-delete-subject' %}";
 </script>
 <script src="{% static "/js/classProfiles.js" %}"></script>
 {% endblock %}
 
 {% block resource-name-header%}Profil {{ model.name }}{% endblock %}
 
-{% block empty-models-comment %}
+{% block model-definition %}
     <section title="Siatka godzin" data-role="content">
 
         <form class="base-form edit_subjects_hours" action="" method="POST" id="profile-form">
             {% csrf_token %}
             <div id="input-values">
             {% for ha in ha_models_in_profile %}
-                <div class="form-disp"> <label>Przedmiot:</label><b>{{ ha.subject.name }}</b></div>
-                <div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-{{ ha.subject.id }}-subject" value="{{ ha.hoursno }}" min="0" id="hoursamount-{{ ha.subject.id }}-subject"></div>
+                <div id="subject-form-{{ ha.subject.id }}">
+                    <div class="form-disp"> <label>Przedmiot:</label><b>{{ ha.subject.name }}</b>
+                        <span id="subj-form-delete-{{ ha.subject.id }}" class="close-profile-subj" onClick="delete_subj({{ ha.subject.id }}, {{ ha.profile.id }}, '{{ ha.subject.name }}');">&#x232b;</span>
+                    </div>
+                    <div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-{{ ha.subject.id }}-subject" value="{{ ha.hoursno }}" min="0" id="hoursamount-{{ ha.subject.id }}-subject"></div>
+                </div>
+            {% empty %}
+                <p id="noResources">Brak przedmiotów przypisanych do tego profilu.</p>
             {% endfor %}
             </div>
             <input type="hidden" name="profile-id" value="{{ model.id }}" />
@@ -50,6 +57,11 @@ Liczba godzin została zaktualizowana.
 <form action='' method="POST" class="add_subject_to_profile" autocomplete="off">
     {% csrf_token %}
     <div id="addSubjectForm" class="form"></div>
-    <input class="send button" type="submit" value="Dodaj" />
+    <input id="addSubjectFormSubmit" class="send button" type="submit" value="Dodaj" />
 </form>
+{% endblock %}
+
+{% block delete-subj-modal-header%}Czy na pewno chcesz usunąć przedmiot <span class="subjectName"></span> z tego profilu?{% endblock %}
+{% block delete-subj-modal-body%}
+<button class="cancel send" onClick="closeDeleteSubjectModal();">Anuluj</button>
 {% endblock %}

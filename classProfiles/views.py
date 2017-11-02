@@ -7,16 +7,13 @@ from django.urls import reverse_lazy
 from .models import Class_profile, HoursAmount
 from .forms import ClassProfileForm, HoursAmountForm
 from django.core import serializers
-from django.forms import inlineformset_factory
 from subjects.models import Subject
-import re
-import json
+import re, json
 
 def profiles(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     #class_profile = Class_profile.objects.order_by('name')
     all_profiles_list = Class_profile.objects.select_related().order_by('name')
-    print(all_profiles_list)
     context = {'models': all_profiles_list, 'username': username}
     return render(request, 'class-profiles.html', context)
 """
@@ -32,7 +29,6 @@ def profile(request, profile_id):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     profile = Class_profile.objects.get(pk=profile_id)
     ha_models_in_profile = HoursAmount.objects.filter(profile=profile).order_by('subject')
-    print(ha_models_in_profile)
     context = {'model': profile, 'username': username, 'ha_models_in_profile': ha_models_in_profile}
     return render(request, 'class-profile.html', context)
 
@@ -44,7 +40,7 @@ def add_subject_to_profile(request):
 
         wanted_items = set()
         for s in Subject.objects.all():
-            if s.name not in (ha.subject.name for ha in ha_models_in_profile):
+            if s not in (ha.subject for ha in ha_models_in_profile):
                 wanted_items.add(s.pk)
         data = serializers.serialize('json', Subject.objects.filter(pk__in=wanted_items))
         return HttpResponse(data)
@@ -52,18 +48,32 @@ def add_subject_to_profile(request):
     if request.method == "POST":
         profile_id = int(dict(request.POST)['profile-id'][0])
         existing_profile = Class_profile.objects.get(pk=profile_id)
-        subjects = dict(request.POST)['subject-id']
         response_data = []
 
-        for s in subjects:
-            subject = Subject.objects.get(pk=s)
-            new_ha = HoursAmount(profile=existing_profile, subject=subject)
-            new_ha.save()
-            response_data.append(subject.id)
-        data = serializers.serialize('json', Subject.objects.filter(pk__in=response_data))
-        print(data)
-        return HttpResponse(data)
+        if 'subject-id' in dict(request.POST):
+            subjects = dict(request.POST)['subject-id']
+            for s in subjects:
+                subject = Subject.objects.get(pk=s)
+                new_ha = HoursAmount(profile=existing_profile, subject=subject)
+                new_ha.save()
+                response_data.append(subject.id)
 
+        data = serializers.serialize('json', Subject.objects.filter(pk__in=response_data))
+        data = json.loads(data)
+        for s in range(len(data)):
+            data[s]['profile'] = profile_id
+
+        return HttpResponse(json.dumps(data))
+
+    return HttpResponse('')
+
+def delete_subject_from_profile(request):
+    if request.method == "POST":
+        subject_id = int(dict(request.POST)['subjectId'][0])
+        profile_id = int(dict(request.POST)['profileId'][0])
+
+        HoursAmount.objects.get(profile=Class_profile.objects.get(pk=profile_id), subject=Subject.objects.get(pk=subject_id)).delete()
+        return HttpResponse('')
     return HttpResponse('')
 
 def save_new_hoursno_on_profile(request):
@@ -84,7 +94,7 @@ def save_new_hoursno_on_profile(request):
                         raise Http404("Brak rekordów z requesta w bazie.")
             return HttpResponse('')
         except ObjectDoesNotExist:
-            raise Http404("Brak profilu o id %s w bazie." % 's')
+            raise Http404("Brak profilu o id %s w bazie." % profile_id)
     else:
         return reverse_lazy('classProfiles:list')
 
