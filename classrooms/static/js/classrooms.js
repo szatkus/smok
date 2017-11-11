@@ -81,7 +81,7 @@ $(document).ready(function() {
     // obsluga formularza do dodawania sal
     $("form.add_classroom").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
-            var newGroup = jQuery.parseJSON(data)[0];
+            var newClassroom = jQuery.parseJSON(data)[0];
             var newLi = $('<li id ="'+newClassroom.pk+'"><span id ="resource-name-'+newClassroom.pk+'" class="list-element">' +newClassroom.fields.name +'</span><span class="edit" onclick="edit_item('+newClassroom.pk+');">&#x1f589;</span><span id ="resource-delete-'+newClassroom.pk+'" class="close" onclick="delete_item('+newClassroom.pk+', \''+newClassroom.fields.name+'\');">&#x232b;</span></li>').hide();
             
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
@@ -103,7 +103,7 @@ $(document).ready(function() {
 	    // obsluga formularza do edytowania sal
     $("form.edit_classroom").submit(function(event) {
         $.post(editURL, $(this).serialize(), function(data){
-            var newSubject = jQuery.parseJSON(data)[0];
+            var newClassroom = jQuery.parseJSON(data)[0];
             $('span#resource-name-'+newClassroom.pk).text(newClassroom.fields.name);
             $('span#resource-delete-'+newClassroom.pk).attr("onclick",'delete_item('+newClassroom.pk+', \''+newClassroom.fields.name+'\');');
         });
