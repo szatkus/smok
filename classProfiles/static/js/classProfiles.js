@@ -11,6 +11,9 @@ function edit_item(id){
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>'); // kazdy atrybut formularza w osobnym divie dla wygodniejszego konfigurowania css w przyszlosci
                 $("#formE"+i).append('<label for="id_name">Nazwa:</label>').append(val);
                 $('.profileName').text(val.value);
+            } else if (val.name == "grade") {
+                $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
+                $("#formE"+i).append('<label for="id_description">Rok:</label>').append(val);
             } else if (val.name == "description") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
                 $("#formE"+i).append('<label for="id_description">Opis:</label>').append(val);
@@ -107,6 +110,9 @@ $(document).ready(function() {
                 if (val.name == "name") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_name">Nazwa:</label>').append(val);
+                } else if (val.name == "grade") {
+                    $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
+                    $("#form"+i).append('<label for="id_description">Rok:</label>').append(val);
                 } else if (val.name == "description") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_description">Opis:</label>').append(val);
@@ -146,15 +152,19 @@ $(document).ready(function() {
     // obsluga formularza do dodawania profilow
     $("form.add_profile").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
-            var newProfile = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newProfile.pk+'"><span id ="resource-name-'+newProfile.pk+'">' +newProfile.fields.name +'</span><span class="edit" onclick="edit_item('+newProfile.pk+');">&#x1f589;</span><span id ="resource-delete-'+newProfile.pk+'" class="close" onclick="delete_item('+newProfile.pk+', \''+newProfile.fields.name+'\');">&#x232b;</span></li>').hide();
-            
-            //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
-            $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
-            //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
+            if (data === 'FAILED') {
+                $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
+            } else {
+                var newProfile = jQuery.parseJSON(data)[0];
+                var newLi = $('<li id ="'+newProfile.pk+'"><a class="no-format" href="/profiles/'+ newProfile.pk +'/"><span class="row-content"> <span id ="resource-name-'+newProfile.pk+'">' + newProfile.fields.name +'</span>, <span id="resource-grade-'+ newProfile.pk +'">'+ newProfile.fields.grade +'</span> rok</span></a><a class="no-format" href="/groups/"> <span class="row-content">brak</span></a><span class="edit" onclick="edit_item('+newProfile.pk+');">&#x1f589;</span><span id ="resource-delete-'+newProfile.pk+'" class="close" onclick="delete_item('+newProfile.pk+', \''+newProfile.fields.name+'\');">&#x232b;</span></li>').hide();
 
-            if ($('#list li').length != 0) {
-                $('p#noResources').remove();
+                //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
+                $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
+                //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
+
+                if ($('#list li').length != 0) {
+                    $('p#noResources').remove();
+                }
             }
         });
         event.preventDefault();
@@ -167,6 +177,7 @@ $(document).ready(function() {
         $.post(editURL, $(this).serialize(), function(data){
             var newProfile = jQuery.parseJSON(data)[0];
             $('span#resource-name-'+newProfile.pk).text(newProfile.fields.name);
+            $('span#resource-grade-'+newProfile.pk).text(newProfile.fields.grade);
             $('span#resource-delete-'+newProfile.pk).attr("onclick",'delete_item('+newProfile.pk+', \''+newProfile.fields.name+'\');');
         });
         event.preventDefault();
@@ -176,7 +187,7 @@ $(document).ready(function() {
 
     $("#profile-form :input").change(function() {
        $("#profile-form").data("changed",true);
-       $("#submit").prop( "disabled", false )
+       $("#submit").prop( "disabled", false );
     });
 
     $("form.edit_subjects_hours").submit(function(event) {
@@ -184,7 +195,7 @@ $(document).ready(function() {
         if ($("#profile-form").data("changed")) {
             $.post(editSubjectsHoursURL, $(this).serialize(), function(data){});
             $("#profile-form").data("changed",false);
-            $("#submit").prop( "disabled", true )
+            $("#submit").prop( "disabled", true );
             $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
         }
     });

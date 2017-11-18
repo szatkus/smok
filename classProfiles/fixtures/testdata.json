@@ -1,9 +1,31 @@
 [
     {
+        "model":"classProfiles.grade",
+        "pk":1,
+        "fields":{
+            "grade":1
+        }
+    },
+    {
+        "model":"classProfiles.grade",
+        "pk":2,
+        "fields":{
+            "grade":2
+        }
+    },
+    {
+        "model":"classProfiles.grade",
+        "pk":3,
+        "fields":{
+            "grade":3
+        }
+    },
+    {
         "model":"classProfiles.class_profile",
         "pk":1,
         "fields":{
             "name":"informatyczny",
+            "grade":1,
             "description":"",
             "last_updated_timestamp":"2017-09-29T20:02:48.025Z"
         }
@@ -13,6 +35,7 @@
         "pk":2,
         "fields":{
             "name":"biologiczny",
+            "grade":2,
             "description":"",
             "last_updated_timestamp":"2017-09-29T20:05:00.210Z"
         }

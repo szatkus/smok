@@ -70,8 +70,11 @@ $(document).ready(function() {
     $("form.add_group").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
             var newGroup = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="list-element">' +newGroup.fields.name +'</span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
-            
+            if (newGroup.fields.group_profile === null) {
+                var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span id="profile-container-'+newGroup.pk+'"><span class="row-content"><p>brak</p></span></span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
+            } else {
+                var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span id="profile-container-'+newGroup.pk+'"><a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></span></a><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
+            }
             //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
             $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
             //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
@@ -91,8 +94,23 @@ $(document).ready(function() {
 	    // obsluga formularza do edytowania grup
     $("form.edit_group").submit(function(event) {
         $.post(editURL, $(this).serialize(), function(data){
-            var newSubject = jQuery.parseJSON(data)[0];
+            var newGroup = jQuery.parseJSON(data)[0];
+            console.log(newGroup);
             $('span#resource-name-'+newGroup.pk).text(newGroup.fields.name);
+            if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile !== null) {
+                console.log('A'+$('span#profile-container-'+newGroup.pk).children().has("span").length);
+                $('a#a-resource-profile-'+newGroup.pk).attr("href", '/profiles/'+ newGroup.fields.group_profile +'/');
+                $('span#resource-profile-'+newGroup.pk).text(newGroup.group_profile_name);
+            } else if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile === null) {
+                console.log('B'+$('span#profile-container-'+newGroup.pk).children().has("span").length);
+                $('span#profile-container-'+newGroup.pk).children().remove();
+                $('span#profile-container-'+newGroup.pk).append('<span class="row-content"><p>brak</p></span>');
+            } else if ($('span#profile-container-'+newGroup.pk).children().has("p").length && newGroup.fields.group_profile !== null) {
+                console.log('wszedlem'+$('span#profile-container-'+newGroup.pk).children().has("p").length);
+                console.log('span'+$('span#profile-container-'+newGroup.pk).children().has("span").length);
+                $('span#profile-container-'+newGroup.pk).children().remove();
+                $('span#profile-container-'+newGroup.pk).append('<a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></a>');
+            }
             $('span#resource-delete-'+newGroup.pk).attr("onclick",'delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');');
         });
         event.preventDefault();

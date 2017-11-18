@@ -16,6 +16,16 @@
             </ul>
         </div>
 
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>{% block success-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "successModalBody" class="modal-body">
+                    {% block success-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
         <div id="addModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">

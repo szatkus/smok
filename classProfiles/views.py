@@ -105,6 +105,7 @@ def add_profile(request):
             new_profile = form.save()
             data = serializers.serialize('json', [new_profile])
             return HttpResponse(data)
+        return HttpResponse('FAILED')
     else:
         form = ClassProfileForm()
     return HttpResponse(form)

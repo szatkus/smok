@@ -16,7 +16,7 @@
 <script src="{% static "/js/classProfiles.js" %}"></script>
 {% endblock %}
 
-{% block resource-name-header%}Profil {{ model.name }}{% endblock %}
+{% block resource-name-header%}Profil {{ model.name }}, {{ model.grade }} rok{% endblock %}
 
 {% block model-definition %}
     <section title="Siatka godzin" data-role="content">

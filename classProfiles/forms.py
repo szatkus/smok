@@ -5,7 +5,7 @@ class ClassProfileForm(forms.ModelForm):
     
     class Meta:
         model = Class_profile
-        fields = ('name', 'description')
+        fields = ('name', 'grade', 'description')
 
 class HoursAmountForm(forms.ModelForm):
     class Meta:

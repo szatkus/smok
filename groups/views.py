@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from .models import Group
 from .forms import GroupForm
 from django.core import serializers
-
+import json
 
 def group_list(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
@@ -18,7 +18,9 @@ def add_group(request):
         if form.is_valid():
             new_group = form.save()
             data = serializers.serialize('json', [new_group])
-            return HttpResponse(data)
+            data = json.loads(data)
+            data[0]['group_profile_name'] = str(new_group.group_profile)
+            return HttpResponse(json.dumps(data))
     else:
         form = GroupForm()
     return HttpResponse(form) 
@@ -33,7 +35,9 @@ def edit_group(request):
             if form.is_valid():
                 new_group = form.save()
                 data = serializers.serialize('json', [new_group])
-                return HttpResponse(data)
+                data = json.loads(data)
+                data[0]['group_profile_name'] = str(new_group.group_profile)
+                return HttpResponse(json.dumps(data))
         except ObjectDoesNotExist:
             raise Http404("Brak klasy o id %s w bazie." % record_id)
     elif request.method == "GET":

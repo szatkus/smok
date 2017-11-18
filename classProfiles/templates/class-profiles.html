@@ -21,17 +21,17 @@
 {% block add-resource %}<span id="newItem" class="button">&#43; nowy profil</span>{% endblock %}
 
 {% block list-header-definition %}
-<span class="row-content">Nazwa profilu</span>
+<span class="row-content">Profil</span>
 <span class="row-content">Klasy</span>
 {% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
     <a class="no-format" href="{% url 'classProfiles:profile' model.id %}">
-        <span class="row-content" id="resource-name-{{ model.id }}">{{ model.name }}</span>
+        <span class="row-content"> <span id="resource-name-{{ model.id }}">{{ model.name }}</span>, <span id="resource-grade-{{ model.id }}">{{ model.grade }}</span> rok</span>
     </a>
     <a class="no-format" href="{% url 'groups:group_list' %}">
-        <span class="row-content">{{ model.group_set.all|join:", "|default:"Brak" }}</span>
+        <span class="row-content">{{ model.group_set.all|join:", "|default:"<p>brak</p>" }}</span>
     </a>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
@@ -39,6 +39,11 @@
 {% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych profilów.{% endblock %}
+
+{% block success-modal-header%}Informacja{% endblock %}
+{% block success-modal-body%}
+Profil o podanej nazwie i roczniku już istnieje.
+{% endblock %}
 
 {% block add-modal-header%}Dodaj nowy profil{% endblock %}
 {% block add-modal-body%}
