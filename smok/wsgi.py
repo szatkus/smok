@@ -13,4 +13,6 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "smok.settings")
 
+os.environ['ORACLE_HOME']='/u01/app/oracle/product/11.2.0/xe/'
+
 application = get_wsgi_application()

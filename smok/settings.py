@@ -95,6 +95,20 @@ DATABASES = {
     }
 }
 
+ORACLE_DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'USER': 'django',
+        'NAME':'XE',
+        'PASSWORD': 'ZjZ1zkHW',
+        'HOST': '150.254.78.143',
+        'PORT': '1521',
+    }
+}
+
+DATABASES = ORACLE_DATABASES;
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

@@ -3,6 +3,11 @@ import os
 import sys
 
 if __name__ == "__main__":
+
+    os.environ['ORACLE_HOME']='/u01/app/oracle/product/11.2.0/xe/'
+    os.environ['LD_LIBRARY_PATH']='/usr/lib/oracle/11.2/client64/lib/'
+    os.environ['LD_RUN_PATH']='/usr/lib/oracle/11.2/client64/lib/'
+
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "smok.settings")
     try:
         from django.core.management import execute_from_command_line
