@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users',
     'subjects',
     'commons',
-    'school.apps.SchoolConfig',
+    'school',
 	'teachers',
     'groups',
     'classrooms',

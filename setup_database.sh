@@ -14,3 +14,5 @@ venv/bin/python manage.py loaddata testdata.json
 echo "Loaded test data"
 echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', 'admin@example.com', 'pass')" | venv/bin/python manage.py shell
 echo "Created superuser with login: admin and password: pass"
+echo "from school.models import School; from django.contrib.auth import get_user_model; get_user_model().objects.create_user(username='testuser', email='testuser@example.com', password='pass', school_id=School.objects.first())" | venv/bin/python manage.py shell
+echo "Created user with login: testuser and password: pass"

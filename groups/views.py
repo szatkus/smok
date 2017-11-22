@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
 from .models import Group
+from school.models import School
 from .forms import GroupForm
 from django.core import serializers
 import json
@@ -16,7 +17,9 @@ def add_group(request):
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
-            new_group = form.save()
+            new_group = form.save(commit=False)
+            new_group.school = request.user.school_id
+            new_group.save()
             data = serializers.serialize('json', [new_group])
             data = json.loads(data)
             data[0]['group_profile_name'] = str(new_group.group_profile)
