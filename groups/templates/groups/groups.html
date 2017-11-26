@@ -44,6 +44,11 @@
 
 {% block empty-models-comment %}Brak zapisanych klas.{% endblock %}
 
+{% block success-modal-header%}Informacja{% endblock %}
+{% block success-modal-body%}
+Klasa o podanej nazwie już istnieje.
+{% endblock %}
+
 {% block add-modal-header%}Dodaj nową klasę{% endblock %}
 {% block add-modal-body%}
 <form action='' method="POST" class="add_group" autocomplete="off">{% csrf_token %}
