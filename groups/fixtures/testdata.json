@@ -3,7 +3,7 @@
         "model":"groups.group",
         "pk":1,
         "fields":{
-            "name":"5a",
+            "name":"1a",
             "group_profile":1,
             "school":100
         }
@@ -12,7 +12,7 @@
         "model":"groups.group",
         "pk":2,
         "fields":{
-            "name":"7d",
+            "name":"2d",
             "group_profile":2,
             "school":100
         }
@@ -21,7 +21,7 @@
         "model":"groups.group",
         "pk":3,
         "fields":{
-            "name":"5n",
+            "name":"2n",
             "group_profile":2,
             "school":100
         }

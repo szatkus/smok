@@ -5,6 +5,7 @@ from .models import Group
 from school.models import School
 from .forms import GroupForm
 from django.core import serializers
+from django.db import IntegrityError
 import json
 
 def group_list(request):
@@ -15,15 +16,23 @@ def group_list(request):
     
 def add_group(request):
     if request.method == "POST":
-        form = GroupForm(request.POST)
-        if form.is_valid():
-            new_group = form.save(commit=False)
-            new_group.school = request.user.school_id
-            new_group.save()
-            data = serializers.serialize('json', [new_group])
-            data = json.loads(data)
-            data[0]['group_profile_name'] = str(new_group.group_profile)
-            return HttpResponse(json.dumps(data))
+        if request.user.is_authenticated:
+            form = GroupForm(request.POST)
+            if form.is_valid():
+                try:
+                    new_group = form.save(commit=False)
+                    new_group.school = request.user.school_id
+                    new_group.save()
+                    data = serializers.serialize('json', [new_group])
+                    data = json.loads(data)
+                    data[0]['group_profile_name'] = str(new_group.group_profile)
+                    return HttpResponse(json.dumps(data))
+                except IntegrityError:
+                    pass
+            else:
+                return HttpResponse(json.dumps([{'error': 'UNIQUE_NAME_VIOLATED'}]))
+        else:
+            return HttpResponse(json.dumps(['foo', {'bar': ('baz', None, 1.0, 2)}]))
     else:
         form = GroupForm()
     return HttpResponse(form) 
