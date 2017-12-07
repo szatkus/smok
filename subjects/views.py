@@ -19,6 +19,8 @@ def add_subject(request):
             new_subject = form.save()
             data = serializers.serialize('json', [new_subject])
             return HttpResponse(data)
+        else:
+            return HttpResponse('FAILED')
     else:
         form = SubjectForm()
     return HttpResponse(form)
@@ -33,6 +35,8 @@ def edit_subject(request):
                 new_subject = form.save()
                 data = serializers.serialize('json', [new_subject])
                 return HttpResponse(data)
+            else:
+                return HttpResponse('FAILED')
         except ObjectDoesNotExist:
             raise Http404("Brak przedmiotu o id %s w bazie." % record_id)
     elif request.method == "GET":

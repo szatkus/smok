@@ -36,7 +36,7 @@ function addSubjectToProfile(id){
             $("#addSubjectFormSubmit").remove();
         } else {
             $.each( dataJSON, function( i, val ) {
-                $(".inner").append('<input type="checkbox" class="checkbox-form-input" name="subject-id" value="'+ val.pk +'">'+ val.fields.name +'<br>');
+                $(".inner").append('<input type="checkbox" class="checkbox-form-input" name="subject-id" value="'+ val.pk +'">'+ val.fields.name + ' (' + val.fields.code + ')' +'<br>');
             });
         }
         $(".inner").append('<input type="hidden" name="profile-id" value="'+id+'" />'); // potrzebny dla POST request
@@ -129,7 +129,7 @@ $(document).ready(function() {
             var newSubjects = jQuery.parseJSON(data);
             $.each( newSubjects, function( i, val ) {
                 var newDiv0 = $('<div id="subject-form-'+ val.pk +'"></div>').hide();
-                var newDiv1 = $('<div class="form-disp"> <label>Przedmiot:</label><b>'+ val.fields.name +'</b> <span id="subj-form-delete-'+ val.pk +'" class="close-profile-subj" onClick="delete_subj('+ val.pk +', '+ val.profile +', \''+ val.fields.name +'\');">&#x232b;</span></div>').hide();
+                var newDiv1 = $('<div class="form-disp"> <label>Przedmiot:</label><b>'+ val.fields.name + ' (' + val.fields.code + ')' + '</b> <span id="subj-form-delete-'+ val.pk +'" class="close-profile-subj" onClick="delete_subj('+ val.pk +', '+ val.profile +', \''+ val.fields.name + ' (' + val.fields.code + ')' + '\');">&#x232b;</span></div>').hide();
                 var newDiv2 = $('<div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-'+ val.pk +'-subject" value="0" min="0" class="new" id="hoursamount-'+ val.pk +'-subject"></div>').hide();
                 $("#input-values").add(newDiv0.fadeIn(800)).appendTo('#input-values');
                 $("#subject-form-"+val.pk).add(newDiv1.fadeIn(800)).appendTo("#subject-form-"+val.pk);

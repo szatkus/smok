@@ -26,8 +26,8 @@
             <div id="input-values">
             {% for ha in ha_models_in_profile %}
                 <div id="subject-form-{{ ha.subject.id }}">
-                    <div class="form-disp"> <label>Przedmiot:</label><b>{{ ha.subject.name }}</b>
-                        <span id="subj-form-delete-{{ ha.subject.id }}" class="close-profile-subj" onClick="delete_subj({{ ha.subject.id }}, {{ ha.profile.id }}, '{{ ha.subject.name }}');">&#x232b;</span>
+                    <div class="form-disp"> <label>Przedmiot:</label><b>{{ ha.subject }}</b>
+                        <span id="subj-form-delete-{{ ha.subject.id }}" class="close-profile-subj" onClick="delete_subj({{ ha.subject.id }}, {{ ha.profile.id }}, '{{ ha.subject }}');">&#x232b;</span>
                     </div>
                     <div class="form-disp"> <label>L. godzin:</label> <input type="number" name="hoursamount-{{ ha.subject.id }}-subject" value="{{ ha.hoursno }}" min="0" id="hoursamount-{{ ha.subject.id }}-subject"></div>
                 </div>
@@ -47,7 +47,7 @@
 <a class="no-format" href="{% url 'classProfiles:list' %}"><span class="button button-right">Powrót do profili</span></a>
 {% endblock %}
 
-{% block success-modal-header%}Uaktualniono profil {{ model.name }}{% endblock %}
+{% block success-modal-header%}Uaktualniono profil {{ model.name }}, {{ model.grade }} rok{% endblock %}
 {% block success-modal-body%}
 Liczba godzin została zaktualizowana.
 {% endblock %}
