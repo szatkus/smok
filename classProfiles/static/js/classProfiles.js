@@ -176,9 +176,13 @@ $(document).ready(function() {
     $("form.edit_profile").submit(function(event) {
         $.post(editURL, $(this).serialize(), function(data){
             var newProfile = jQuery.parseJSON(data)[0];
-            $('span#resource-name-'+newProfile.pk).text(newProfile.fields.name);
-            $('span#resource-grade-'+newProfile.pk).text(newProfile.fields.grade);
-            $('span#resource-delete-'+newProfile.pk).attr("onclick",'delete_item('+newProfile.pk+', \''+newProfile.fields.name+'\');');
+            if (newProfile.error === "UNIQUE_NAME_VIOLATED") {
+                $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
+            } else if (newProfile.hasOwnProperty('fields')) {
+                $('span#resource-name-'+newProfile.pk).text(newProfile.fields.name);
+                $('span#resource-grade-'+newProfile.pk).text(newProfile.fields.grade);
+                $('span#resource-delete-'+newProfile.pk).attr("onclick",'delete_item('+newProfile.pk+', \''+newProfile.fields.name+'\');');
+            }
         });
         event.preventDefault();
         $('#editModal').css('display', 'none');

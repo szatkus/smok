@@ -50,6 +50,8 @@ def edit_group(request):
                 data = json.loads(data)
                 data[0]['group_profile_name'] = str(new_group.group_profile)
                 return HttpResponse(json.dumps(data))
+            else:
+                return HttpResponse("FAILED")
         except ObjectDoesNotExist:
             raise Http404("Brak klasy o id %s w bazie." % record_id)
     elif request.method == "GET":

@@ -120,6 +120,8 @@ def edit_profile(request):
                 new_profile = form.save()
                 data = serializers.serialize('json', [new_profile])
                 return HttpResponse(data)
+            else:
+                return HttpResponse(json.dumps([{'error': 'UNIQUE_NAME_VIOLATED'}]))
         except ObjectDoesNotExist:
             raise Http404("Brak profilu o id %s w bazie." % record_id)
     elif request.method == "GET":
