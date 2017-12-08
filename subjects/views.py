@@ -5,7 +5,9 @@ from .models import Subject
 from .forms import SubjectForm
 from classProfiles.models import HoursAmount, Class_profile
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def subjects(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     all_subjects_list = Subject.objects.order_by('name')

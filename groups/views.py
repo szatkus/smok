@@ -7,13 +7,15 @@ from .forms import GroupForm
 from django.core import serializers
 from django.db import IntegrityError
 import json
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def group_list(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     all_groups_list = Group.objects.order_by('name')
     context = {'models': all_groups_list, 'username': username}
     return render(request, 'groups/groups.html', context)
-    
+
 def add_group(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -36,8 +38,7 @@ def add_group(request):
     else:
         form = GroupForm()
     return HttpResponse(form) 
-    
-    
+
 def edit_group(request):
     if request.method == "POST":
         try:
