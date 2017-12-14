@@ -6,12 +6,15 @@ from django.utils import timezone
 from .forms import SchoolForm
 from .models import School
 from users.models import User
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def school_list(request):
     school_list = School.objects.filter(user=request.user)
     context = {'school_list': school_list}
     return render(request, 'school/school_list.html', context)
-    
+
+@login_required
 def details(request, school_id):
     current_school = School.objects.get(id=school_id)
     if request.method == "POST":

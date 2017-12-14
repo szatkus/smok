@@ -15,6 +15,7 @@
 .username {
     float: right;
     border-left: solid 1px #08c;
+    border-right: solid 1px #08c;
 }
 
 li a, .dropbtn {

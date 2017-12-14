@@ -22,17 +22,24 @@
 
 {% block list-header-definition %}
 <span class="row-content">Nazwa przedmiotu</span>
+<span class="row-content">Kod przedmiotu</span>
 {% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
+    <span id="resource-name-{{ model.id }}" class="row-content">{{ model.name }}</span>
+    <span id="resource-code-{{ model.id }}" class="row-content">{{ model.code }}</span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
-    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
+    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }} ({{ model.code }})');">&#x232b;</span>
 </li>
 {% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych przedmiotów.{% endblock %}
+
+{% block success-modal-header%}Informacja{% endblock %}
+{% block success-modal-body%}
+Przedmiot o podanej nazwie i kodzie już istnieje.
+{% endblock %}
 
 {% block add-modal-header%}Dodaj nowy przedmiot{% endblock %}
 {% block add-modal-body%}

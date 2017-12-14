@@ -11,6 +11,9 @@ function edit_item(id){
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>'); // kazdy atrybut formularza w osobnym divie dla wygodniejszego konfigurowania css w przyszlosci
                 $("#formE"+i).append('<label for="id_name">Nazwa:</label>').append(val);
                 $('.subjectName').text(val.value);
+            } else if (val.name == "code") {
+                $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
+                $("#formE"+i).append('<label for="id_code">Kod:</label>').append(val);
             } else if (val.name == "description") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
                 $("#formE"+i).append('<label for="id_description">Opis:</label>').append(val);
@@ -55,6 +58,9 @@ $(document).ready(function() {
                 if (val.name == "name") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_name">Nazwa:</label>').append(val);
+                } else if (val.name == "code") {
+                    $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
+                    $("#form"+i).append('<label for="id_code">Kod:</label>').append(val);
                 } else if (val.name == "description") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_description">Opis:</label>').append(val);
@@ -69,18 +75,23 @@ $(document).ready(function() {
     // obsluga formularza do dodawania przedmiototow
     $("form.add_subject").submit(function(event) {
         $.post(addURL, $(this).serialize(), function(data){
-            var newSubject = jQuery.parseJSON(data)[0];
-            var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="list-element">' +newSubject.fields.name +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x1f589;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');">&#x232b;</span></li>').hide();
-            
-            //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
-            $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
-            //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
-            
-            $('li#'+newSubject.pk).on('click', 'span.list-element', function() {
-                $( this ).parent().toggleClass( "checked" );
-            });
-            if ($('#list li').length != 0) {
-                $('p#noResources').remove();
+
+            if (data === 'FAILED') {
+                $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
+            } else {
+                var newSubject = jQuery.parseJSON(data)[0];
+                var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="row-content">' +newSubject.fields.name +'</span><span id ="resource-code-'+newSubject.pk+'" class="row-content">' +newSubject.fields.code +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x1f589;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name + ' (' + newSubject.fields.code + ')' + '\');">&#x232b;</span></li>').hide();
+
+                //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
+                $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
+                //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
+
+                $('li#'+newSubject.pk).on('click', 'span.list-element', function() {
+                    $( this ).parent().toggleClass( "checked" );
+                });
+                if ($('#list li').length != 0) {
+                    $('p#noResources').remove();
+                }
             }
         });
         event.preventDefault();
@@ -91,9 +102,14 @@ $(document).ready(function() {
     // obsluga formularza do edytowania przedmiotow
     $("form.edit_subject").submit(function(event) {
         $.post(editURL, $(this).serialize(), function(data){
-            var newSubject = jQuery.parseJSON(data)[0];
-            $('span#resource-name-'+newSubject.pk).text(newSubject.fields.name);
-            $('span#resource-delete-'+newSubject.pk).attr("onclick",'delete_item('+newSubject.pk+', \''+newSubject.fields.name+'\');');
+            if (data === 'FAILED') {
+                $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
+            } else {
+                var newSubject = jQuery.parseJSON(data)[0];
+                $('span#resource-name-'+newSubject.pk).text(newSubject.fields.name);
+                $('span#resource-code-'+newSubject.pk).text(newSubject.fields.code);
+                $('span#resource-delete-'+newSubject.pk).attr("onclick",'delete_item('+newSubject.pk+', \''+newSubject.fields.name+ ' (' + newSubject.fields.code + ')' +'\');');
+            }
         });
         event.preventDefault();
         $('#editModal').css('display', 'none');

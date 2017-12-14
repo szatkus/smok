@@ -142,4 +142,8 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = "/var/www/smok/static/"
 
+LOGIN_URL = reverse_lazy('login');
+
 LOGIN_REDIRECT_URL = reverse_lazy('root');
+
+LOGOUT_REDIRECT_URL = reverse_lazy('root');

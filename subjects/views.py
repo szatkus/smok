@@ -5,7 +5,9 @@ from .models import Subject
 from .forms import SubjectForm
 from classProfiles.models import HoursAmount, Class_profile
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def subjects(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     all_subjects_list = Subject.objects.order_by('name')
@@ -19,6 +21,8 @@ def add_subject(request):
             new_subject = form.save()
             data = serializers.serialize('json', [new_subject])
             return HttpResponse(data)
+        else:
+            return HttpResponse('FAILED')
     else:
         form = SubjectForm()
     return HttpResponse(form)
@@ -33,6 +37,8 @@ def edit_subject(request):
                 new_subject = form.save()
                 data = serializers.serialize('json', [new_subject])
                 return HttpResponse(data)
+            else:
+                return HttpResponse('FAILED')
         except ObjectDoesNotExist:
             raise Http404("Brak przedmiotu o id %s w bazie." % record_id)
     elif request.method == "GET":

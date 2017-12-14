@@ -2,20 +2,21 @@
 
 from django.shortcuts import render
 
-from django.http import HttpResponse;
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 
 
-from django.views.generic import ListView;
-from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView;
+from django.views.generic import ListView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 
 from commons import models as commons_models
-from teachers.models import Teacher;
-from availability.models import TeachersAvailability;
-from commons.models import Days,Hours;
+from teachers.models import Teacher
+from availability.models import TeachersAvailability
+from commons.models import Days,Hours
 
+@login_required
 def input(request,teacher_id):
 	username = request.user.username if request.user.is_authenticated else 'niezalogowano';
 	hours = commons_models.Hours.objects.all().order_by('order');

@@ -17,17 +17,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from users.views import login
 from commons.views import common
-
+from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # url(r'^login', login),
     url(r'^login', auth_views.login, name='login'),
+    url(r'^logout', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^subjects/', include('subjects.urls')),
     url(r'^schools/', include('school.urls')),
     url(r'^index', common, name='index'),
-    url(r'^$', common, name='root'),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='root'),
     url(r'^teachers/', include('teachers.urls')),
     url(r'^groups/', include('groups.urls')),
     url(r'^classrooms/', include('classrooms.urls')),

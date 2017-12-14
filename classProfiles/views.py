@@ -9,7 +9,9 @@ from .forms import ClassProfileForm, HoursAmountForm
 from django.core import serializers
 from subjects.models import Subject
 import re, json
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def profiles(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     #class_profile = Class_profile.objects.order_by('name')
@@ -25,6 +27,7 @@ def custom_form_field_callback(field, **kwargs):
     else:
          return field.formfield(**kwargs)
 """
+@login_required
 def profile(request, profile_id):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     profile = Class_profile.objects.get(pk=profile_id)
@@ -120,6 +123,8 @@ def edit_profile(request):
                 new_profile = form.save()
                 data = serializers.serialize('json', [new_profile])
                 return HttpResponse(data)
+            else:
+                return HttpResponse(json.dumps([{'error': 'UNIQUE_NAME_VIOLATED'}]))
         except ObjectDoesNotExist:
             raise Http404("Brak profilu o id %s w bazie." % record_id)
     elif request.method == "GET":

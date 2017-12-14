@@ -98,19 +98,23 @@ $(document).ready(function() {
 	    // obsluga formularza do edytowania grup
     $("form.edit_group").submit(function(event) {
         $.post(editURL, $(this).serialize(), function(data){
-            var newGroup = jQuery.parseJSON(data)[0];
-            $('span#resource-name-'+newGroup.pk).text(newGroup.fields.name);
-            if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile !== null) {
-                $('a#a-resource-profile-'+newGroup.pk).attr("href", '/profiles/'+ newGroup.fields.group_profile +'/');
-                $('span#resource-profile-'+newGroup.pk).text(newGroup.group_profile_name);
-            } else if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile === null) {
-                $('span#profile-container-'+newGroup.pk).children().remove();
-                $('span#profile-container-'+newGroup.pk).append('<span class="row-content"><p>brak</p></span>');
-            } else if ($('span#profile-container-'+newGroup.pk).children().has("p").length && newGroup.fields.group_profile !== null) {
-                $('span#profile-container-'+newGroup.pk).children().remove();
-                $('span#profile-container-'+newGroup.pk).append('<a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></a>');
+            if (data === 'FAILED') {
+                $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
+            } else {
+                var newGroup = jQuery.parseJSON(data)[0];
+                $('span#resource-name-'+newGroup.pk).text(newGroup.fields.name);
+                if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile !== null) {
+                    $('a#a-resource-profile-'+newGroup.pk).attr("href", '/profiles/'+ newGroup.fields.group_profile +'/');
+                    $('span#resource-profile-'+newGroup.pk).text(newGroup.group_profile_name);
+                } else if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile === null) {
+                    $('span#profile-container-'+newGroup.pk).children().remove();
+                    $('span#profile-container-'+newGroup.pk).append('<span class="row-content"><p>brak</p></span>');
+                } else if ($('span#profile-container-'+newGroup.pk).children().has("p").length && newGroup.fields.group_profile !== null) {
+                    $('span#profile-container-'+newGroup.pk).children().remove();
+                    $('span#profile-container-'+newGroup.pk).append('<a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></a>');
+                }
+                $('span#resource-delete-'+newGroup.pk).attr("onclick",'delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');');
             }
-            $('span#resource-delete-'+newGroup.pk).attr("onclick",'delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');');
         });
         event.preventDefault();
         $('#editModal').css('display', 'none');

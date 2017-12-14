@@ -1,0 +1,15 @@
+{% extends "navbar_template.html" %}
+{% load static %}
+{% block content %}
+    <div>
+        <img src="{% static '/img/dragon.jpg' %}" style="float:right;"/>
+        <br/><br/>
+        <h2>Witaj w aplikacji SMOK!</h2> <br/><br/>
+        <p>Nasza aplikacja jest idealnym narzędziem wspierającym organizację roku szkolnego i oferuje <strong>pomoc w sprawnym ułożeniu tygodniowego planu zajęć</strong> w trybie graficznym, w oparciu o dane wprowadzone w programie (grupy i ich profile, sale, przedmioty i obsada).</p><br />
+        <p>Oferujemy przejrzystość, prostote obsługi i estetyke. Dane wprowadzane są do systemu z osobnych zakładek widocznych w górnym pasku, co pozwala na lepszą kontrolę zasobów.</p><br/>
+        <p>Plan jest generowany automatycznie z dostępnych zasobów, a ręczne korekty na siatce planu można dokonywać myszką.</p><br/>
+        <p><strong>Logika wprowadzania danych jest zgodna ze szkolną praktyką - podstawą są plany nauczania w klasach.</strong></p><br/>
+        <p>Podczas układania planu lekcji możemy zapisywać dowolną liczbę różnych wersji planu oraz usuwać te niepotrzebne.</p><br/>
+        <p>Plany generowane przez program są czytelne oraz umieszczone na stronie WWW, przez co są łatwo dostępne dla nauczycieli.</p><br/>
+    </div>
+{% endblock %}

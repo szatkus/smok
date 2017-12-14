@@ -34,7 +34,11 @@
     <li class="navbar-li">
         <a href="{% url 'classProfiles:list' %}">Profile klas</a>
     </li>
-      <li class="username"><a href="#login">Zalogowany użytkownik: {{ username }}</a></li>
+        {% if user.is_authenticated %}
+        <li class="username"><a href="">{{ user.get_username }}</a>&#124;<a href="{% url 'logout' %}">wyloguj się</a></li>
+        {% else %}
+            <li class="username"><a href="{% url 'login' %}">Zaloguj się</a></li>
+        {% endif %}
     </ul>
 </div>
 <div id="content">

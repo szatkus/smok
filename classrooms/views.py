@@ -4,13 +4,15 @@ from django.http import HttpResponse, Http404
 from .models import Classroom
 from .forms import ClassroomForm
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def classroom_list(request):
     username = request.user.username if request.user.is_authenticated else 'niezalogowano'
     all_classrooms_list = Classroom.objects.order_by('name')
     context = {'models': all_classrooms_list, 'username': username}
     return render(request, 'classrooms/classrooms.html', context)
-    
+
 def add_classroom(request):
     if request.method == "POST":
         form = ClassroomForm(request.POST)
@@ -42,7 +44,7 @@ def edit_classroom(request):
         except ObjectDoesNotExist:
             raise Http404("Brak sali o id %s w bazie." % record_id)
         return HttpResponse(form)
-    
+
 def delete_classroom(request):
     if request.method == "POST":
         record_id = request.POST.get("id")

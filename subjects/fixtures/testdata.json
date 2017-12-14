@@ -4,6 +4,7 @@
     "pk": 225,
     "fields": {
       "name": "Matematyka",
+      "code": "MAT",
       "description": "Liczby i r\u00f3\u017cne takie.",
       "last_updated_timestamp": "2017-07-19T17:48:10.506Z"
     }
@@ -13,6 +14,7 @@
     "pk": 226,
     "fields": {
       "name": "Biologia",
+      "code": "BIOL",
       "description": "Zwierz\u0105tka.",
       "last_updated_timestamp": "2017-07-19T17:48:32.731Z"
     }
@@ -22,6 +24,7 @@
     "pk": 228,
     "fields": {
       "name": "Chemia",
+      "code": "MAT",
       "description": "Kwasy i zasady.",
       "last_updated_timestamp": "2017-07-19T17:50:32.731Z"
     }
@@ -31,6 +34,7 @@
     "pk": 229,
     "fields": {
       "name": "Informatyka",
+      "code": "MAT",
       "description": "Komputery.",
       "last_updated_timestamp": "2017-07-19T17:48:32.731Z"
     }
@@ -40,8 +44,19 @@
     "pk": 227,
     "fields": {
       "name": "Historia",
+      "code": "BIOL",
       "description": "To co by\u0142o i nie wr\u00f3ci.",
       "last_updated_timestamp": "2017-07-19T17:49:02.956Z"
+    }
+  },
+  {
+    "model": "subjects.subject",
+    "pk": 300,
+    "fields": {
+      "name": "Chemia",
+      "code": "BIOL",
+      "description": "Kwasy i zasady.",
+      "last_updated_timestamp": "2017-07-19T17:50:32.731Z"
     }
   }
 ]
