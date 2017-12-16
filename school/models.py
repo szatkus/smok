@@ -10,8 +10,8 @@ class School_type(models.Model):
 class School(models.Model):
     school_name = models.CharField(max_length=200, verbose_name="Nazwa szkoły")
     school_address = models.CharField(max_length=200, verbose_name="Adres szkoły")
-    school_type = models.ForeignKey(School_type, on_delete=models.CASCADE, verbose_name="typ szkoły")
-    last_updated_timestamp = models.DateTimeField('date published')
+    school_type = models.ForeignKey(School_type, on_delete=models.CASCADE, verbose_name="Typ szkoły")
+    school_type_name = models.CharField(max_length=200, blank=True, verbose_name="Typ szkoły")
     
     def __str__(self):
         return self.school_name

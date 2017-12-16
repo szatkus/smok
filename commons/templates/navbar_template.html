@@ -35,7 +35,7 @@
         <a href="{% url 'classProfiles:list' %}">Profile klas</a>
     </li>
         {% if user.is_authenticated %}
-        <li class="username"><a href="">{{ user.get_username }}</a>&#124;<a href="{% url 'logout' %}">wyloguj się</a></li>
+        <li class="username"><a href="{% url 'school:details' %}">Moja Szkoła</a>&#124;<a href="{% url 'logout' %}">wyloguj się</a></li>
         {% else %}
             <li class="username"><a href="{% url 'login' %}">Zaloguj się</a></li>
         {% endif %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends "navbar_template.html" %}
+{% load static %}
+{% block css %}
+{{block.super}}
+		<link rel="stylesheet" type="text/css" href="{% static "/css/school.css" %}" />
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+<script>
+    var editURL = "{% url 'school:edit' %}";
+</script>
+<script src="{% static "/js/school.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="header">
+    <h1 class="title">Moja Szkoła</h1>
+
+	<span id="newItem" onClick="edit_item({{ model.id }});" class="button"  >&#x1f589; Edytuj</span> 
+	
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeEditModal" class="close-modal">&times;</span>
+                    <h2>Edytuj dane szkoły</h2>
+                </div>
+                <div class="modal-body">
+                    <form action='' method="POST" class="edit_school" autocomplete="off">{% csrf_token %}
+						<div id="editForm" class="form"></div>
+					    <input class="send button" type="submit" value="Zapisz" />
+					</form>
+                </div>
+            </div>
+        </div>
+		
+<table id="table" >
+    <col class="c1" />
+    <col class="c2" />
+<tr id="dark">
+	<th>Nazwa</th>	<td ><span id="schoolName">{{ model.school_name }}</span></td>
+</tr>
+<tr>
+	<th >Adres</th>	<td ><span id="schoolAddress">{{ model.school_address }}</span></td>
+</tr>
+<tr id="dark">
+	<th>Typ</th>	<td><span id="schoolType">{{ model.school_type }}</span></td>
+</tr>
+</table>
+</div>
+
+
+{% endblock %}
