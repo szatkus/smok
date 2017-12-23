@@ -26,8 +26,7 @@
     "fields": {
       "school_name": "Szko\u0142a Podstawowa nr 1 w Lesznie",
 	  "school_address": "Leszno, ul. Szkolna",
-	  "school_type": 1,
-      "last_updated_timestamp": "2017-07-19T17:49:02.956Z"
+	  "school_type": 1
     }
   }
 ]
