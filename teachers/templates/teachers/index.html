@@ -12,9 +12,10 @@
 		<table width="100%">
 			<tr class="head">
 				<td width="5%">Lp.</td>
-				<td width="20%">Imię</td>
-				<td width="20%">Nazwisko</td>
-				<td width="40%">Przedmioty</td>
+				<td width="12%">Imię</td>
+				<td width="12%">Nazwisko</td>
+				<td width="30%">Przedmioty</td>
+				<td width="30%">Grupy</td>
 				<td width="5%"></td>
 				<td width="5%"></td>
 				<td width="5%"></td>
@@ -26,6 +27,7 @@
 					<td>{{teacher.first_name}}</td>
 					<td>{{teacher.last_name}}</td>
 					<td>{{ teacher.subjects.all|join:", "}}</td>
+					<td>{{ teacher.groups.all|join:", "}}</td>
 					<td align="right"><a href="{% url 'availability:input' teacher.pk%}"><img width='12' height='12' src="{% static "commons\images\calendar.jpg" %}" alt="Calendar"/></a></td>
 					<td align="center"><a href="{% url 'teachers:update' teacher.pk%}"><img width='12' height='12' src="{% static "commons\images\edit_symbol.jpg" %}" alt="Edit"/></a></td>
 					<td align="left"><a href="{% url 'teachers:delete' teacher.pk%}"><img width='12' height='12' src="{% static "commons\images\delete_symbol.jpg" %}" alt="Delete"/></a></td>
@@ -33,9 +35,15 @@
 			{% endfor %}
 			
 			<td colspan="4"></td>
-			<td colspan="3" align="center"><a href="{% url 'teachers:add' %}"><img width='20' height='20' src="{% static "commons\images\add_symbol.jpg" %}" alt="Dodaj"/></a></td>
+			<td colspan="3" align="right"><a href="{% url 'teachers:add' %}"><img width='20' height='20' src="{% static "commons\images\add_symbol.jpg" %}" alt="Dodaj"/></a></td>
 		</table>
 	{% else %}
+		<br/>
 		Brak nauczycieli do wyświetlenia
+		<br/><br/>
+		<table width="100%">
+			<td colspan="4"></td>
+			<td colspan="3" align="center"><a href="{% url 'teachers:add' %}"><img width='20' height='20' src="{% static "commons\images\add_symbol.jpg" %}" alt="Dodaj"/></a></td>
+		</table>
 	{% endif %}
 {% endblock %}
