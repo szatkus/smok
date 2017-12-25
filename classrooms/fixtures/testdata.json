@@ -6,7 +6,10 @@
       "name": "23",
 	  "building": "A",
 	  "seats": 30,
-	  "subjects":"Chemia",
+	  "subjects":[
+              225,
+              226
+            ],
 	  "school": 100
     }
   },
@@ -18,7 +21,9 @@
       "name": "18",
 	  "building": "A",
 	  "seats": 30,
-	  "subjects":"Fizyka",
+	  "subjects":[
+              227
+            ],
 	  "school": 100
     }
   },
@@ -30,7 +35,11 @@
       "name": "24a",
 	  "building": "B",
 	  "seats": 35,
-	  "subjects":"Biologia",
+	  "subjects":[
+              229,
+              225,
+              228
+            ],
 	  "school": 100
     }
   }

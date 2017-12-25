@@ -6,7 +6,7 @@ class SubjectForm(forms.ModelForm):
     
     class Meta:
         model = Subject
-        fields = ('name', 'code','description',)
+        fields = ('name', 'code','description','special_classroom_req')
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input-field'}),
             'code': forms.TextInput(attrs={'class': "input-field"}),
