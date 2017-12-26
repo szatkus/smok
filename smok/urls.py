@@ -34,4 +34,5 @@ urlpatterns = [
     url(r'^classrooms/', include('classrooms.urls')),
     url(r'^availability/', include('availability.urls')),
     url(r'^profiles/', include('classProfiles.urls')),
+    url(r'^timetables/', include('timetables.urls')),
 ]

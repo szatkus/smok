@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "base_resource.html" %}
+{% load static %}
+
+{% block css %}
+{{block.super}}
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+<script src="{% static "/js/timetables.js" %}"></script>
+{% endblock %}
+
+{% block resource-name-header%}Plan zajęć {{ model.name }}{% endblock %}
+
+{% block model-definition %}
+Prace w toku
+{% endblock %}
+
+{% block return-button %}
+<a class="no-format" href="{% url 'timetables:list' %}"><span class="button button-right">Powrót do planów</span></a>
+{% endblock %}
+

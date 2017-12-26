@@ -10,6 +10,7 @@
         {% endblock %}
         {% block js %}
         <script src="{% static "/js/jquery-3.2.1.js" %}"></script>
+        <script src="{% static "/js/moment-with-locales.js" %}"></script>
         <script src="{% static "/js/base-resources-list.js" %}"></script>
         {% endblock %}
         <title>{% block title %}TSMOK{% endblock %}</title>
@@ -33,6 +34,9 @@
     </li>
     <li class="navbar-li">
         <a href="{% url 'classProfiles:list' %}">Profile klas</a>
+    </li>
+    <li class="navbar-li">
+        <a href="{% url 'timetables:list' %}">Plany zajęć</a>
     </li>
         {% if user.is_authenticated %}
         <li class="username"><a href="{% url 'school:details' %}">Moja Szkoła</a>&#124;<a href="{% url 'logout' %}">wyloguj się</a></li>

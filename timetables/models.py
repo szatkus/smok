@@ -8,10 +8,16 @@ from teachers.models import Teacher
 from subjects.models import Subject
 from classrooms.models import Classroom
 from school.models import School
+from django.utils.timezone import now
 
 class Timetable(models.Model):
 	school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name="Szkoła")
+	name = models.CharField(unique=True, max_length=150)
+	last_updated_timestamp = models.DateTimeField(default=now)
 	is_processed = models.BooleanField(default=False)
+
+	def __str__(self):
+		return '%s' % (self.name)
 	
 class TimetablePosition(models.Model):
 	timetable = models.ForeignKey(Timetable)
