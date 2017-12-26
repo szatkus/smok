@@ -3,8 +3,10 @@
     box-sizing: border-box;
 }
 
-body {
+body#bootstrap-overrides {
   /*line-height: 1;*/
+  font-size: 16px;
+  line-height: 1.22857143;
 }
 
 /* Remove margins and padding from the list */
@@ -286,7 +288,7 @@ input[disabled]:hover{
     margin: auto;
     padding: 0;
     border: 1px solid #888;
-    width: 30%;
+    /*width: 30%;*/
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
@@ -294,6 +296,9 @@ input[disabled]:hover{
     animation-duration: 0.4s
 }
 
+.modal-bootstrap-overrides {
+    width: 30%;
+}
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0}

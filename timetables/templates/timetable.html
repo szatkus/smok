@@ -1,20 +1,51 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% extends "base_resource.html" %}
 {% load static %}
 
 {% block css %}
 {{block.super}}
+<link rel="stylesheet" type="text/css" href="{% static '/bootstrap/css/bootstrap.min.css' %}" />
 {% endblock %}
 
 {% block js %}
 {{block.super}}
+<script src="{% static "/bootstrap/js/bootstrap.min.js" %}"></script>
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script-->
+<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
 <script src="{% static "/js/timetables.js" %}"></script>
+<script src="{% static "/js/scheduler-data.js" %}"></script>
+<script src="{% static "/js/calendar.js" %}"></script>
 {% endblock %}
 
 {% block resource-name-header%}Plan zajęć {{ model.name }}{% endblock %}
 
-{% block model-definition %}
-Prace w toku
+{% block body-content %}
+</br>
+  <div>
+    <table id="calendar">
+    </table>
+  </div>
+  <div id="edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Dodaj wpis</h4>
+            </div>
+            <div class="modal-body edit-content">
+                <span class="label label-default">Przedmiot</span><input id="lessonName" type="text" class="form-control" />
+                <span class="label label-default">Nauczyciel</span><input id="teacher" type="text" class="form-control" />
+                <span class="label label-default">Sala</span><input id="class" type="text" class="form-control" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block return-button %}

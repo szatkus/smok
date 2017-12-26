@@ -16,32 +16,32 @@
         <title>{% block title %}TSMOK{% endblock %}</title>
         <meta charset="utf-8">
 </head>
-<body>
+<body id="bootstrap-overrides">
 <div id="navbar">
     <ul id="navbar_ul">
-      <li class="navbar-li"><a href="/">SMOK - plan zajęć</a></li>
+      <li class="navbar-li"><a id="bootstrap-overrides" href="/">SMOK - plan zajęć</a></li>
       <li class="navbar-li">
-        <a href="{% url 'subjects:list' %}">Przedmioty</a>
+        <a id="bootstrap-overrides" href="{% url 'subjects:list' %}">Przedmioty</a>
       </li>
       <li class="navbar-li">
-        <a href="{% url 'classrooms:classroom_list' %}">Sale</a>
+        <a id="bootstrap-overrides" href="{% url 'classrooms:classroom_list' %}">Sale</a>
     </li>
     <li class="navbar-li">
-        <a href="{% url 'teachers:list' %}">Nauczyciele</a>
+        <a id="bootstrap-overrides" href="{% url 'teachers:list' %}">Nauczyciele</a>
     </li>
     <li class="navbar-li">
-        <a href="{% url 'groups:group_list' %}">Klasy</a>
+        <a id="bootstrap-overrides" href="{% url 'groups:group_list' %}">Klasy</a>
     </li>
     <li class="navbar-li">
-        <a href="{% url 'classProfiles:list' %}">Profile klas</a>
+        <a id="bootstrap-overrides" href="{% url 'classProfiles:list' %}">Profile klas</a>
     </li>
     <li class="navbar-li">
-        <a href="{% url 'timetables:list' %}">Plany zajęć</a>
+        <a id="bootstrap-overrides" href="{% url 'timetables:list' %}">Plany zajęć</a>
     </li>
         {% if user.is_authenticated %}
-        <li class="username"><a href="{% url 'school:details' %}">Moja Szkoła</a>&#124;<a href="{% url 'logout' %}">wyloguj się</a></li>
+        <li class="username"><a id="bootstrap-overrides" href="{% url 'school:details' %}">Moja Szkoła</a>&#124;<a id="bootstrap-overrides" href="{% url 'logout' %}">wyloguj się</a></li>
         {% else %}
-            <li class="username"><a href="{% url 'login' %}">Zaloguj się</a></li>
+            <li class="username"><a id="bootstrap-overrides" href="{% url 'login' %}">Zaloguj się</a></li>
         {% endif %}
     </ul>
 </div>

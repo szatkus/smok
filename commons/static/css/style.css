@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+.col2{
+	background: silver;
+}
+
 #content {
   padding: 15px;
 }
