@@ -1,0 +1,36 @@
+* {
+  font-family: "Fira Sans";
+  margin: 0;
+}
+
+#table td {
+    padding: 12px 8px 12px 40px;
+ 
+}
+
+
+
+#table th {
+	font-weight: normal;
+    background: #09e;
+    color: white;
+    text-shadow: 1px 1px 0px #777;
+    width: 120px;
+	border: 0;
+    text-align: left;
+    padding: 12px 8px 12px 40px;
+
+}
+
+#table {
+    margin-top: 20px;
+    padding: 0;
+    border: solid 1px #7be;
+	width: 100%;
+	font-size: 18px;
+
+}
+
+#dark {
+	background: #eee;
+}

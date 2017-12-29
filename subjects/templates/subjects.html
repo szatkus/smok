@@ -23,12 +23,14 @@
 {% block list-header-definition %}
 <span class="row-content">Nazwa przedmiotu</span>
 <span class="row-content">Kod przedmiotu</span>
+<span class="row-content">Wymaga dedykowanej sali</span>
 {% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
     <span id="resource-name-{{ model.id }}" class="row-content">{{ model.name }}</span>
     <span id="resource-code-{{ model.id }}" class="row-content">{{ model.code }}</span>
+    <span id="resource-dedicated-{{ model.id }}" class="row-content">{% if model.special_classroom_req %}Tak{% else %}-{% endif %}</span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }} ({{ model.code }})');">&#x232b;</span>
 </li>

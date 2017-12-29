@@ -8,6 +8,10 @@
             "subjects":[
               225,
               226
+            ],
+            "groups":[
+              1,
+              2
             ]
         }
     },
@@ -19,6 +23,9 @@
             "last_name":"Zuckerberg",
             "subjects":[
                 227
+            ],
+            "groups":[
+              3
             ]
         }
     },
@@ -29,6 +36,9 @@
             "first_name":"Arkadiusz",
             "last_name":"Czapiewski",
             "subjects":[
+
+            ],
+            "groups":[
 
             ]
         }

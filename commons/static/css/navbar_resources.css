@@ -18,7 +18,7 @@
     border-right: solid 1px #08c;
 }
 
-li a, .dropbtn {
+li a#bootstrap-overrides, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;

@@ -13,7 +13,10 @@ function edit_item(id){
                 $('.groupName').text(val.value);
             } else if (val.name == "group_profile") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
-                $("#formE"+i).append('<label for="id_roup_profile">Profil:</label>').append(val);
+                $("#formE"+i).append('<label for="id_group_profile">Profil:</label>').append(val);
+            }  else if (val.name == "number_of_students") {
+                $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
+                $("#formE"+i).append('<label for="id_studentsnumber">L. uczniów:</label>').append(val);
             } else {
                 $(".inner").append(val);
             }
@@ -58,6 +61,9 @@ $(document).ready(function() {
                 } else if (val.name == "group_profile") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_group_profile">Profil:</label>').append(val);
+                }  else if (val.name == "number_of_students") {
+                    $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
+                    $("#formE"+i).append('<label for="id_studentsnumber">L. uczniów:</label>').append(val);
                 } else {
                     $(".inner").append(val);
                 }
@@ -72,9 +78,9 @@ $(document).ready(function() {
             var newGroup = jQuery.parseJSON(data)[0];
             if(newGroup.hasOwnProperty('fields')){
                 if (newGroup.fields.group_profile === null) {
-                    var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span id="profile-container-'+newGroup.pk+'"><span class="row-content"><p>brak</p></span></span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
+                    var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span class="row-content"> <span id="resource-studentsnumber-'+newGroup.pk+'" class="list-element">' +newGroup.fields.number_of_students +'</span> </span><span id="profile-container-'+newGroup.pk+'"><span class="row-content"><p>brak</p></span></span><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
                 } else {
-                    var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span id="profile-container-'+newGroup.pk+'"><a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></span></a><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
+                    var newLi = $('<li id ="'+newGroup.pk+'"><span id ="resource-name-'+newGroup.pk+'" class="row-content">' +newGroup.fields.name +'</span><span class="row-content"> <span id="resource-studentsnumber-'+newGroup.pk+'" class="list-element">' +newGroup.fields.number_of_students +'</span> </span><span id="profile-container-'+newGroup.pk+'"><a class="no-format" id="a-resource-profile-'+newGroup.pk+'" href="/profiles/'+newGroup.fields.group_profile+'/"><span class="row-content" id="resource-profile-'+newGroup.pk+'">'+newGroup.group_profile_name+'</span></span></a><span class="edit" onclick="edit_item('+newGroup.pk+');">&#x1f589;</span><span id ="resource-delete-'+newGroup.pk+'" class="close" onclick="delete_item('+newGroup.pk+', \''+newGroup.fields.name+'\');">&#x232b;</span></li>').hide();
                 }
                 //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
                 $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
@@ -103,6 +109,7 @@ $(document).ready(function() {
             } else {
                 var newGroup = jQuery.parseJSON(data)[0];
                 $('span#resource-name-'+newGroup.pk).text(newGroup.fields.name);
+                $('span#resource-studentsnumber-'+newGroup.pk).text(newGroup.fields.number_of_students);
                 if ($('span#profile-container-'+newGroup.pk).children().has("span").length && newGroup.fields.group_profile !== null) {
                     $('a#a-resource-profile-'+newGroup.pk).attr("href", '/profiles/'+ newGroup.fields.group_profile +'/');
                     $('span#resource-profile-'+newGroup.pk).text(newGroup.group_profile_name);

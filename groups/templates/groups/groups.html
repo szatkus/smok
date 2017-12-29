@@ -22,21 +22,23 @@
 
 {% block list-header-definition %}
 <span class="row-content">Klasa</span>
+<span class="row-content">Liczba uczniów</span>
 <span class="row-content">Profil</span>
 {% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
-    <span class="row-content" id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
-    <span id="profile-container-{{ model.id }}">
+    <span class="row-content"> <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span> </span>
+    <span class="row-content"> <span id="resource-studentsnumber-{{ model.id }}" class="list-element">{{ model.number_of_students }}</span> </span>
+    <span class="row-content"> <span id="profile-container-{{ model.id }}" class="list-element">
         {% if model.group_profile %}
             <a class="no-format" id="a-resource-profile-{{ model.id }}" href="{% url 'classProfiles:profile' model.group_profile.id %}">
-                <span class="row-content" id="resource-profile-{{ model.id }}">{{ model.group_profile }}</span>
+                <span id="resource-profile-{{ model.id }}">{{ model.group_profile }}</span>
             </a>
         {% else %}
             <span class="row-content"><p>brak</p></span>
         {% endif %}
-    </span>
+    </span></span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
 </li>

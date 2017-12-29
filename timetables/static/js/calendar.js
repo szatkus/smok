@@ -6,7 +6,7 @@ calendar.onInit = function(){
   calendar.addStyles();
 
   $('#edit-modal').on('shown.bs.modal', function(e) {
-    debugger;
+    //debugger;
     var clickedItem = $(e.relatedTarget);
     calendar.calendarNode.row = clickedItem[0].parentElement.rowIndex - 1;
     calendar.calendarNode.column = clickedItem[0].cellIndex;
@@ -19,9 +19,9 @@ calendar.onInit = function(){
     })
 
   $('#edit-modal').on('hide.bs.modal', function(e) {
-    debugger;
+    //debugger;
     var clickedButton = $(document.activeElement);
-    if($(document.activeElement)[0].textContent === "Save"){
+    if($(document.activeElement)[0].textContent === "Zapisz"){
 
       rows[calendar.calendarNode.column][calendar.calendarNode.row].lesson = $('#lessonName').val();
       rows[calendar.calendarNode.column][calendar.calendarNode.row].teacher = $('#teacher').val();

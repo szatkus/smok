@@ -17,6 +17,9 @@ function edit_item(id){
             } else if (val.name == "description") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
                 $("#formE"+i).append('<label for="id_description">Opis:</label>').append(val);
+            } else if (val.name == "special_classroom_req") {
+                $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
+                $("#formE"+i).append('<label for="id_special_classroom_req">Wymaga dedykowanej sali:</label>').append(val);
             } else {
                 $(".inner").append(val);
             }
@@ -64,6 +67,9 @@ $(document).ready(function() {
                 } else if (val.name == "description") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_description">Opis:</label>').append(val);
+                } else if (val.name == "special_classroom_req") {
+                    $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
+                    $("#form"+i).append('<label for="id_special_classroom_req">Wymaga dedykowanej sali:</label>').append(val);
                 } else {
                     $(".inner").append(val);
                 }
@@ -80,7 +86,9 @@ $(document).ready(function() {
                 $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
             } else {
                 var newSubject = jQuery.parseJSON(data)[0];
-                var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="row-content">' +newSubject.fields.name +'</span><span id ="resource-code-'+newSubject.pk+'" class="row-content">' +newSubject.fields.code +'</span><span class="edit" onclick="edit_item('+newSubject.pk+');">&#x1f589;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name + ' (' + newSubject.fields.code + ')' + '\');">&#x232b;</span></li>').hide();
+                console.log(newSubject);
+                var dedicatedClassroom = (newSubject.fields.special_classroom_req === true) ? 'Tak' :'-';
+                var newLi = $('<li id ="'+newSubject.pk+'"><span id ="resource-name-'+newSubject.pk+'" class="row-content">' +newSubject.fields.name +'</span><span id ="resource-code-'+newSubject.pk+'" class="row-content">' +newSubject.fields.code +'</span> <span id="resource-dedicated-'+newSubject.pk+'" class="row-content">'+dedicatedClassroom+'</span> <span class="edit" onclick="edit_item('+newSubject.pk+');">&#x1f589;</span><span id ="resource-delete-'+newSubject.pk+'" class="close" onclick="delete_item('+newSubject.pk+', \''+newSubject.fields.name + ' (' + newSubject.fields.code + ')' + '\');">&#x232b;</span></li>').hide();
 
                 //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
                 $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
@@ -106,8 +114,11 @@ $(document).ready(function() {
                 $('#successModal').css('display', 'block').delay(3000).fadeOut('slow');
             } else {
                 var newSubject = jQuery.parseJSON(data)[0];
+                var dedicatedClassroom = (newSubject.fields.special_classroom_req === true) ? 'Tak' :'-';
+
                 $('span#resource-name-'+newSubject.pk).text(newSubject.fields.name);
                 $('span#resource-code-'+newSubject.pk).text(newSubject.fields.code);
+                $('span#resource-dedicated-'+newSubject.pk).text(dedicatedClassroom);
                 $('span#resource-delete-'+newSubject.pk).attr("onclick",'delete_item('+newSubject.pk+', \''+newSubject.fields.name+ ' (' + newSubject.fields.code + ')' +'\');');
             }
         });

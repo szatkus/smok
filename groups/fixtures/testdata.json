@@ -5,7 +5,8 @@
         "fields":{
             "name":"1a",
             "group_profile":1,
-            "school":100
+            "school":100,
+            "number_of_students":25
         }
     },
     {
@@ -14,7 +15,8 @@
         "fields":{
             "name":"2d",
             "group_profile":2,
-            "school":100
+            "school":100,
+            "number_of_students":30
         }
     },
     {
@@ -23,7 +25,8 @@
         "fields":{
             "name":"2n",
             "group_profile":2,
-            "school":100
+            "school":100,
+            "number_of_students":23
         }
     }
 ]

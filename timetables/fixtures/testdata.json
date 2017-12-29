@@ -1,0 +1,51 @@
+[
+  {
+    "model": "timetables.timetable",
+    "pk": 1,
+    "fields": {
+      "school": 100,
+      "name": "testowy plan",
+      "last_updated_timestamp": "2017-07-19T17:48:10.506Z",
+      "is_processed": false
+    }
+  },
+  {
+    "model": "timetables.timetableposition",
+    "pk": 1,
+    "fields": {
+      "timetable": 1,
+      "group": 1,
+      "hour": 1,
+      "day": 1,
+      "teacher": 1,
+      "subject": 225,
+      "classroom": 1
+    }
+  },
+  {
+    "model": "timetables.timetableposition",
+    "pk": 2,
+    "fields": {
+      "timetable": 1,
+      "group": 1,
+      "hour": 2,
+      "day": 1,
+      "teacher": 2,
+      "subject": 227,
+      "classroom": 2
+    }
+  },
+  {
+    "model": "timetables.timetableposition",
+    "pk": 3,
+    "fields": {
+      "timetable": 1,
+      "group": 2,
+      "hour": 3,
+      "day": 3,
+      "teacher": 2,
+      "subject": 229,
+      "classroom": 3
+    }
+  }
+]
