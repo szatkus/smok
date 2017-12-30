@@ -6,13 +6,14 @@
                 <h1 class="title">{% block resource-name-header%}{% endblock %}</h1>
                 {% block add-resource %}{% endblock %}
             </div>
+            {% block body-content %}{% endblock %}
             <ul id="list">
                     {% block model-definition %}{% endblock %}
             </ul>
             {% block return-button %}{% endblock %}
         </div>
         <div id="successModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content modal-bootstrap-overrides">
                 <div class="modal-header">
                     <h2>{% block success-modal-header%}{% endblock %}</h2>
                 </div>
@@ -22,7 +23,7 @@
             </div>
         </div>
         <div id="addSubjectModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content modal-bootstrap-overrides">
                 <div class="modal-header">
                     <span id="closeAddSubjectModal" class="close-modal">&times;</span>
                     <h2>{% block add-subj-modal-header%}{% endblock %}</h2>
@@ -33,7 +34,7 @@
             </div>
         </div>
         <div id="deleteSubjectModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content modal-bootstrap-overrides">
                 <div class="modal-header">
                     <span onClick="closeDeleteSubjectModal();" class="close-modal">&times;</span>
                     <h2>{% block delete-subj-modal-header%}{% endblock %}</h2>

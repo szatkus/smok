@@ -5,6 +5,8 @@ from .models import Classroom
 from .forms import ClassroomForm
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
+import json
+
 
 @login_required
 def classroom_list(request):
@@ -18,8 +20,14 @@ def add_classroom(request):
         form = ClassroomForm(request.POST)
         if form.is_valid():
             new_classroom = form.save()
+            related_subjects = [str(subj) for subj in new_classroom.subjects.all()]
             data = serializers.serialize('json', [new_classroom])
-            return HttpResponse(data)
+            data = json.loads(data)
+            for s in range(len(data)):
+                data[s]['relatedSubjects'] = ', '.join(related_subjects)
+            return HttpResponse(json.dumps(data))
+        else:
+            return HttpResponse(json.dumps([{'error': 'UNIQUE_NAME_VIOLATED'}]))
     else:
         form = ClassroomForm()
     return HttpResponse(form) 
@@ -32,8 +40,14 @@ def edit_classroom(request):
             form = ClassroomForm(request.POST, instance=classroom)
             if form.is_valid():
                 new_classroom = form.save()
+                related_subjects = [str(subj) for subj in new_classroom.subjects.all()]
                 data = serializers.serialize('json', [new_classroom])
-                return HttpResponse(data)
+                data = json.loads(data)
+                for s in range(len(data)):
+                    data[s]['relatedSubjects'] = ', '.join(related_subjects)
+                return HttpResponse(json.dumps(data))
+            else:
+                return HttpResponse(json.dumps([{'error': 'UNIQUE_NAME_VIOLATED'}]))
         except ObjectDoesNotExist:
             raise Http404("Brak sali o id %s w bazie." % record_id)
     elif request.method == "GET":

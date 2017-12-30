@@ -10,6 +10,5 @@ class ClassroomForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'input-field'}),
             'building': forms.TextInput(attrs={'class': "input-field"}),         
-            'seats': forms.TextInput(attrs={'class': "input-field"}),  
-            'subjects': forms.TextInput(attrs={'class': "input-field"}),             
+            'seats': forms.TextInput(attrs={'class': "input-field"}),
             }

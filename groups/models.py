@@ -11,6 +11,7 @@ class Group(models.Model):
     name = models.CharField(max_length=200, verbose_name="Klasa")
     #group_profile = models.CharField(max_length=200, blank=True, default='')
     group_profile = models.ForeignKey(Class_profile, verbose_name="Profil", on_delete=models.SET_NULL, blank=True, null=True)
+    number_of_students = models.PositiveIntegerField(blank=True, null=True, default=0)
     school = models.ForeignKey(School, on_delete=models.CASCADE, verbose_name="Szkoła", blank=True, null=True, default=None)
     
     def __str__(self):

@@ -22,17 +22,33 @@
 
 {% block list-header-definition %}
 <span class="row-content">Numer sali</span>
+<span class="row-content">Budynek</span>
+<span class="row-content">Liczba miejsc</span>
+<span class="row-content">Dedykowana dla</span>
 {% endblock %}
 
 {% block model-definition %}
 <li id="{{ model.id }}">
-    <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span>
+    <span class="row-content"> <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span> </span>
+    <span class="row-content"> <span id="resource-building-{{ model.id }}" class="list-element">{{ model.building }}</span> </span>
+    <span class="row-content"> <span id="resource-seats-{{ model.id }}" class="list-element">{{ model.seats }}</span> </span>
+    <span class="row-content"> <span id="resource-relsubjects-{{ model.id }}" class="list-element">{{ model.subjects.all|join:", </br>"|default:"<p>brak</p>" }}</span></span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
 </li>
+<!--
+{% for instance in model.subjects.all %}
+    {{ instance }}: {{ instance.id }}
+{% endfor %}
+-->
 {% endblock %}
 
 {% block empty-models-comment %}Brak zapisanych sal.{% endblock %}
+
+{% block success-modal-header%}Informacja{% endblock %}
+{% block success-modal-body%}
+Sala o podanym numerze i budynku już istnieje.
+{% endblock %}
 
 {% block add-modal-header%}Dodaj nową salę{% endblock %}
 {% block add-modal-body%}

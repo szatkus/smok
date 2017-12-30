@@ -1,0 +1,64 @@
+{% extends "base_resources_list.html" %}
+{% load static %}
+
+{% block css %}
+{{block.super}}
+{% endblock %}
+
+{% block js %}
+{{block.super}}
+<script>
+    var addURL = "{% url 'timetables:add' %}";
+    var editURL = "{% url 'timetables:edit' %}";
+    var deleteURL = "{% url 'timetables:delete' %}";
+</script>
+<script src="{% static "/js/timetables.js" %}"></script>
+{% endblock %}
+
+{% block resource-name-header%}Plany zajęć{% endblock %}
+
+{% block add-resource %}<span id="newItem" class="button">&#43; pusty plan</span>{% endblock %}
+
+{% block list-header-definition %}
+<span class="row-content">Nazwa</span>
+<span class="row-content">Ostatnio zmieniono</span>
+{% endblock %}
+
+{% block model-definition %}
+<li id="{{ model.id }}">
+    <a class="no-format" href="{% url 'timetables:timetable' model.id %}">
+        <span class="row-content"> <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span></span>
+    </a>
+    <span class="row-content"> <span id="resource-lut-{{ model.id }}" class="list-element">{{ model.last_updated_timestamp }}</span> </span>
+    <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
+    <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
+</li>
+{% endblock %}
+
+{% block empty-models-comment %}Brak zapisanych planów zajęć.{% endblock %}
+
+{% block success-modal-header%}Informacja{% endblock %}
+{% block success-modal-body%}
+Plan o podanej nazwie już istnieje.
+{% endblock %}
+
+{% block add-modal-header%}Dodaj pusty plan{% endblock %}
+{% block add-modal-body%}
+<form action='' method="POST" class="add_timetable" autocomplete="off">{% csrf_token %}
+    <div id="addForm" class="form"></div>
+    <input class="send button" type="submit" value="Dodaj" />
+</form>
+{% endblock %}
+
+{% block edit-modal-header%}Edytuj plan <span class="timetableName"></span>{% endblock %}
+{% block edit-modal-body%}
+<form action='' method="POST" class="edit_timetable" autocomplete="off">{% csrf_token %}
+    <div id="editForm" class="form"></div>
+    <input class="send button" type="submit" value="Zapisz" />
+</form>
+{% endblock %}
+
+{% block delete-modal-header%}Czy na pewno chcesz usunąć plan <span class="timetableName"></span>?{% endblock %}
+{% block delete-modal-body%}
+<button class="cancel send" onClick="closeDeleteModal();">Anuluj</button>
+{% endblock %}
