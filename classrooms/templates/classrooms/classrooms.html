@@ -32,12 +32,12 @@
     <span class="row-content"> <span id="resource-name-{{ model.id }}" class="list-element">{{ model.name }}</span> </span>
     <span class="row-content"> <span id="resource-building-{{ model.id }}" class="list-element">{{ model.building }}</span> </span>
     <span class="row-content"> <span id="resource-seats-{{ model.id }}" class="list-element">{{ model.seats }}</span> </span>
-    <span class="row-content"> <span id="resource-relsubjects-{{ model.id }}" class="list-element">{{ model.subjects.all|join:", </br>"|default:"<p>brak</p>" }}</span></span>
+    <span class="row-content"> <span id="resource-relsubjects-{{ model.id }}" class="list-element">{{ model.available_subjects.all|join:", </br>"|default:"<p>brak</p>" }}</span></span>
     <span class="edit" onClick="edit_item({{ model.id }});">&#x1f589;</span>
     <span id="resource-delete-{{ model.id }}" class="close" onClick="delete_item({{ model.id }}, '{{ model.name }}');">&#x232b;</span>
 </li>
 <!--
-{% for instance in model.subjects.all %}
+{% for instance in model.available_subjects.all %}
     {{ instance }}: {{ instance.id }}
 {% endfor %}
 -->

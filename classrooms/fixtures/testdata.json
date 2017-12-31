@@ -6,7 +6,7 @@
       "name": "23",
 	  "building": "A",
 	  "seats": 30,
-	  "subjects":[
+	  "available_subjects":[
               225,
               226
             ],
@@ -21,7 +21,7 @@
       "name": "18",
 	  "building": "A",
 	  "seats": 30,
-	  "subjects":[
+	  "available_subjects":[
               227
             ],
 	  "school": 100
@@ -35,7 +35,7 @@
       "name": "24a",
 	  "building": "B",
 	  "seats": 35,
-	  "subjects":[
+	  "available_subjects":[
               229,
               225,
               228
