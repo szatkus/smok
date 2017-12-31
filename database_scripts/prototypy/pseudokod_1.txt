@@ -1,0 +1,40 @@
+ /* Pseudokod dla zainicjowania przypisañ nauczycieli do klas */
+ 
+ [ Potrzebuje przypisaæ nauczycieli ró¿nych przedmiotów klasom w proporcjonalny sposób ]
+ 
+ 
+Dla ka¿dego przedmiotu (od tego, gdzie dostêpna jest najmniejsza liczba godzin):
+
+    liczba_godzin_potrzebnych := liczba godzin dla wszystkich klas
+    
+    [ Potrzebuje rozdzieliæ godziny miêdzy dostêpnych nauczycieli ]
+    
+    for v in (
+        select
+            nauczyciel,
+            ilosc_godzin_nauczyciela,
+            wspolczynnik_nauczyciela=ilosc_godzin_nauczyciela/ilosc_wszystkich_nauczycieli_przedmiotu
+            cum(wspolczynnik_nauczyciela)
+            lag(cum(wspolczynnik_nauczyciela))
+        from
+            nauczyciele /z pomniejszeniem o juz rozplanowane/
+         order by
+            ilosc_godzin_nauczyciela
+    ) loop:
+        for b in (
+            select
+                grupa,
+                ilosc_godzin,
+                cum_wspolczynnik_godzin = sum(ilosc_godzin) over(order)/sum(ilosc_godzin) over (all),
+                lag(cum_wspolczynnik_godzin)
+                lead(cum_wspolczynnik_godzin)
+            from
+                godziny_przedmiotu
+            where
+                przedmiot=p_przedmiot
+                and (
+                    cum_wspolczynnik_godzin<v.cum_wspolczynnik_nauczyciela
+                    or (v.cum_wspolczynnik_nauczyciela=1 and cum_wspolczynnik_godzin>=v.lag_cum_wspolczynnik_nauczyciela) /* Ostatnie pozycje */
+                )
+        ) loop:
+            przypisz_grupe_nauczycielowi;

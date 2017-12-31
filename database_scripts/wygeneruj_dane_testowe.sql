@@ -125,7 +125,22 @@ begin
     	loop
         	v_value := trim(initcap(regexp_substr(przedmioty,'[^,]+',1,i)));
             if v_value is not null then
-            	insert into subjects_subject (name, description,last_updated_timestamp,code) values (v_value,v_value,systimestamp,upper(substr(v_value,1,3)));
+            	insert into subjects_subject (
+            	name,
+            	description,
+            	last_updated_timestamp,
+            	code,
+            	special_classroom_req
+            	) values (
+            	v_value,
+            	v_value,
+            	systimestamp,
+            	upper(substr(v_value,1,3)),
+            	case
+                    when v_value in ('Wf','Chemia') then 1
+                    else 0
+            	end
+            	);
             end if;
             i:=i+1;
             exit when v_value is null;
@@ -219,7 +234,7 @@ declare
         'Grabowski'
     );
 begin
-    for i in 1..12 loop
+    for i in 1..20 loop
         insert into TEACHERS_TEACHER (first_name,last_name) values (fnames(i),lnames(i));
     end loop;
 end;
@@ -236,11 +251,11 @@ select
 from (
     SELECT
         id,
-        mod(rownum, (select count(1) from teachers_teacher)) x
+        rownum x
     FROM
         SUBJECTS_SUBJECT
 ) sq
-join teachers_teacher tt on (mod(tt.id,(select count(1) from teachers_teacher))=sq.x);
+join teachers_teacher tt on (mod(tt.id,10)=mod(sq.x,10));
 
 commit;
 
@@ -384,3 +399,10 @@ order by
 1;
 
 commit;
+
+/* Todo: przydział nauczycieli do grup */
+
+select
+*
+from
+TEACHERS_TEACHER_GROUPS
