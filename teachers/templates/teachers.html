@@ -1,0 +1,40 @@
+{% extends 'navbar_template.html' %}
+
+{% load static %}
+
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'teachers\teachers.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">Nauczyciele</h1>
+	<span id="newItem"  ><a href="{% url 'teachers:add' %}" class="button">&#43; nowy nauczyciel</a></span>
+
+	<ul id="list">
+		<li id="list-header">
+			<span class="row-content">Imię</span>
+			<span class="row-content">Nazwisko</span>
+			<span class="row-content">Przedmioty</span>
+			<span class="row-content">Grupy</span>
+		</li>
+		{% for model in models %}
+		<li id="{{ model.id }}">
+			<span class="row-content"> <span id="resource-firstName-{{ model.id }}" class="list-element">{{ model.first_name }}</span> </span>
+			<span class="row-content"> <span id="resource-lastName-{{ model.id }}" class="list-element">{{ model.last_name }}</span> </span>
+			<span class="row-content"> <span id="resource-subjects-{{ model.id }}" class="list-element">{{ model.subjects.all|join:", " }}</span> </span>
+			<span class="row-content"> <span id="resource-groups-{{ model.id }}" class="list-element">{{ model.groups.all|join:", " }}</span> </span>
+			<span ><a href="{% url 'availability:input' model.pk%}" class="calendar">&#128197;</a> </span>
+			<span ><a href="{% url 'teachers:update' model.pk%}" class="edit">&#x1f589;</a></span>
+			<span ><a href="{% url 'teachers:delete' model.pk%} " class="delete">&#x232b;</a></span>
+		</li>
+		   {% empty %}
+           <p id="noResources">Brak nauczycieli do wyświetlenia</p>
+        {% endfor %}
+		</ul>
+		
+		
+
+
+
+
+{% endblock %}

@@ -1,28 +1,80 @@
 @import "/static/css/navbar_resources.css";
+@import "/static/css/base_resources_list.css";
 
-table, th, td {
-    border: 0px solid black;
-	border-collapse: collapse;
-	margin: 0 auto;
+.col2{
+	background: silver;
 }
 
-.edit_table{
-	border: 1px solid #f2f2f2;;
+#content {
+  padding: 15px;
 }
 
-th {
-	font-weight: bold;
+.title {
+  font-size: 1.0 cm;
+  margin: 10px 0px;
 }
 
-tr.head {
-    background-color: #dddddd;
-	border: 1px solid black;
-	border-collapse: collapse;
+
+a.button {
+	color: white;
+	text-decoration: none;
+
+}
+a.button:hover {
+	
 }
 
-tr:nth-child(odd):not(.head) {
-    background-color: #f2f2f2;
+a.edit {
+	text-decoration: none;
+	position: absolute;
+    right: 54px;
+	bottom: 0px;
+    padding: 12px 16px 12px 16px;
+    width: 22px;
+    text-align: center;
+    cursor: pointer;
+	color: black;
+    /*transition: 0.3s;*/
+    background-color : transparent;
+
 }
+
+a.delete {
+	color: black;
+	text-decoration: none;
+    position: absolute;
+    right: 0;
+ 	bottom: 0px;
+    padding: 12px 16px 12px 16px;
+    width: 22px;
+    text-align: center;
+    cursor: pointer;
+    /*transition: 0.3s;*/
+    background-color : transparent;
+}
+a.calendar {
+	text-decoration: none;
+	padding: 12px 16px 12px 16px;
+	width: 22px;
+	bottom: 0px;
+	right: 108px;
+	text-align: center;
+    cursor: pointer;
+	position: absolute;
+    background-color : transparent;
+}
+
+
+
+img {
+	width: 30px; 
+	higth: 30px;
+	padding-left: 20px;	
+
+}
+
+
+
 
 body {
 	

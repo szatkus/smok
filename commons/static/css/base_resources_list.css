@@ -30,6 +30,7 @@ ul#list .row-content {
     width: 250px;
     display: inline-block;
     text-align: left;
+
 }
 /* Style the list items */
 ul#list li {
@@ -82,7 +83,7 @@ ul#list li.checked::before {
 .edit {
     position: absolute;
     right: 54px;
-    top: 0;
+	bottom: 0px;
     padding: 12px 16px 12px 16px;
     width: 22px;
     text-align: center;
@@ -100,7 +101,7 @@ ul#list li.checked::before {
 .close {
     position: absolute;
     right: 0;
-    top: 0;
+	bottom: 0px;
     padding: 12px 16px 12px 16px;
     width: 22px;
     text-align: center;
@@ -146,6 +147,8 @@ p#noResources {
 .list-element {
     display: block;
     position: relative;
+    right: 0;
+    top: 0;
 }
 
 .inner {
