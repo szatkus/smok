@@ -17,13 +17,22 @@
 <script src="{% static "/js/timetables.js" %}"></script>
 <script src="{% static "/js/scheduler-data.js" %}"></script>
 <script src="{% static "/js/calendar.js" %}"></script>
+<script src="{% static "/js/jspdf.min.js" %}"></script>
+<script src="{% static "/js/html2canvas.js" %}"></script>
+<!--script>
+    var exportURL = "d{d% url timetables export-timetable d%d}";
+</script-->
 {% endblock %}
 
-{% block resource-name-header%}Plan zajęć {{ model.name }}{% endblock %}
+{% block resource-name-header%}Plan zajęć <span id="timetable-title">{{ model.name }}</span>{% endblock %}
+
+{% block export-resource %}
+<span id="exportTimetable" class="button">Eksport planu do PDF</span>
+{% endblock %}
 
 {% block body-content %}
 </br>
-  <div>
+  <div id="calendar-container">
     <table id="calendar">
     </table>
   </div>
