@@ -33,7 +33,7 @@ function addSubjectToProfile(id){
 
         if(dataJSON.length == 0) {
             $(".inner").append('<p>Brak przedmiotów, które nie byłyby już przypisane do profilu.</p>');
-            $("#addSubjectFormSubmit").remove();
+            $('#addSubjectFormSubmit').css('display', 'none');
         } else {
             $.each( dataJSON, function( i, val ) {
                 $(".inner").append('<input type="checkbox" class="checkbox-form-input" name="subject-id" value="'+ val.pk +'">'+ val.fields.name + ' (' + val.fields.code + ')' +'<br>');
@@ -97,6 +97,9 @@ $(document).ready(function() {
     $("#closeAddSubjectModal").click(function(){
         $('#addSubjectModal').css('display', 'none');
         $('.inner').remove();
+        if( $("#addSubjectFormSubmit").css('display').toLowerCase() == 'none') {
+            $("#addSubjectFormSubmit").css('display', 'block');
+        }
     });
 
     // generowanie formularza do dodawania profilow na podstawie modelu

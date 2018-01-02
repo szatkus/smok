@@ -42,6 +42,27 @@ function deleteTimetable(id){
 
 
 $(document).ready(function() {
+
+     $("span#exportTimetable").click(function(){
+        var pdf = new jsPDF('landscape', 'pt', 'letter');
+        var timetableName = $('#timetable-title')[0].innerText.trim().split(' ').join('_');
+        var curr_ts = moment().format('_YYYYMMDD_HHmmss');
+        pdf.addHTML($('#for-export')[0], function() {
+            pdf.save(timetableName + curr_ts + '.pdf');
+        });
+        /*$.post(exportURL,
+            {
+                csrfmiddlewaretoken: csrftoken
+            },
+            function(data){
+                var blob = new Blob([data], {type: "application/pdf"});
+                var link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "myFileName.pdf";
+                link.click();
+            });*/
+     });
+
     // generowanie formularza do dodawania profilow na podstawie modelu
     // moglby byc tworzony od razu podczas renderowania class-profiles.html z  {%for field in form %}, jesli zostawimy 2 osobne modale dla dodawania i usuwania profilow,
     // zamiast polaczyc je w jeden

@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .forms import TimetableForm
 from django.core import serializers
 import json
+#from reportlab.pdfgen import canvas
 
 
 @login_required
@@ -20,6 +21,26 @@ def timetable(request, timetable_id):
     timetable = Timetable.objects.get(pk=timetable_id)
     context = {'model': timetable}
     return render(request, 'timetable.html', context)
+
+"""
+def export_timetable(request):
+    print(request)
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment;filename="somefilename.pdf"'
+
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    p.drawString(100, 750, "Welcome to Reportlab!")
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+    return response
+"""
 
 def add_timetable(request):
     if request.method == "POST":
