@@ -44,3 +44,5 @@ from
         and ttp.teacher_id=dht.teacher_id
         and tt.id=ttp.timetable_id
     );
+    
+--comment on table v_teachers_availability is 'Widok zawiera wiersze dla wszystkich kombinacji timetable, godzina, gdzien, nauczyciel z wpisami czy dostepny i czy juz przydzielono do zajec'
