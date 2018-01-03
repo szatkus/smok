@@ -8,6 +8,8 @@
 
 {% block content %}
     <h1 class="title">{{teacher}}</h1>
+    <p>Zaznacz kiedy nauczyciel nie może pracować, aby wykluczyć go podczas tworzenia planu. </p>
+    <br></br>
 	<form action="{% url 'availability:save' teacher_id%}" method="post">
 		{% csrf_token %}
 		<div id="table_container" class="clearfix">
