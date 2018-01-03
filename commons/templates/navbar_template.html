@@ -13,11 +13,13 @@
         <script src="{% static "/js/moment-with-locales.js" %}"></script>
         <script src="{% static "/js/base-resources-list.js" %}"></script>
         {% endblock %}
-        <title>{% block title %}TSMOK{% endblock %}</title>
+        <title>{% block title %}Smok - plany zajęć{% endblock %}</title>
+		<link rel="shortcut icon" type="image/x-icon" href="{% static '/img/table.ico' %}" />
         <meta charset="utf-8">
 </head>
 <body id="bootstrap-overrides">
-<div id="navbar">
+<div class="container">
+<div id="navbar" >
     <ul id="navbar_ul">
       <li class="navbar-li"><a id="bootstrap-overrides" href="/">SMOK - plan zajęć</a></li>
       <li class="navbar-li">
@@ -44,10 +46,15 @@
             <li class="username"><a id="bootstrap-overrides" href="{% url 'login' %}">Zaloguj się</a></li>
         {% endif %}
     </ul>
+
 </div>
-<div id="content">
+<div id="content" style=" padding-top: 50px; ">
     {% block content %}
     {% endblock %}
+</div>
+<footer id="footer"  >
+<img src="{% static '/img/dragonFooter.png' %}" class="fotterImage"/>
+</footer>
 </div>
 </body>
 </html>

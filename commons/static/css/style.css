@@ -12,6 +12,15 @@
 }
 
 #content .title {
-  font-size: 1.0 cm;
+  font-size: 37px;
   margin: 10px 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-weight: normal;
+  color:  #303030;
+
+}
+
+h1, h2 {
+  
 }
