@@ -3,15 +3,18 @@
 {% load static %}
 
 {% block css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'teachers\teachers.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'availability\availability.css' %}" />
 {% endblock %}
 
 {% block content %}
-    <h2>{{teacher}}</h2>
+    <h1 class="title">{{teacher}}</h1>
+    <p>Zaznacz kiedy nauczyciel nie może pracować, aby wykluczyć go podczas tworzenia planu. </p>
+    <br></br>
 	<form action="{% url 'availability:save' teacher_id%}" method="post">
 		{% csrf_token %}
-		<table width="40%">
-			<tr >
+		<div id="table_container" class="clearfix">
+		<table width="50%" >
+			<tr class="head">
 				<td>Godzina</td>
 				{% for day in days %}
 					<td>{{day}}</td>
@@ -24,16 +27,21 @@
 					{% for day in days %}
 						{% with daystr=day.pk|stringformat:"s" hourstr=hour.pk|stringformat:"s" %}
 							{%if daystr|add:"/"|add:hourstr in is_check_selected%}
-								<td><input type="checkbox" name="{{day.pk}}/{{hour.pk}}" value="yes" checked></td>
+								<td ><label class="container"><input type="checkbox" id="checked" name="{{day.pk}}/{{hour.pk}}" value="no" checked><span class="checkmark"></span></label></td>
 							{% else %}
-								<td><input type="checkbox" name="{{day.pk}}/{{hour.pk}}" value="yes"></td>
+								<td ><label class="container"><input type="checkbox" id="notChecked" name="{{day.pk}}/{{hour.pk}}" value="no"><span class="checkmark"></span></label></td>
 							{% endif %}
 						{% endwith %}
 					{% endfor %}
 				</tr>
 			{% endfor %}
-			
-			<tr> <td colspan="{{days_count}}"><input type="submit" value="Submit"> </td></tr>
 		</table>
+</div>		
+<div id="bottom">
+				<span ><input type="button" value="Powrót" onclick="history.back(-1)" class="button" /></span>
+				<span ><input type="submit" value="Zapisz" class="button"> </span>
+</div>
 	</form>
 {% endblock %}
+
+

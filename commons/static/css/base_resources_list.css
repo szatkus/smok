@@ -14,10 +14,12 @@ ul#list {
     margin-top: 20px;
     padding: 0;
     border: solid 1px #7be;
+	border-radius: 5px;
+	
 }
 
 ul#list li#list-header {
-    background: #09e;
+    background: #2778fe;
     color: white;
     text-shadow: 1px 1px 0px #777;
 }
@@ -30,6 +32,7 @@ ul#list .row-content {
     width: 250px;
     display: inline-block;
     text-align: left;
+
 }
 /* Style the list items */
 ul#list li {
@@ -56,7 +59,7 @@ ul#list li:hover {
 
 /* When clicked on, add a background color*/
 ul#list li.checked {
-    background: #09e;
+    background: #2778fe;
     color: #fff;
 }
 
@@ -82,7 +85,7 @@ ul#list li.checked::before {
 .edit {
     position: absolute;
     right: 54px;
-    top: 0;
+	bottom: 0px;
     padding: 12px 16px 12px 16px;
     width: 22px;
     text-align: center;
@@ -100,7 +103,7 @@ ul#list li.checked::before {
 .close {
     position: absolute;
     right: 0;
-    top: 0;
+	bottom: 0px;
     padding: 12px 16px 12px 16px;
     width: 22px;
     text-align: center;
@@ -146,6 +149,8 @@ p#noResources {
 .list-element {
     display: block;
     position: relative;
+    right: 0;
+    top: 0;
 }
 
 .inner {
@@ -237,7 +242,7 @@ div.form-disp select:disabled {
     font-size: 16px;
     cursor: pointer;
     display: inline-block;
-    background-color: #09e;
+    background-color: #2778fe;
     border: solid 1px #069;
     color: white;
     text-shadow: 1px 1px 0px #777;
@@ -261,7 +266,7 @@ input[disabled]:hover{
 
 .button:hover {
     background-color: #2af;
-    border: solid 1px #09e;
+    border: solid 1px #2778fe;
 }
 
 /*Modal*/
@@ -288,6 +293,7 @@ input[disabled]:hover{
     margin: auto;
     padding: 0;
     border: 1px solid #888;
+	border-radius: 5px;
     /*width: 30%;*/
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
@@ -330,6 +336,8 @@ input[disabled]:hover{
     background-color: #08c;
     color: white;
     border: solid 1px #046;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 }
 
 .modal-body {padding: 10px 50px;}

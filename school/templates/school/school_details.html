@@ -18,11 +18,15 @@
 {% block content %}
 <div class="header">
     <h1 class="title">Moja Szkoła</h1>
+	<hr style="width: 100%;  height: 2px; background: #cfd6fc; margin-left:2px; border: 0">
+	<br/>
+	<br/>
+	<br/>
 
 	<span id="newItem" onClick="edit_item({{ model.id }});" class="button"  >&#x1f589; Edytuj</span> 
 	
         <div id="editModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content modal-bootstrap-overrides">
                 <div class="modal-header">
                     <span id="closeEditModal" class="close-modal">&times;</span>
                     <h2>Edytuj dane szkoły</h2>
