@@ -1,0 +1,18 @@
+Muszê dla:
+ - Dla ka¿dej klasy
+ - Dla ka¿dego przedmiotu
+ - Dla ka¿dej godziny tego przedmiotu
+ odnaleŸc:
+ - Dzieñ, Godzinê:
+ 	- Kolejn¹ w danym dniu i Stykaj¹ce siê z ju¿ zaplanowanymi godzinami
+    lub
+    - Pierwsz¹ w danym dniu
+- Salê
+	Dostêpn¹ w tym dniu i godzinie
+    Je¿eli brak:
+    	Wyznacz inn¹ godzinê
+ gdy dostêpny jest:
+ - Nauczyciel ucz¹cy klasê tego przedmiotu (get_teacher_for_subject_group);
+
+ 
+ select * from timetables_timetableposition
