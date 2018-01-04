@@ -17,9 +17,9 @@ function edit_item(id){
             } else if (val.name == "seats") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
                 $("#formE"+i).append('<label for="id_seats">Liczba miejsc:</label>').append(val);
-            } else if (val.name == "subjects") {
+            } else if (val.name == "available_subjects") {
                 $(".inner").append('<div class="form-group" id="formE'+i+'"></div>');
-                $("#formE"+i).append('<label for="id_subjects">Przedmiot:</label>').append(val);				
+                $("#formE"+i).append('<label for="id_subjects">Przedmioty:</label>').append(val);
             } else {
                 $(".inner").append(val);
             }
@@ -67,9 +67,9 @@ $(document).ready(function() {
                 } else if (val.name == "seats") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
                     $("#form"+i).append('<label for="id_seats">Liczba miejsc:</label>').append(val);
-                } else if (val.name == "subjects") {
+                } else if (val.name == "available_subjects") {
                     $(".inner").append('<div class="form-group" id="form'+i+'"></div>');
-                    $("#form"+i).append('<label for="id_subjects">Przedmiot:</label>').append(val);					
+                    $("#form"+i).append('<label for="id_subjects">Przedmioty:</label>').append(val);
                 } else {
                     $(".inner").append(val);
                 }

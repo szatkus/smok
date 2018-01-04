@@ -1,47 +1,52 @@
 {% extends "navbar_template.html" %}
 {% load static %}
 {% block content %}
-        <div class="container">
-            <div class="header">
-                <h1 class="title">{% block resource-name-header%}{% endblock %}</h1>
-                {% block add-resource %}{% endblock %}
-            </div>
-            {% block body-content %}{% endblock %}
-            <ul id="list">
-                    {% block model-definition %}{% endblock %}
-            </ul>
-            {% block return-button %}{% endblock %}
+<div class="container-fload" id="for-export" style="background-color:white;">
+    <div class="container" style="margin-top:10px;">
+        <div class="header">
+            <h1 class="title">{% block resource-name-header%}{% endblock %}</h1>
+            {% block add-resource %}{% endblock %}
         </div>
-        <div id="successModal" class="modal">
-            <div class="modal-content modal-bootstrap-overrides">
-                <div class="modal-header">
-                    <h2>{% block success-modal-header%}{% endblock %}</h2>
-                </div>
-                <div id= "successModalBody" class="modal-body">
-                    {% block success-modal-body%}{% endblock %}
-                </div>
-            </div>
+        {% block body-content %}{% endblock %}
+    </div>
+</div>
+<div class="container">
+    <ul id="list">
+        {% block model-definition %}{% endblock %}
+    </ul>
+    {% block return-button %}{% endblock %}
+    {% block export-resource %}{% endblock %}
+</div>
+<div id="successModal" class="modal">
+    <div class="modal-content modal-bootstrap-overrides">
+        <div class="modal-header">
+            <h2>{% block success-modal-header%}{% endblock %}</h2>
         </div>
-        <div id="addSubjectModal" class="modal">
-            <div class="modal-content modal-bootstrap-overrides">
-                <div class="modal-header">
-                    <span id="closeAddSubjectModal" class="close-modal">&times;</span>
-                    <h2>{% block add-subj-modal-header%}{% endblock %}</h2>
-                </div>
-                <div class="modal-body">
-                    {% block add-subj-modal-body%}{% endblock %}
-                </div>
-            </div>
+        <div id="successModalBody" class="modal-body">
+            {% block success-modal-body%}{% endblock %}
         </div>
-        <div id="deleteSubjectModal" class="modal">
-            <div class="modal-content modal-bootstrap-overrides">
-                <div class="modal-header">
-                    <span onClick="closeDeleteSubjectModal();" class="close-modal">&times;</span>
-                    <h2>{% block delete-subj-modal-header%}{% endblock %}</h2>
-                </div>
-                <div id= "deleteSubjectModalBody" class="modal-body">
-                    {% block delete-subj-modal-body%}{% endblock %}
-                </div>
-            </div>
+    </div>
+</div>
+<div id="addSubjectModal" class="modal">
+    <div class="modal-content modal-bootstrap-overrides">
+        <div class="modal-header">
+            <span id="closeAddSubjectModal" class="close-modal">&times;</span>
+            <h2>{% block add-subj-modal-header%}{% endblock %}</h2>
         </div>
+        <div class="modal-body">
+            {% block add-subj-modal-body%}{% endblock %}
+        </div>
+    </div>
+</div>
+<div id="deleteSubjectModal" class="modal">
+    <div class="modal-content modal-bootstrap-overrides">
+        <div class="modal-header">
+            <span onClick="closeDeleteSubjectModal();" class="close-modal">&times;</span>
+            <h2>{% block delete-subj-modal-header%}{% endblock %}</h2>
+        </div>
+        <div id="deleteSubjectModalBody" class="modal-body">
+            {% block delete-subj-modal-body%}{% endblock %}
+        </div>
+    </div>
+</div>
 {% endblock %}

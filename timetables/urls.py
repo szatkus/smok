@@ -5,6 +5,7 @@ from . import views
 app_name = 'timetables'
 urlpatterns = [
     url(r'^$', views.timetables, name='list'),
+    #url(r'^export/$', views.export_timetable, name='export-timetable'),
     url(r'^(?P<timetable_id>[0-9]+)/$', views.timetable, name='timetable'),
     url(r'^delete/$', views.delete_timetable, name='delete'),
     url(r'^add/$', views.add_timetable, name='add'),
