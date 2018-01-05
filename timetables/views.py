@@ -106,6 +106,7 @@ def get_timetable_position(request):
         currentTimetable = Timetable.objects.get(pk=request.GET['timetableId'])
         timetablePositions = TimetablePosition.objects.all().filter(timetable=currentTimetable)
         allHours = Hours.objects.all()
+        print(allHours)
         allHoursOrders = []
         allHoursFrom = []
         allHoursTo = []
@@ -113,30 +114,51 @@ def get_timetable_position(request):
             allHoursOrders.append(hour.order)
             allHoursFrom.append(hour.hour_from)
             allHoursTo.append(hour.hour_to)
-        allGroups = Group.objects.all()
+        allGroups = Group.objects.all().filter(school=currentTimetable.school)
+        print(allGroups)
         allGroupNames = []
         for group in allGroups:
             allGroupNames.append(group.name)
         responseData = []
-        for position in timetablePositions:
+        if len(timetablePositions) == 0:
             responseData.append(
                 {
                     'allGroupNamesArray': allGroupNames,
                     'ordersArray': allHoursOrders,
                     'fromArray': allHoursFrom,
                     'toArray': allHoursTo,
-                    'to': position.hour.hour_to,
-                    'from': position.hour.hour_from,
-                    'hour': position.hour.order,
-                    'day': position.day.order,
-                    'group': position.group.name,
-                    'teacher': position.teacher.first_name + " " + position.teacher.last_name,
-                    'subject': position.subject.name,
-                    'classroom': position.classroom.name,
+                    'to': '',
+                    'from': '',
+                    'hour': '',
+                    'day': '',
+                    'group': '',
+                    'teacher': '',
+                    'subject': '',
+                    'classroom': '',
                 }
             )
 
+        else:
+            for position in timetablePositions:
+                responseData.append(
+                    {
+                        'allGroupNamesArray': allGroupNames,
+                        'ordersArray': allHoursOrders,
+                        'fromArray': allHoursFrom,
+                        'toArray': allHoursTo,
+                        'to': position.hour.hour_to,
+                        'from': position.hour.hour_from,
+                        'hour': position.hour.order,
+                        'day': position.day.order,
+                        'group': position.group.name,
+                        'teacher': position.teacher.first_name + " " + position.teacher.last_name,
+                        'subject': position.subject.name,
+                        'classroom': position.classroom.name,
+                    }
+                )
 
+
+    print(responseData)
     return JsonResponse(responseData, safe=False)
 
 def edit_timetable(request):
