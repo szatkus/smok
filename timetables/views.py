@@ -68,10 +68,11 @@ def add_timetable_position(request):
         #if timetablePosition exist then update
         isUpdate = False
         currentTimetable = Timetable.objects.get(pk=request.POST['timetable'])
+        currentGroup = Group.objects.get(name=request.POST['group'])
         timetablePositions = TimetablePosition.objects.all().filter(timetable=currentTimetable)
         currentTimetablePosition = TimetablePosition.objects.none()
         for position in timetablePositions:
-            if str(position.hour.order) == str(request.POST['hour']) and str(position.day.order) == str(request.POST['day']):
+            if str(position.hour.order) == str(request.POST['hour']) and str(position.day.order) == str(request.POST['day']) and str(position.group.name) == str(currentGroup.name):
                 isUpdate = True
                 currentTimetablePosition = position
                 break
@@ -85,10 +86,10 @@ def add_timetable_position(request):
             currentTimetablePosition.save()            
         else:
             print('add')
-            #add new 
+            # add new 
             new_timetable_possition = TimetablePosition()
             new_timetable_possition.timetable = Timetable.objects.get(pk=request.POST.get('timetable', False))
-            new_timetable_possition.group = Group.objects.get(pk=request.POST['group'])
+            new_timetable_possition.group = Group.objects.get(name=request.POST['group'])
             new_timetable_possition.hour = Hours.objects.get(pk=request.POST['hour'])
             new_timetable_possition.day = Days.objects.get(pk=request.POST['day'])
             new_timetable_possition.teacher = Teacher.objects.get(first_name=request.POST['teacherFirstName'], last_name=request.POST['teacherLastName'])

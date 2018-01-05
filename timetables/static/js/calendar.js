@@ -73,6 +73,7 @@ calendar.convertToTimetablePosition = function(subject, teacher, classroom){
   var teacherLastName = teacher.split(' ')[1];
   var day = calendar.calendarNode.column;
   var hour = calendar.calendarNode.row + 1;
+  var group = $('#groups').find(":selected").text();
 
   return {
     timetable,
@@ -81,7 +82,8 @@ calendar.convertToTimetablePosition = function(subject, teacher, classroom){
     subject,
     day,
     hour,
-    classroom
+    classroom,
+    group
   };
 };
 
@@ -94,7 +96,7 @@ function addTimeTablePosition(position){
   $.post(addTimetablePositionURL, 
     {
       timetable: position.timetable,
-      group: 1,
+      group: position.group,
       hour: position.hour,
       day: position.day,
       teacherFirstName: position.teacherFirstName,
