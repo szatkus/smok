@@ -1,15 +1,15 @@
-# -*- coding: utf-8 -*-
-
-from teachers.models import Teacher
 from django import forms
+from .models import Teacher, TeacherClassSubject
 
-class TeacherUpdateForm(forms.ModelForm):
-	class Meta:
-		model = Teacher
-		fields = ('first_name','last_name','subjects','groups',)
-		labels = {
-		'first_name': 'Imię',
-		'last_name': 'Nazwisko',
-		'subjects': 'Przedmioty',
-		'groups': 'Grupy',
-		}
+
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = ('first_name', 'last_name')
+
+
+class TeacherClassSubjectForm(forms.ModelForm):
+    class Meta:
+        model = TeacherClassSubject
+        fields = ('subject', 'group')
+

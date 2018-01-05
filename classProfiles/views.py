@@ -116,6 +116,7 @@ def add_profile(request):
 def edit_profile(request):
     if request.method == "POST":
         try:
+            print(request.POST)
             record_id = request.POST['id']
             profile = Class_profile.objects.get(pk=record_id)
             form = ClassProfileForm(request.POST, instance=profile)

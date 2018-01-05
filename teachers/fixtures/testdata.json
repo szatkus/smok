@@ -1,46 +1,63 @@
 [
-    {
-        "model":"teachers.teacher",
-        "pk":1,
-        "fields":{
-            "first_name":"Adam",
-            "last_name":"Mickiewicz",
-            "subjects":[
-              225,
-              226
-            ],
-            "groups":[
-              1,
-              2
-            ]
-        }
-    },
-    {
-        "model":"teachers.teacher",
-        "pk":2,
-        "fields":{
-            "first_name":"Mark",
-            "last_name":"Zuckerberg",
-            "subjects":[
-                227
-            ],
-            "groups":[
-              3
-            ]
-        }
-    },
-    {
-        "model":"teachers.teacher",
-        "pk":3,
-        "fields":{
-            "first_name":"Arkadiusz",
-            "last_name":"Czapiewski",
-            "subjects":[
-
-            ],
-            "groups":[
-
-            ]
-        }
+  {
+    "model": "teachers.teacher",
+    "pk": 1,
+    "fields": {
+      "first_name": "Adam",
+      "last_name": "Nowy"
     }
+  },
+    {
+    "model": "teachers.teacher",
+    "pk": 2,
+    "fields": {
+      "first_name": "Pawel",
+      "last_name": "Alala"
+    }
+  },
+  {
+    "model": "teachers.teacherclasssubject",
+    "pk": 1,
+    "fields": {
+      "teacher": 1,
+      "subject": 226,
+      "group": 1
+    }
+  },
+  {
+    "model": "teachers.teacherclasssubject",
+    "pk": 2,
+    "fields": {
+      "teacher": 1,
+      "subject": 228,
+      "group": 2
+    }
+  },
+  {
+    "model": "teachers.teacherclasssubject",
+    "pk": 3,
+    "fields": {
+      "teacher": 1,
+      "subject": 229,
+      "group": 1
+    }
+  },
+  {
+    "model": "teachers.teacherclasssubject",
+    "pk": 4,
+    "fields": {
+      "teacher": 1,
+      "subject": 229,
+      "group": 3
+    }
+  },
+  {
+    "model": "teachers.teacherclasssubject",
+    "pk": 5,
+    "fields": {
+      "teacher": 1,
+      "subject": 229,
+      "group": 2
+    }
+  }
 ]

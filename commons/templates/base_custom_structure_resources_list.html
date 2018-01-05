@@ -10,17 +10,11 @@
 				<br/>
                 {% block add-resource %}{% endblock %}
             </div>
-
             <ul id="list">
-                <li id="list-header">{% block list-header-definition %}{% endblock %}</li>
-                {% for model in models %}
-                    {% block model-definition %}{% endblock %}
-                {% empty %}
-                    <p id="noResources">{% block empty-models-comment %}{% endblock %}</p>
-                {% endfor %}
+                {% block custom-datastructure %}{% endblock %}
             </ul>
         </div>
-
+        <!--<esc>{<esc>% if not forloop.last <esc>%<esc>}<esc>{<esc>% ifequal forloop.revcounter 2 <esc>%<esc>},</br><esc>{<esc>% else <esc>%<esc>},</br><esc>{<esc>% endifequal <esc>%<esc>}<esc>{<esc>% else <esc>%<esc>}<esc>{<esc>% endif <esc>%<esc>}-->
         <div id="successModal" class="modal">
             <div class="modal-content modal-bootstrap-overrides">
                 <div class="modal-header">
@@ -67,4 +61,36 @@
             </div>
         </div>
 
+        <div id="infoORAModal" class="modal">
+            <div class="modal-content modal-bootstrap-overrides">
+                <div class="modal-header">
+                    <h2>{% block info-ora-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "infoORAModalBody" class="modal-body">
+                    {% block info-ora-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="addAssignmentModal" class="modal">
+            <div class="modal-content modal-bootstrap-overrides">
+                <div class="modal-header">
+                    <span id="closeAddAssignmentModal" class="close-modal">&times;</span>
+                    <h2>{% block add-assignment-modal-header%}{% endblock %}</h2>
+                </div>
+                <div class="modal-body">
+                    {% block add-assignment-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div id="deleteAssignmentModal" class="modal">
+            <div class="modal-content modal-bootstrap-overrides">
+                <div class="modal-header">
+                    <span onClick="closeDeleteAssignmentModal();" class="close-modal">&times;</span>
+                    <h2>{% block delete-assignment-modal-header%}{% endblock %}</h2>
+                </div>
+                <div id= "deleteAssignmentModalBody" class="modal-body">
+                    {% block delete-assignment-modal-body%}{% endblock %}
+                </div>
+            </div>
+        </div>
 {% endblock %}
