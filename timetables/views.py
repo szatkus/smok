@@ -1,11 +1,17 @@
 from django.shortcuts import render
 from django.utils.timezone import now
 from django.contrib.auth.decorators import login_required
-from .models import Timetable
-from django.http import HttpResponse, Http404
+from .models import Timetable, TimetablePosition
+from django.http import HttpResponse, Http404, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import TimetableForm
 from django.core import serializers
+from groups.models import Group
+from commons.models import Hours, Days
+from school.models import School
+from teachers.models import Teacher
+from subjects.models import Subject
+from classrooms.models import Classroom
 import json
 #from reportlab.pdfgen import canvas
 
@@ -55,6 +61,82 @@ def add_timetable(request):
     else:
         form = TimetableForm()
     return HttpResponse(form)
+
+def add_timetable_position(request):
+    print('add_timetable_position')
+    if request.method == "POST" and request.is_ajax():
+        #if timetablePosition exist then update
+        isUpdate = False
+        currentTimetable = Timetable.objects.get(pk=request.POST['timetable'])
+        timetablePositions = TimetablePosition.objects.all().filter(timetable=currentTimetable)
+        currentTimetablePosition = TimetablePosition.objects.none()
+        for position in timetablePositions:
+            if str(position.hour.order) == str(request.POST['hour']) and str(position.day.order) == str(request.POST['day']):
+                isUpdate = True
+                currentTimetablePosition = position
+                break
+        
+        if isUpdate:
+            print('update')
+            #update
+            currentTimetablePosition.teacher = Teacher.objects.get(first_name=request.POST['teacherFirstName'], last_name=request.POST['teacherLastName'])
+            currentTimetablePosition.subject = Subject.objects.filter(name=request.POST['subject'])[0]
+            currentTimetablePosition.classroom = Classroom.objects.get(name=request.POST['classroom'])
+            currentTimetablePosition.save()            
+        else:
+            print('add')
+            #add new 
+            new_timetable_possition = TimetablePosition()
+            new_timetable_possition.timetable = Timetable.objects.get(pk=request.POST.get('timetable', False))
+            new_timetable_possition.group = Group.objects.get(pk=request.POST['group'])
+            new_timetable_possition.hour = Hours.objects.get(pk=request.POST['hour'])
+            new_timetable_possition.day = Days.objects.get(pk=request.POST['day'])
+            new_timetable_possition.teacher = Teacher.objects.get(first_name=request.POST['teacherFirstName'], last_name=request.POST['teacherLastName'])
+            new_timetable_possition.subject = Subject.objects.filter(name=request.POST['subject'])[0]
+            new_timetable_possition.classroom = Classroom.objects.get(name=request.POST['classroom'])
+            new_timetable_possition.save()
+    
+    return HttpResponse('')
+
+def get_timetable_position(request):
+    print('get_timetable_position')
+    if  request.method == "GET" and request.is_ajax():
+        print(request.GET)
+        currentTimetable = Timetable.objects.get(pk=request.GET['timetableId'])
+        timetablePositions = TimetablePosition.objects.all().filter(timetable=currentTimetable)
+        allHours = Hours.objects.all()
+        allHoursOrders = []
+        allHoursFrom = []
+        allHoursTo = []
+        for hour in allHours:
+            allHoursOrders.append(hour.order)
+            allHoursFrom.append(hour.hour_from)
+            allHoursTo.append(hour.hour_to)
+        allGroups = Group.objects.all()
+        allGroupNames = []
+        for group in allGroups:
+            allGroupNames.append(group.name)
+        responseData = []
+        for position in timetablePositions:
+            responseData.append(
+                {
+                    'allGroupNamesArray': allGroupNames,
+                    'ordersArray': allHoursOrders,
+                    'fromArray': allHoursFrom,
+                    'toArray': allHoursTo,
+                    'to': position.hour.hour_to,
+                    'from': position.hour.hour_from,
+                    'hour': position.hour.order,
+                    'day': position.day.order,
+                    'group': position.group.name,
+                    'teacher': position.teacher.first_name + " " + position.teacher.last_name,
+                    'subject': position.subject.name,
+                    'classroom': position.classroom.name,
+                }
+            )
+
+
+    return JsonResponse(responseData, safe=False)
 
 def edit_timetable(request):
     if request.method == "POST":

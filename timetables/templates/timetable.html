@@ -11,6 +11,10 @@
 
 {% block js %}
 {{block.super}}
+<script>
+    var addTimetablePositionURL = "{% url 'timetables:addPosition' %}";
+    var getTimetablePositionURL = "{% url 'timetables:getPosition' %}";
+</script>
 <script src="{% static "/bootstrap/js/bootstrap.min.js" %}"></script>
 <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script-->
 <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
@@ -25,7 +29,7 @@
 {% endblock %}
 
 {% block resource-name-header%}Plan zajęć <span id="timetable-title">{{ model.name }}</span>{% endblock %}
-
+  
 {% block export-resource %}
 <span id="exportTimetable" class="button">Eksport planu do PDF</span>
 {% endblock %}
@@ -41,7 +45,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Dodaj wpis</h4>
+                <h4 class="modal-title" id="myModalLabel">Edytuj wpis</h4>
             </div>
             <div class="modal-body edit-content">
                 <span class="label label-default">Przedmiot</span><input id="lessonName" type="text" class="form-control" />
@@ -51,6 +55,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Zapisz</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Usuń</button>
             </div>
         </div>
     </div>
@@ -58,6 +63,8 @@
 {% endblock %}
 
 {% block return-button %}
+<select id="groups" class="form-control">
+</select>
 <a class="no-format" href="{% url 'timetables:list' %}"><span class="button button-right">Powrót do planów</span></a>
 {% endblock %}
 
