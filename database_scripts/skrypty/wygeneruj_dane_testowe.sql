@@ -493,7 +493,7 @@ commit;
     )
     where
         cum_factor>=nvl(p_lag_cum_teacher_factor,0)
-        and cum_factor <nvl(p_lead_cum_teacher_factor,2);
+        and cum_factor <=nvl(p_lead_cum_teacher_factor,1);
     
  begin
  

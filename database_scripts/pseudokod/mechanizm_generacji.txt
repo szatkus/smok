@@ -14,5 +14,15 @@ Muszê dla:
  gdy dostêpny jest:
  - Nauczyciel ucz¹cy klasê tego przedmiotu (get_teacher_for_subject_group);
 
- 
- select * from timetables_timetableposition
+insert into tmp_timetableposition
+	wpis dla ka¿dej:
+    	klasy
+        przedmiotu
+        godziny tego przedmiotu (3 godziny = 3 wpisy)
+        
+        
+dla ka¿dego wpisu w tmp_timetableposition:
+	order by:
+    	(ilosc godzin nauczyciela przypisanego do tej klasy do tego przedmiotu)
+        
+Dla ka¿dej godziny
