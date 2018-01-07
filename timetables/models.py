@@ -34,4 +34,7 @@ class TimetablePosition(models.Model):
 			('timetable','hour','day','teacher'),
 			('timetable','hour','day','classroom'),
 		)
-	
+
+class TimetableLog(models.Model):
+	timetable = models.ForeignKey(Timetable);
+	text = models.CharField(max_length=1000);
