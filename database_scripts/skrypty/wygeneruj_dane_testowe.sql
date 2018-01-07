@@ -34,6 +34,8 @@ delete from COMMONS_DAYS;
 
 delete from timetables_timetableposition;
 
+delete from timetables_timetablelog;
+
 delete from timetables_timetable;
 
 commit;
@@ -215,7 +217,17 @@ declare
         'Paweł',
         'Józef',
         'Marcin',
-        'Marek'
+        'Marek',
+        'Krystyna',
+        'Barbara',
+        'Ewa',
+        'Elżbieta',
+        'Zofia',
+        'Jan',
+        'Andrzej',
+        'Piotr',
+        'Krzysztof',
+        'Stanisław'
     );
     lnames tab := tab(
         'Nowak',
@@ -237,10 +249,20 @@ declare
         'Mazur',
         'Krawczyk',
         'Piotrowski',
-        'Grabowski'
+        'Grabowski',
+         'Lewandowski',
+        'Wójcik',
+        'Kamiński',
+        'Kowalczyk',
+        'Zieliński',
+        'Szymański',
+        'Woźniak',
+        'Kozłowski',
+        'Jankowski',
+        'Wojciechowski'
     );
 begin
-    for i in 1..20 loop
+    for i in 1..30 loop
         insert into TEACHERS_TEACHER (first_name,last_name) values (fnames(i),lnames(i));
     end loop;
 end;
@@ -544,3 +566,31 @@ commit;
     end loop;
  
  end;
+ 
+ commit;
+
+/* Fix ad hoc do brakujacego przydzialu nauczycieli */
+
+begin
+    for v in (
+        select distinct
+            (select max(teacher_id) from teachers_teacher_subjects where subject_id=vgs.subject_id) as teacher_id,
+            vgs.group_id
+        from
+            v_groups_subjects vgs
+        where
+            get_teacher_for_subject_group(subject_id,group_id, null) is null
+    ) loop
+        begin
+        insert into teachers_teacher_groups (
+            teacher_id,
+            group_id
+        ) values (
+            v.teacher_id,
+            v.group_id
+        );
+        exception when others then
+            throw('teacher_id: {}, group_id: {}',v.teacher_id,v.group_id);
+        end;
+    end loop;
+end;

@@ -18,23 +18,30 @@ begin
     exception
     	when no_data_found then
             begin
-                select teacher_id
-                into v_result
+                select
+                    teacher_id
+                into
+                    v_result
                 from (
                     select
+                        rownum as lp,
                         teacher_id,
                         group_id,
-                        subject_id
+                        subject_id,
+                        count(1) over () as teachers_cnt
                     from
                         teachers_teacher_groups ttg
                         join teachers_teacher_subjects tts using (teacher_id)
                     where
                         subject_id=p_subject_id
                         and group_id=p_group_id
-                )
-                where rownum = 1;
+                ) sq
+                where
+                    lp=mod(group_id,teachers_cnt)+1
+                    and rownum=1;
             exception
                 when no_data_found then
+                    return null;
                 	throw('Nie znaleziono nauczyciela dla grupy {} i przedmiotu {}',p_group_id,p_subject_id);
             end;
         when too_many_rows then

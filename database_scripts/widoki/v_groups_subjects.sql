@@ -1,5 +1,5 @@
 create or replace view v_groups_subjects as 
-with all_timetables_subjects_groups as (
+with all_timetables_subjects_groups as ( 
     select
         tt.id as timetable_id,
         ss.id as subject_id,
