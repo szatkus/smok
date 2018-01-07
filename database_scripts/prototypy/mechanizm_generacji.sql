@@ -87,8 +87,8 @@ hours_available_for_class_2 as (
 ),
 hours_avail_for_class_teacher as  (
     select
-    sq.*,
-    vtta.available as teacher_available
+            sq.*,
+            vtta.available as teacher_available
     from
         hours_available_for_class_2 sq
         join v_tmp_teachers_availability vtta on (
@@ -98,12 +98,14 @@ hours_avail_for_class_teacher as  (
         )
     where
         (sq.hours_available_on_day=sq.hours_on_day or sq.previous_hour_available=0 or sq.following_hour_available=0)
+        and sq.available=1
         and vtta.available=1
     order by
         day_order,
         hour_order
 )
 select
-*
-from
-hours_avail_for_class_teacher
+    day_id,
+    hour_id
+from hours_avail_for_class_teacher
+where rownum=1;
