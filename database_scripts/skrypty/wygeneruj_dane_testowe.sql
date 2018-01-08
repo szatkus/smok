@@ -594,3 +594,5 @@ begin
         end;
     end loop;
 end;
+
+commit;
