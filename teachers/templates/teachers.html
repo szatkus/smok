@@ -46,7 +46,7 @@
             </br>
             <span onClick="addAssignmentToTeacher({{ teacher.id }})" class="button-secondary">&#43; nowy przydział</span>
         </span></span>
-        <span class="availa"><a href="{% url 'availability:input' teacher.id%}" class="calendar">&#128197;</a></span>
+        <span><a href="{% url 'availability:input' teacher.id%}" class="calendar">&#128197;</a></span>
         <span class="edit" onClick="edit_item({{ teacher.id }});">&#x1f589;</span>
         <span id="resource-delete-{{ teacher.id }}" class="close" onClick="delete_item({{ teacher.id }}, '{{ teacher }}');">&#x232b;</span>
     </li>
