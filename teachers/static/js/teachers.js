@@ -18,6 +18,7 @@ function edit_item(id){
                 $(".inner").append(val);
             }
         });
+        $(".inner").find("input").addClass('input-field');
         $(".inner").append('<input type="hidden" name="id" value="'+id+'" />'); // potrzebny dla POST request w form.edit_profile
     });
     $('#editModal').css('display', 'block');
@@ -120,6 +121,7 @@ $(document).ready(function() {
                     $(".inner").append(val);
                 }
             });
+        $(".inner").find("input").addClass('input-field');
         });
         $('#addModal').css('display', 'block');
     });

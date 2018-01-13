@@ -62,7 +62,7 @@ def add_teacher_assignment(request):
         subjects_list = list(Subject.objects.order_by('name').values())
         groups_list = list(Group.objects.order_by('name').values())
 
-        combined_subj_group = json.dumps({'subjects': subjects_list, 'groups': groups_list, 'teacher': teacher}, default=json_serial)
+        combined_subj_group = json.dumps({'subjects': subjects_list, 'groups': groups_list, 'teacher': teacher}, default=json_serial, ensure_ascii=False)
 
         return HttpResponse(combined_subj_group)
 
@@ -95,7 +95,7 @@ def add_teacher_assignment(request):
             assignment_hours = 'MISSING'
 
         response_json = json.dumps({'subject': str(subject), 'teacher_id': teacher_id, 'group': str(group), 'new_tcs': new_tcs.pk, 'total_hours': hours_total, 'assignment_hours': assignment_hours, 'group_profile_id': group.group_profile.pk},
-                                         default=json_serial)
+                                         default=json_serial, ensure_ascii=False)
 
         return HttpResponse(response_json)
 

@@ -15,6 +15,7 @@ class Timetable(models.Model):
 	name = models.CharField(unique=True, max_length=150)
 	last_updated_timestamp = models.DateTimeField(default=now)
 	is_processed = models.BooleanField(default=False)
+	is_marked_to_process = models.BooleanField(default=True)
 
 	def __str__(self):
 		return '%s' % (self.name)
