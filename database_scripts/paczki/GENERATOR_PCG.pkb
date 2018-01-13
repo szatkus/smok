@@ -8,30 +8,39 @@ create or replace package body generator_pcg is
     gdzie jest najmniejsza dostepnsc nauczycieli */
     cursor cur_classes_to_plan is
         select
-            ttp.tmp_id,
-            ttp.group_id,
-            ttp.subject_id,
-            ttp.teacher_id,
-            ta.assignable_sum
-        from
-            tmp_timetableposition ttp
-            join (
-                select
-                    teacher_id,
-                    sum(assignable) as assignable_sum
-                from v_tmp_teachers_availability
-                group by teacher_id
-            )ta on (ta.teacher_id=ttp.teacher_id) 
-        where
-            day_id is null
-            and hour_id is null
-        order by
-            ta.assignable_sum asc; /* Od najmniejszej ilosci godzin nauczycieli */
+            tmp_id,
+            group_id,
+            subject_id,
+            teacher_id,
+            assignable_sum
+        from (
+            select
+                ttp.tmp_id,
+                ttp.group_id,
+                ttp.subject_id,
+                ttp.teacher_id,
+                ta.assignable_sum
+            from
+                tmp_timetableposition ttp
+                join (
+                    select
+                        teacher_id,
+                        sum(assignable) as assignable_sum
+                    from v_tmp_teachers_availability
+                    group by teacher_id
+                )ta on (ta.teacher_id=ttp.teacher_id) 
+            where
+                day_id is null
+                and hour_id is null
+            order by
+                ta.assignable_sum asc /* Od najmniejszej ilosci godzin nauczycieli */
+        );
                 
     cursor cur_day_hour_for_group_teacher (
         p_group_id integer,
         p_teacher_id integer,
-        p_ignore_group_availability integer default 0
+        p_ignore_group_availability integer default 0,
+        p_ignore_teacher_availability integer default 0
     ) is
         with hours_available_for_class as (
             select
@@ -83,7 +92,7 @@ create or replace package body generator_pcg is
             where
                 (sq.hours_available_on_day=sq.hours_on_day or sq.previous_hour_available=0 or sq.following_hour_available=0)
                 and (sq.available=1 or p_ignore_group_availability=1)
-                and vtta.assignable=1
+                and (vtta.assignable=1 or (p_ignore_teacher_availability=1 and vtta.used=0))
         ),
         result as ( /* Uporzadkowanie godzin tak, aby na poczatku byla najbardziej optymalna */
             select
@@ -175,7 +184,8 @@ create or replace package body generator_pcg is
     function find_hour_for_group_teacher (
         p_group_id integer,
         p_teacher_id integer,
-        p_ignore_group_availability boolean
+        p_ignore_group_availability boolean,
+        p_ignore_teacher_availability boolean default false
     ) return cur_day_hour_for_group_teacher%rowtype is
         vr_result cur_day_hour_for_group_teacher%rowtype;
         v_was_found boolean;
@@ -183,7 +193,8 @@ create or replace package body generator_pcg is
         open cur_day_hour_for_group_teacher(
             p_group_id,
             p_teacher_id,
-            decode_bool(p_ignore_group_availability)
+            decode_bool(p_ignore_group_availability),
+            decode_bool(p_ignore_teacher_availability)
         );
         fetch cur_day_hour_for_group_teacher into vr_result;
         v_was_found := cur_day_hour_for_group_teacher%found ;
@@ -281,7 +292,7 @@ create or replace package body generator_pcg is
         declare
         	v_not_found_count integer := 0;
         begin
-        	for i in 1..300 loop
+        	for i in 1..1000 loop
             	declare
                 	vr_ctp cur_classes_to_plan%rowtype;
                     v_exists boolean;
@@ -337,6 +348,40 @@ create or replace package body generator_pcg is
                     
                 end;
             end loop;
+        end;
+        
+        /* Po intensywnych staraniach aby znalezc godziny pasujace wszystkim
+        Rozplanowuje brakujace godziny nie uwzgledniajac dyspozycyjnosci nauczycieli */      
+        begin
+            log('Rozpoczynam planowanie godzin i dni poszczególnych zajêc z pominieciem dostepnosci nauczycieli.');
+            for ctp in cur_classes_to_plan loop
+                declare
+                    vr_hour_for_group_teacher cur_day_hour_for_group_teacher%rowtype;
+                begin
+                    begin
+                        vr_hour_for_group_teacher := find_hour_for_group_teacher (ctp.group_id,ctp.teacher_id,false,true);
+                    exception
+                        when no_data_found then
+                            log(format('Nie znaleziono godziny gdzie dla grupy {} mog³yby sie odbyc zajecia z nauczycielem {}',ctp.group_id,ctp.teacher_id));
+                            continue;
+                    end;
+                    
+                    if vr_hour_for_group_teacher.group_available!=1 then
+                    	throw('Na tym etapie generacji powótrne przydzielanie godzin nie jest dopuszczalne!');
+                    end if;
+                    
+                    /* Dla danej lekcji ustawiam godzine */
+                    update
+                        tmp_timetableposition
+                    set
+                        day_id=vr_hour_for_group_teacher.day_id,
+                        hour_id=vr_hour_for_group_teacher.hour_id
+                    where
+                        tmp_id=ctp.tmp_id;
+                        
+                end;
+            end loop;
+            log('Zakonczono planowanie godzin i dni poszczególnych zajêc z pominieciem dostepnosci nauczycieli.');
         end;
         
         log('Dla potrzeb debuga przypisuje wszystkie zajecia do jednej klasy');    

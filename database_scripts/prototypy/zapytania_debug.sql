@@ -64,7 +64,8 @@ where
 	needed>0
 
 ----------------------------------------
-exec generator_pcg.generate(106);
+
+exec generator_pcg.generate(138);
 
 select * from timetables_timetable
 
@@ -74,6 +75,6 @@ select * from v_groups_subjects
 
 select * from v_teachers_availability
 
-select
-*
-from
+select teacher_id, count(1) from timetables_timetableposition group by teacher_id
+
+select * from timetables_timetable

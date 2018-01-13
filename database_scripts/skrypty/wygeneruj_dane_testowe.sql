@@ -1,6 +1,6 @@
 /* Usuwam stare */
 
-delete from teachers_teacher_groups;
+delete from teachers_teacherclasssubject;
 
 delete from GROUPS_GROUP;
 
@@ -12,7 +12,7 @@ delete from CLASSPROFILES_GRADE;
 
 delete from AVAILABILITY_TEACHERSAVAIL162E;
 
-delete from TEACHERS_TEACHER_SUBJECTS;
+--delete from TEACHERS_TEACHER_SUBJECTS;
 
 delete from TEACHERS_TEACHER;
 
@@ -227,6 +227,16 @@ declare
         'Andrzej',
         'Piotr',
         'Krzysztof',
+        'Stanisław',
+        'Krystyna',
+        'Barbara',
+        'Ewa',
+        'Elżbieta',
+        'Zofia',
+        'Jan',
+        'Andrzej',
+        'Piotr',
+        'Krzysztof',
         'Stanisław'
     );
     lnames tab := tab(
@@ -250,7 +260,7 @@ declare
         'Krawczyk',
         'Piotrowski',
         'Grabowski',
-         'Lewandowski',
+        'Lewandowski',
         'Wójcik',
         'Kamiński',
         'Kowalczyk',
@@ -259,33 +269,43 @@ declare
         'Woźniak',
         'Kozłowski',
         'Jankowski',
-        'Wojciechowski'
+        'Wojciechowski',
+         'Woźniak',
+        'Kozłowski',
+        'Jankowski',
+        'Wojciechowski',
+        'Kwiatkowski',
+        'Kaczmarek',
+        'Mazur',
+        'Krawczyk',
+        'Piotrowski',
+        'Grabowski'
     );
 begin
-    for i in 1..30 loop
+    for i in 1..40 loop
         insert into TEACHERS_TEACHER (first_name,last_name) values (fnames(i),lnames(i));
     end loop;
 end;
 
 commit;
 
-insert into TEACHERS_TEACHER_SUBJECTS (
-TEACHER_ID,
-SUBJECT_ID
-)
-select
-    tt.id,
-    sq.id
-from (
-    SELECT
-        id,
-        rownum x
-    FROM
-        SUBJECTS_SUBJECT
-) sq
-join teachers_teacher tt on (mod(tt.id,10)=mod(sq.x,10));
-
-commit;
+--insert into TEACHERS_TEACHER_SUBJECTS (
+--TEACHER_ID,
+--SUBJECT_ID
+--)
+--select
+--    tt.id,
+--    sq.id
+--from (
+--    SELECT
+--        id,
+--        rownum x
+--    FROM
+--        SUBJECTS_SUBJECT
+--) sq
+--join teachers_teacher tt on (mod(tt.id,10)=mod(sq.x,10));
+--
+--commit;
 
 --insert into AVAILABILITY_TEACHERSAVAIL162E (
 --    day_id,
@@ -388,14 +408,14 @@ insert into CLASSPROFILES_HOURSAMOUNT (
 select
     profile_id,
     subject_id,
-    greatest(round(grade_id/3),1)*wspolczynnik_rozszerzenia as hours_no
+    greatest(round((grade_id/4)*wspolczynnik_rozszerzenia),1) as hours_no
 from (
     select
         ccp.id as profile_id,
         ss.id as subject_id,
         grade_id,
         case
-            when lower(ccp.name) like lower('%'||ss.name||'%') then 2
+            when lower(ccp.name) like lower('%'||ss.name||'%') then 1.5
             else 1
         end as wspolczynnik_rozszerzenia
     from
@@ -446,14 +466,72 @@ commit;
 
 /* przydział nauczycieli do grup */
 
- declare
+declare
  	v_timetable_id integer;
     
     /* Przedmioty od przedmiotów gdzie najmniej dostępnych godzin */
     cursor cur_subjects_ord_by_avail (p_timetable_id integer) is select
         subject_id,
         sum(assignable) as assignable
-    from v_subjects_availability
+    from (
+        with all_days_hours_subjects as (
+            select
+                ch.id as hour_id,
+                cd.id as day_id,
+                ss.id as subject_id
+            from
+                commons_hours ch
+                cross join commons_days cd
+                cross join subjects_subject ss
+        ),
+        subquery as (
+            select
+                tt.id as timetable_id,
+                sq.hour_id,
+                sq.day_id,
+                sq.subject_id,
+                nvl(sum(vta.available),0) as available,
+                nvl(sum(vta.used),0) as used
+            from
+                all_days_hours_subjects sq
+                cross join timetables_timetable tt
+                left outer join (
+                    /* Obejscie */
+                    select
+                        tt.id as teacher_id,
+                        sq.id as subject_id
+                    from (
+                        SELECT
+                            id,
+                            rownum x
+                        FROM
+                            SUBJECTS_SUBJECT
+                    ) sq
+                    join teachers_teacher tt on (mod(tt.id,10)=mod(sq.x,10))
+                ) tts on (tts.subject_id=sq.subject_id)
+                left outer join v_teachers_availability vta on (
+                    vta.teacher_id=tts.teacher_id
+                    and vta.hour_id=sq.hour_id
+                    and vta.day_id=sq.day_id
+                    and vta.timetable_id=tt.id
+                )
+            group by
+                tt.id,
+                sq.hour_id,
+                sq.day_id,
+                sq.subject_id
+        )
+        select
+            timetable_id,
+            hour_id,
+            day_id,
+            subject_id,
+            available,
+            used,
+            available-used as assignable
+        from
+            subquery
+    )
     where timetable_id=p_timetable_id
     group by subject_id
     order by 2 asc;
@@ -468,7 +546,19 @@ commit;
             timetable_id=p_timetable_id
             and teacher_id in (
                 select teacher_id
-                from teachers_teacher_subjects
+                from (
+                    select
+                        tt.id teacher_id,
+                        sq.id subject_id
+                    from (
+                        SELECT
+                            id,
+                            rownum x
+                        FROM
+                            SUBJECTS_SUBJECT
+                    ) sq
+                    join teachers_teacher tt on (mod(tt.id,10)=mod(sq.x,10))
+                )
                 where subject_id=p_subject_id
             )
         group by teacher_id
@@ -479,7 +569,10 @@ commit;
         factor,
         sum(factor) over (order by assignable asc,teacher_id) as cum_factor,
         sum(factor) over (order by assignable asc,teacher_id rows between unbounded preceding and 1 preceding) as lag_cum_factor,
-        sum(factor) over (order by assignable asc,teacher_id rows between unbounded preceding and 1 following) as lead_cum_factor
+        case
+            when lead(factor) over (order by assignable asc,teacher_id) is null then 2
+            else sum(factor) over (order by assignable asc,teacher_id rows between unbounded preceding and 1 following)
+        end as lead_cum_factor
     from (
         select
             teacher_id,
@@ -544,16 +637,18 @@ commit;
                     v_timetable_id,
                     subject.subject_id,
                     subjects_teacher.lag_cum_factor,
-                    subjects_teacher.lead_cum_factor
+                    subjects_teacher.cum_factor
                 ) loop
                 	begin
-                        insert into teachers_teacher_groups (
+                        insert into teachers_teacherclasssubject (
                             teacher_id,
-                            group_id
+                            group_id,
+                            subject_id
                         )
                         values (
                             subjects_teacher.teacher_id,
-                            group_.group_id
+                            group_.group_id,
+                            subject.subject_id
                         );
                     exception
                     	when dup_val_on_index then null;
@@ -571,28 +666,28 @@ commit;
 
 /* Fix ad hoc do brakujacego przydzialu nauczycieli */
 
-begin
-    for v in (
-        select distinct
-            (select max(teacher_id) from teachers_teacher_subjects where subject_id=vgs.subject_id) as teacher_id,
-            vgs.group_id
-        from
-            v_groups_subjects vgs
-        where
-            get_teacher_for_subject_group(subject_id,group_id, null) is null
-    ) loop
-        begin
-        insert into teachers_teacher_groups (
-            teacher_id,
-            group_id
-        ) values (
-            v.teacher_id,
-            v.group_id
-        );
-        exception when others then
-            throw('teacher_id: {}, group_id: {}',v.teacher_id,v.group_id);
-        end;
-    end loop;
-end;
-
-commit;
+--begin
+--    for v in (
+--        select distinct
+--            (select max(teacher_id) from teachers_teacher_subjects where subject_id=vgs.subject_id) as teacher_id,
+--            vgs.group_id
+--        from
+--            v_groups_subjects vgs
+--        where
+--            get_teacher_for_subject_group(subject_id,group_id, null) is null
+--    ) loop
+--        begin
+--        insert into teachers_teacher_groups (
+--            teacher_id,
+--            group_id
+--        ) values (
+--            v.teacher_id,
+--            v.group_id
+--        );
+--        exception when others then
+--            throw('teacher_id: {}, group_id: {}',v.teacher_id,v.group_id);
+--        end;
+--    end loop;
+--end;
+--
+--commit;
