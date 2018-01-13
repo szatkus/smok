@@ -58,11 +58,11 @@ def json_serial(obj):
 def add_teacher_assignment(request):
 
     if request.method == "GET":
-        teacher = str(Teacher.objects.get(pk=int(dict(request.GET)['teacher-id'][0])))
+        teacher = Teacher.objects.get(pk=int(dict(request.GET)['teacher-id'][0]))
+        teacher_name = teacher.last_name + ' ' + teacher.first_name
         subjects_list = list(Subject.objects.order_by('name').values())
         groups_list = list(Group.objects.order_by('name').values())
-
-        combined_subj_group = json.dumps({'subjects': subjects_list, 'groups': groups_list, 'teacher': teacher}, default=json_serial, ensure_ascii=False)
+        combined_subj_group = json.dumps({'subjects': subjects_list, 'groups': groups_list, 'teacher': teacher_name}, default=json_serial, ensure_ascii=False)
 
         return HttpResponse(combined_subj_group)
 
@@ -74,6 +74,7 @@ def add_teacher_assignment(request):
 
         teacher = Teacher.objects.get(pk=teacher_id)
         subject = Subject.objects.get(pk=subject_id)
+        subject_name = subject.name + ' (' + subject.code + ')'
         group = Group.objects.get(pk=group_id)
 
         try:
@@ -94,7 +95,7 @@ def add_teacher_assignment(request):
         except HoursAmount.DoesNotExist:
             assignment_hours = 'MISSING'
 
-        response_json = json.dumps({'subject': str(subject), 'teacher_id': teacher_id, 'group': str(group), 'new_tcs': new_tcs.pk, 'total_hours': hours_total, 'assignment_hours': assignment_hours, 'group_profile_id': group.group_profile.pk},
+        response_json = json.dumps({'subject': subject_name, 'teacher_id': teacher_id, 'group': group.name, 'new_tcs': new_tcs.pk, 'total_hours': hours_total, 'assignment_hours': assignment_hours, 'group_profile_id': group.group_profile.pk},
                                          default=json_serial, ensure_ascii=False)
 
         return HttpResponse(response_json)

@@ -20,7 +20,7 @@ def add_classroom(request):
         form = ClassroomForm(request.POST)
         if form.is_valid():
             new_classroom = form.save()
-            related_subjects = [str(subj) for subj in new_classroom.available_subjects.all()]
+            related_subjects = [subj.name+' ('+subj.code+')' for subj in new_classroom.available_subjects.all()]
             data = serializers.serialize('json', [new_classroom])
             data = json.loads(data)
             for s in range(len(data)):
@@ -40,7 +40,7 @@ def edit_classroom(request):
             form = ClassroomForm(request.POST, instance=classroom)
             if form.is_valid():
                 new_classroom = form.save()
-                related_subjects = [str(subj) for subj in new_classroom.available_subjects.all()]
+                related_subjects = [subj.name+' ('+subj.code+')' for subj in new_classroom.available_subjects.all()]
                 data = serializers.serialize('json', [new_classroom])
                 data = json.loads(data)
                 for s in range(len(data)):
