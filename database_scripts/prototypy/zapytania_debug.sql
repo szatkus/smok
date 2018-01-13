@@ -69,7 +69,7 @@ exec generator_pcg.generate(138);
 
 select * from timetables_timetable
 
-select * from timetables_timetablelog order by 2
+select * from timetables_timetablelog where timetable_id=138 order by 2
 
 select * from v_groups_subjects
 
@@ -78,3 +78,21 @@ select * from v_teachers_availability
 select teacher_id, count(1) from timetables_timetableposition group by teacher_id
 
 select * from timetables_timetable
+
+select * from timetables_timetableposition
+
+select
+    day_id,
+    hour_id,
+    classroom_id,
+    count(1) as cnt
+from
+    timetables_timetableposition
+where
+    timetable_id=138
+group by
+    day_id,
+    hour_id,
+    classroom_id
+having
+    count(1)>1

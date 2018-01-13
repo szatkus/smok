@@ -208,6 +208,58 @@ create or replace package body generator_pcg is
         
     end;
     
+    function find_clsroom_for_day_hour_subj (
+        p_day_id commons_days.id%type,
+        p_hour_id commons_hours.id%type,
+        p_subject_id subjects_subject.id%type
+    ) return classrooms_classroom.id%type is
+        cursor classroom_for_hour_day_subject (
+            p_day_id commons_days.id%type,
+            p_hour_id commons_hours.id%type,
+            p_subject_id subjects_subject.id%type
+        ) is
+        select
+            classroom_id
+        from (
+            select
+                vadh.day_id,
+                vadh.hour_id,
+                ss.id as subject_id,
+                ss.special_classroom_req,
+                cc.id as classroom_id,
+                nvl2(ccs.id,1,0) as is_dedicated
+            from
+                v_all_days_hours vadh
+                cross join subjects_subject ss
+                cross join classrooms_classroom cc
+                left outer join classrooms_classroom_availdda3 ccs on (ccs.subject_id=ss.id and ccs.classroom_id=cc.id)
+                left outer join tmp_timetableposition ttp on (ttp.day_id=vadh.day_id and ttp.hour_id=vadh.hour_id and ttp.classroom_id=cc.id)
+            where
+                ttp.tmp_id is null /* Bez uzytych w planie */
+            order by
+                6 desc /* Najpierw dedykowane */
+        )
+        where
+            day_id=p_day_id
+            and hour_id=p_hour_id
+            and subject_id=p_subject_id;
+        
+        v_result classrooms_classroom.id%type;
+        v_is_found boolean := false;
+    begin
+        open classroom_for_hour_day_subject(p_day_id,p_hour_id,p_subject_id);
+        fetch classroom_for_hour_day_subject into v_result;
+        v_is_found := classroom_for_hour_day_subject%found;
+        close classroom_for_hour_day_subject;
+        
+        if not v_is_found then
+            raise no_data_found;
+        else
+            return v_result;
+        end if;
+        
+    end;
+    
     procedure make_timetable_permanent (p_timetable_id integer) is
     begin
         /* Przenosze tabele tymczasowa do tabelek produkcyjnych */
@@ -384,25 +436,78 @@ create or replace package body generator_pcg is
             log('Zakonczono planowanie godzin i dni poszczególnych zajêc z pominieciem dostepnosci nauczycieli.');
         end;
         
-        log('Dla potrzeb debuga przypisuje wszystkie zajecia do jednej klasy');    
-        for v in (select * from tmp_timetableposition ) loop
-            for vv  in (
-                select max(id) x from classrooms_classroom cc where not exists(
-                    select null from tmp_timetableposition
-                    where
-                        day_id=v.day_id
-                        and hour_id = v.hour_id
-                        and classroom_id=cc.id
-                    )
-            ) loop
-                update tmp_timetableposition set classroom_id=vv.x where tmp_id=v.tmp_id;
-                exit;
+        log('Przypisywanie sal lekcyjnych dla zajec');
+        declare
+            cursor classes_to_find_classroom is
+            select
+                tmp_id,
+                day_id,
+                hour_id,
+                subject_id
+            from
+                tmp_timetableposition ttp
+                join subjects_subject ss on (ss.id=ttp.subject_id)
+            where
+                classroom_id is null
+            order by
+                /* Najpierw wymagajace specjalnej sali */
+                special_classroom_req desc;
+        begin
+            for ctfc in classes_to_find_classroom loop
+                declare
+                    v_classroom_id integer;
+                begin
+                    v_classroom_id := find_clsroom_for_day_hour_subj (ctfc.day_id, ctfc.hour_id, ctfc.subject_id);
+                    
+                    update tmp_timetableposition
+                    set classroom_id=v_classroom_id
+                    where tmp_id=ctfc.tmp_id;
+                    
+                exception
+                    when no_data_found then
+                        log(format('Nie znaleziono sali gdzie mog¹siê odbyc zajecia z {} w dniu {} o godzinie {}',ctfc.subject_id,ctfc.day_id,ctfc.hour_id));
+                        continue;
+                end;
             end loop;
-        end loop;
+        end;
+        log('Zakonczono przypisywanie sal lekcyjnych dla zajec');
+        
+--        log('Dla potrzeb debuga przypisuje wszystkie zajecia do jednej klasy');    
+--        for v in (select * from tmp_timetableposition ) loop
+--            for vv  in (
+--                select max(id) x from classrooms_classroom cc where not exists(
+--                    select null from tmp_timetableposition
+--                    where
+--                        day_id=v.day_id
+--                        and hour_id = v.hour_id
+--                        and classroom_id=cc.id
+--                    )
+--            ) loop
+--                update tmp_timetableposition set classroom_id=vv.x where tmp_id=v.tmp_id;
+--                exit;
+--            end loop;
+--        end loop;
         
         log('Przenosze dane to tabeli docelowej.');  
         make_timetable_permanent (p_timetable_id);
         
+        log('Oznaczam plan jako wygenerowany');  
+        update timetables_timetable set is_processed=1 where id=p_timetable_id;
+        
+    end;
+    
+    procedure generate_all is
+    begin
+        for v in (
+            select id as timetable_id
+            from timetables_timetable
+            where
+                is_marked_to_process=1
+                and is_processed=0
+        ) loop
+            generate(v.timetable_id);
+            commit;
+        end loop;
     end;
 
 end;
