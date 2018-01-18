@@ -47,9 +47,12 @@ $(document).ready(function() {
         var pdf = new jsPDF('landscape', 'pt', 'letter');
         var timetableName = $('#timetable-title')[0].innerText.trim().split(' ').join('_');
         var curr_ts = moment().format('_YYYYMMDD_HHmmss');
+        $('#for-export').css('background-color', 'white');
         pdf.addHTML($('#for-export')[0], function() {
             pdf.save(timetableName + curr_ts + '.pdf');
+            $('#for-export').css('background-color', '#f3f2f3');
         });
+
         /*$.post(exportURL,
             {
                 csrfmiddlewaretoken: csrftoken
