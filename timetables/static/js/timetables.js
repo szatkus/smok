@@ -93,9 +93,13 @@ $(document).ready(function() {
             } else {
                 var newTimetable = jQuery.parseJSON(data)[0];
                 var newLi = $('<li id ="'+newTimetable.pk+'"><a class="no-format" href="/timetables/'+ newTimetable.pk +'/"><span class="row-content"> <span id ="resource-name-'+newTimetable.pk+'" class="list-element">' + newTimetable.fields.name +'</span></span></a><span class="row-content"> <span id="resource-lut-'+newTimetable.pk+'" class="list-element">'+moment(newTimetable.fields.last_updated_timestamp).locale('pl').format('LLL')+'</span> </span><span class="edit" onclick="edit_item('+newTimetable.pk+');">&#x1f589;</span><span id ="resource-delete-'+newTimetable.pk+'" class="close" onclick="delete_item('+newTimetable.pk+', \''+newTimetable.fields.name+'\');">&#x232b;</span></li>').hide();
-
+                var dummyLi = $('<li id ="dummy-'+newTimetable.pk+'"><span class="row-content" style="color: gray;"> <span class="list-element" >plan ' + newTimetable.fields.name +' jest w trakcie generacji</span></span><span class="row-content" style="color: gray;"> <span class="list-element">'+moment(newTimetable.fields.last_updated_timestamp).locale('pl').format('LLL')+'</span> </span></li>').hide();
+                $("#list").add(dummyLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
                 //TODO: sort() nie dziala, nowe elementy sa dodawane na koncu ul#list
-                $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
+                setTimeout(function () {
+                    $('#dummy-'+newTimetable.pk).remove();
+                    $("#list").add(newLi.fadeIn(800)).sort(asc_sort).appendTo('#list');
+                }, 180000);//180000
                 //$("#list").add(newLi.fadeIn(800)).sort(sortAlpha).appendTo('#list');
 
                 if ($('#list li').length != 0) {
