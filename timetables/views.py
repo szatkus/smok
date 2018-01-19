@@ -114,7 +114,7 @@ def get_timetable_position(request):
             allHoursOrders.append(hour.order)
             allHoursFrom.append(hour.hour_from)
             allHoursTo.append(hour.hour_to)
-        allGroups = Group.objects.all().filter(school=currentTimetable.school)
+        allGroups = Group.objects.all()
         print(allGroups)
         allGroupNames = []
         for group in allGroups:
