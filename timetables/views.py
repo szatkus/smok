@@ -154,6 +154,7 @@ def get_timetable_position(request):
                         'teacher': position.teacher.first_name + " " + position.teacher.last_name,
                         'subject': position.subject.name,
                         'classroom': position.classroom.name,
+                        'building': position.classroom.building,
                     }
                 )
 

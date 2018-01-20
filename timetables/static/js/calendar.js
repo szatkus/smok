@@ -37,7 +37,7 @@ calendar.onInit = function(){
       addTimeTablePosition(calendar.convertToTimetablePosition($('#lessonName').val(), $('#teacher').val(), $('#class').val()));
 
       var cellNumber = calendar.calendarNode.column + (calendar.calendarNode.row) * 6;
-      $('#calendar').find("td").eq(cellNumber)[0].innerText = $('#lessonName').val();
+      $('#calendar').find("td").eq(cellNumber)[0].innerText = $('#lessonName').val() + ' (s. ' + $('#class').val() + ')';
       }
       $('#lessonName').val('');
       $('#teacher').val('');
@@ -143,7 +143,7 @@ calendar.createTable = function(){
         allHours = prepareHours(data[0].ordersArray, data[0].fromArray, data[0].toArray);
         groupOptions = data[0].allGroupNamesArray;
       }
-      debugger;
+      //debugger;
       for(var k=0; k<data.length; ++k){
         allPositions.push({
           day: data[k].day,
@@ -151,6 +151,7 @@ calendar.createTable = function(){
           teacher: data[k].teacher,
           subject: data[k].subject,
           classroom: data[k].classroom,
+          building: data[k].building,
           group: data[k].group
         });
         // if(groupOptions.indexOf(data[k].group) == -1){
@@ -234,9 +235,10 @@ function fillCalendar(group){
       var mappedHour = allHours.findIndex(x => x.order == allPositions[i].hour);
       rows[allPositions[i].day][mappedHour].teacher = allPositions[i].teacher;
       rows[allPositions[i].day][mappedHour].lesson = allPositions[i].subject;
-      rows[allPositions[i].day][mappedHour].class = allPositions[i].classroom;
+      rows[allPositions[i].day][mappedHour].class = allPositions[i].classroom + allPositions[i].building;
+      rows[allPositions[i].day][mappedHour].building = allPositions[i].building;
       var cellNumber = allPositions[i].day + (mappedHour) * 6;
-      $('#calendar').find("td").eq(cellNumber)[0].innerText = allPositions[i].subject;
+      $('#calendar').find("td").eq(cellNumber)[0].innerText = allPositions[i].subject + ' (s. ' + allPositions[i].classroom + allPositions[i].building + ')';
     }
   }
 }
