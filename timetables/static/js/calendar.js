@@ -5,8 +5,8 @@ var allHours = [];
 calendar.onInit = function(){
 
   calendar.createHeaders();
-  calendar.createTable();
   calendar.addStyles();
+  calendar.createTable();
 
   $('select').on('change', function() {
     fillCalendar(this.value);
@@ -135,6 +135,8 @@ calendar.createTable = function(){
 
 
   var positions = [];
+
+  $("body").addClass("loading-custom");
   $.get(getTimetablePositionURL,
     {timetableId: getTimetable()},
     function(data){
@@ -169,6 +171,9 @@ calendar.createTable = function(){
       });
 
       fillCalendar(groupOptions[0]);
+
+      $("body").removeClass("loading-custom");
+
       // for(var i=0; i<data.length; ++i) {
       //   if(data[i].day && data[i].hour && data[i].group === groupOptions[0]){
       //     rows[data[i].day][data[i].hour - 1].teacher = data[i].teacher;

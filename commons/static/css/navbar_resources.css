@@ -64,9 +64,44 @@ li a:hover, .dropdown:hover .dropbtn {
     background-color: #2af;
 }
 
+.loading-modal-custom {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                50% 40%
+                no-repeat;
+}
+
+body.loading-custom {
+    overflow: hidden;
+}
+
+body.loading-custom .loading-modal-custom {
+    display: block;
+}
+
 .dropdown {
     display: inline-block;
 }
+
+span.loading-container {
+    margin: 0;
+    /*background: yellow;*/
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+
+img.displayed-custom {
+    /*display: block;*/
+    margin-left: auto;
+    margin-right: auto }
 
 .dropdown-content {
     display: none;

@@ -69,3 +69,5 @@
 <a class="no-format" href="{% url 'timetables:list' %}"><span class="button button-right">Powrót do planów</span></a>
 {% endblock %}
 
+{% block loading-modal-custom%}<span class="loading-container"><img class="displayed-custom" src="{% static '/img/ajax-loader.gif' %}" alt=""> ładowanie, proszę czekać</span>{% endblock %}
+
